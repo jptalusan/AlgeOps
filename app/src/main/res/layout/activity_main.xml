@@ -9,7 +9,7 @@
 
     <Button
         android:text="@string/add"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chooseAdd"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +26,7 @@
 
     <Button
         android:text="@string/subtract"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chooseSubtract"
         android:layout_marginEnd="16dp"
@@ -41,10 +41,10 @@
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
-        android:layout_height="511dp"
+        android:layout_height="0dp"
         android:id="@+id/guideline"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.5" />
 </android.support.constraint.ConstraintLayout>
