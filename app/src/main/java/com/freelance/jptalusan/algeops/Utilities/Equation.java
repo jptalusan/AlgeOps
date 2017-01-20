@@ -30,10 +30,10 @@ public class Equation {
 
     @Override
     public String toString() {
-        return "Equation = (" + ax + "x + " + b + ")" + "(" + cx + "x + " + d + ")";
+        return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")";
     }
 
     public String getPart(int part) {
-        return (part == 1 ? ax + "x + " + b : cx + "x + " + d).replace("+ -", " - ");
+        return (part == 1 ? ax + "x+" + b : cx + "x+" + d).replace("+-", " - ").replace("+", " + ");
     }
 }
