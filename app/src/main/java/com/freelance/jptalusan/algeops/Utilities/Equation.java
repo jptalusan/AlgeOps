@@ -18,14 +18,7 @@ public class Equation {
     }
 
     boolean isValid() {
-        if (ax == 0 && b == 0 && cx == 0 && d == 0) {
-            return false;
-        } else if (ax == 0 && b == 0) {
-            return false;
-        } else if (cx == 0 && d == 0) {
-            return false;
-        }
-        return true;
+        return !(ax == 0 && b == 0 && cx == 0 && d == 0);
     }
 
     @Override
@@ -33,7 +26,12 @@ public class Equation {
         return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")";
     }
 
+    //TODO: must remove zeroes. Check algetiles
     public String getPart(int part) {
-        return (part == 1 ? ax + "x+" + b : cx + "x+" + d).replace("+-", " - ").replace("+", " + ");
+        return (part == 1 ? ax + "x+" + b : cx + "x+" + d)
+                .replace("0x", "")
+                .replace("+0", "")
+                .replace("+-", " - ")
+                .replace("+", " + ");
     }
 }
