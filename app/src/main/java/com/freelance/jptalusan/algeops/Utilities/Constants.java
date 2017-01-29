@@ -5,9 +5,12 @@ package com.freelance.jptalusan.algeops.Utilities;
  */
 
 public class Constants {
-    public static final int OPS_ADD_X = 0;
-    public static final int OPS_SUB_X = 1;
-    public static final int OPS_ADD_ONE = 2;
-    public static final int OPS_SUB_ONE = 3;
+
+    public static final int OPS_ADD = 1;
+    public static final int OPS_SUB = -1;
+    public static final int OPS_ADD_X = 2;
+    public static final int OPS_SUB_X = 3;
+    public static final int OPS_ADD_ONE = 4;
+    public static final int OPS_SUB_ONE = 5;
 
 }
