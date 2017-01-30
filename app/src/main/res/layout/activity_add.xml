@@ -164,10 +164,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp" />
 
-    <SeekBar
+    <com.freelance.jptalusan.algeops.AlgeOpsSeekbar
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_height="wrap_content"
-        android:max="12"
+        android:max="24"
         android:progress="1"
         android:id="@+id/oneSeekBar"
         android:layout_marginTop="8dp"
@@ -180,9 +180,9 @@
         app:layout_constraintLeft_toRightOf="@+id/oneSeekBarImage"
         android:layout_marginLeft="8dp" />
 
-    <SeekBar
+    <com.freelance.jptalusan.algeops.AlgeOpsSeekbar
         style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:max="12"
+        android:max="24"
         android:progress="1"
         android:id="@+id/xSeekBar"
         android:layout_height="wrap_content"
@@ -194,15 +194,19 @@
         app:layout_constraintRight_toLeftOf="@+id/xSeekBarCount"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_width="0dp" />
+        android:layout_width="0dp"
+        app:layout_constraintHorizontal_bias="1.0" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/btn_star"
         android:id="@+id/xSeekBarImage"
-        tools:layout_editor_absoluteY="429dp"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/xSeekBar" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -255,19 +259,18 @@
     </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
 
     <TextView
-        android:text="10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/xSeekBarCount"
-        app:layout_constraintTop_toTopOf="@+id/xSeekBar"
-        app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        android:text="0"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
+        app:layout_constraintTop_toTopOf="@+id/xSeekBar" />
 
     <TextView
-        android:text="10"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/oneSeekBarCount"

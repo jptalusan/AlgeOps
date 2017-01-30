@@ -17,8 +17,27 @@ public class Equation {
         this.d = d;
     }
 
-    boolean isValid() {
+    public boolean isValid() {
         return !(ax == 0 && b == 0 && cx == 0 && d == 0);
+    }
+
+    public boolean isAnswerCorrect(int ax, int b, int cx, int d) {
+        if ((this.ax == ax) &&
+                (this.b == b) &&
+                (this.cx == cx) &&
+                (this.d == d))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isFinalAnswerCorrect(int x, int one) {
+        if ((x == (ax + cx) &&
+                one == (b + d))) {
+            return true;
+        }
+        return false;
     }
 
     @Override
