@@ -1,7 +1,9 @@
 package com.freelance.jptalusan.algeops;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,6 +20,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public int currVal = 0;
     private AlgeOpsRelativeLayout algeOpsRelativeLayout = this;
     public Dimensions dimensions = new Dimensions();
+    private int rows = 0;
+    private int cols = 0;
+    private int maxChildren = 0;
 
     public AlgeOpsRelativeLayout(Context context) {
         super(context);
@@ -25,10 +30,18 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
     public AlgeOpsRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AlgeOpsRelativeLayoutOptions, 0, 0);
+        rows = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_rows, 0);
+        cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
+        maxChildren = rows * cols;
     }
 
     public AlgeOpsRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AlgeOpsRelativeLayoutOptions, 0, 0);
+        rows = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_rows, 0);
+        cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
+        maxChildren = rows * cols;
     }
 
     public void getViewDimensions() {
@@ -42,9 +55,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         });
     }
 
-    public static class Dimensions {
-        public static double height;
-        public static double width;
+    public class Dimensions {
+        double height;
+        double width;
 
         @Override
         public String toString() {
@@ -55,47 +68,36 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
     }
 
+    //TODO: fix for sub. modulo problem
     public RelativeLayout.LayoutParams generateParams() {
+        //TODO: move to get dimensions
+        double scaledWidth = dimensions.width / cols;
+        double scaledHeight = dimensions.height / rows;
         //(width, height)
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                (int) dimensions.width / 2,
-                (int) dimensions.height / 3);
+                (int) scaledWidth,
+                (int) scaledHeight);
 
-        switch (this.getChildCount()) {
-            case 0:
-                params.leftMargin = 0;
-                params.topMargin  = 0;
-                break;
-            case 1:
-                params.leftMargin = (int) dimensions.width / 2;
-                params.topMargin  = 0;
-                break;
-            case 2:
-                params.leftMargin = 0;
-                params.topMargin  = (int) dimensions.height / 3;
-                break;
-            case 3:
-                params.leftMargin = (int) dimensions.width  / 2;
-                params.topMargin  = (int) dimensions.height / 3;
-                break;
-            case 4:
-                params.leftMargin = 0;
-                params.topMargin  = (int)((dimensions.height * 2) / 3);
-                break;
-            case 5:
-                params.leftMargin = (int) dimensions.width / 2;
-                params.topMargin  = (int) ((dimensions.height * 2) / 3);
-                break;
-            default:
-                break;
-        }
+        int rowFactor = getChildCount() % rows;
+        int colFactor = getChildCount() % cols;
+
+        //TODO: Fix arrangement of how objects are added (simple math)
+        double topMargin = rowFactor * scaledHeight;
+        double leftMargin = colFactor * scaledHeight;
+
+        Log.d(TAG, "Top: " + topMargin + ", Left: " + leftMargin);
+        Log.d(TAG, "rowF: " + rowFactor + ", colF: " + colFactor);
+        params.topMargin = (int) topMargin;
+        params.leftMargin = (int) leftMargin;
 
         return params;
     }
 
     //TODO: Change drawables
+    //TODO: Add new param or make use now of the addx, addone, subx, subone constants since in sub activity, only use 1 layout for all
+    //TODO: need to add new handling to subtract/add either one or x.
     public void setImage(Context mContext, int mOperation) {
-        if (Constants.OPS_ADD == mOperation && 0 <= currVal && getChildCount() < 6) {
+        if (Constants.OPS_ADD == mOperation && 0 <= currVal && getChildCount() < maxChildren) {
             //Add positive imageView drawable
             ImageView myImage = new ImageView(mContext);
             myImage.setImageResource(R.mipmap.ic_launcher);
@@ -109,7 +111,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             currVal += 1;
         }
 
-        if (Constants.OPS_SUB == mOperation && 0 >= currVal && getChildCount() < 6) {
+        if (Constants.OPS_SUB == mOperation && 0 >= currVal && getChildCount() < maxChildren) {
             //Add positive imageView drawable
             ImageView myImage = new ImageView(mContext);
             myImage.setImageResource(R.drawable.chrome);

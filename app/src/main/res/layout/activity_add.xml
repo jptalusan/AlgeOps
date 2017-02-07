@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res/com.freelance.jptalusan.algeops.algeOpsrelativelayout"
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -228,6 +229,8 @@
         app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent"
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintRight_toLeftOf="@+id/verticalFiftyPercent"
+        app:rows="3"
+        app:cols="2"
         android:layout_width="0dp">
 
     </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
@@ -237,6 +240,8 @@
         android:layout_height="0dp"
         android:background="@android:color/holo_green_dark"
         android:id="@+id/layoutRightX"
+        app:rows="3"
+        app:cols="2"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:layout_constraintLeft_toLeftOf="@+id/verticalFiftyPercent"
@@ -251,6 +256,8 @@
         android:id="@+id/layoutLeftOne"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:rows="3"
+        app:cols="2"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent"
@@ -417,6 +424,8 @@
         android:layout_height="0dp"
         android:background="@android:color/holo_red_light"
         android:id="@+id/layoutRightOne"
+        app:rows="3"
+        app:cols="2"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintLeft_toLeftOf="@+id/verticalFiftyPercent"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"

@@ -54,7 +54,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
         // built-in images so you don't need to add images, but in
         // a real application your images should be in the
         // application package so they are always available.
-        relativeLayout = (RelativeLayout) this.findViewById(R.id.relativeLayout);
+        relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
         crystalRangeSeekbar = (CrystalRangeSeekbar)this.findViewById(R.id.seekbar);
         crystalRangeSeekbar.setLeftThumbDrawable(null);
         crystalRangeSeekbar.setLeftThumbHighlightDrawable(null);

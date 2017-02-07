@@ -2,7 +2,6 @@ package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,14 +15,9 @@ import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.AlgeOpsSeekbar;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
-import com.freelance.jptalusan.algeops.Utilities.Equation;
-import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
 //TODO: Add behavior and button responses
 public class AddActivity extends BaseOpsActivity {
-    private Button newQuestion;
-    private Button checkAnswer;
-
     private ImageButton leftXAdd;
     private ImageButton leftXSub;
     private ImageButton rightXAdd;
@@ -41,28 +35,19 @@ public class AddActivity extends BaseOpsActivity {
     private AlgeOpsSeekbar xSeekbar;
     private AlgeOpsSeekbar oneSeekbar;
 
-    private TextView firstPartEq;
-    private TextView secondPartEq;
     private TextView xSeekbarText;
     private TextView oneSeekbarText;
 
     private ImageView xSeekbarImage;
     private ImageView oneSeekbarImage;
 
-    private String firstPart;
-    private String secondPart;
-
-    protected Equation eq;
-
-    protected boolean hasStarted;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        newQuestion     = (Button) findViewById(R.id.newQuestionButton);
-        checkAnswer     = (Button) findViewById(R.id.checkButton);
+        startButton     = (Button) findViewById(R.id.newQuestionButton);
+        checkButton     = (Button) findViewById(R.id.checkButton);
 
         leftXAdd        = (ImageButton) findViewById(R.id.leftXAdd);
         leftXSub        = (ImageButton) findViewById(R.id.leftXSub);
@@ -90,27 +75,12 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbarImage   = (ImageView) findViewById(R.id.xSeekBarImage);
         oneSeekbarImage = (ImageView) findViewById(R.id.oneSeekBarImage);
 
-        newQuestion.setText("START");
+        startButton.setText("START");
         //TODO: Add method to reset everything, remove all child views and set all currvals to 0
-        newQuestion.setOnClickListener(new View.OnClickListener() {
+        startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hasStarted = true;
-                eq = EquationGeneration.generateEquation("MAIN");
-                firstPart = eq.getPart(1);
-                secondPart = eq.getPart(2);
-
-                firstPartEq.setText(firstPart);
-                secondPartEq.setText(secondPart);
-
-                newQuestion.setText("NEW");
-
-                layoutLeftX.resetLayout();
-                layoutRightX.resetLayout();
-                layoutLeftOne.resetLayout();
-                layoutRightOne.resetLayout();
-
-                answerIsWrong();
+                startAlgeOps();
             }
         });
 
@@ -137,16 +107,21 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_ONE, oneSeekbarText));
     }
 
-    private void answerIsCorrect() {
-        //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        //TODO: Make this more readable (this is to change the button placement when user has not yet answered correctly)
-        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) newQuestion.getLayoutParams();
-        newQuestionLayoutParams.leftToLeft = R.id.verticalFiftyPercent;
-        newQuestionLayoutParams.leftMargin = 0;
-        newQuestionLayoutParams.rightMargin = 0;
-        newQuestion.setLayoutParams(newQuestionLayoutParams);
+    protected void startAlgeOps() {
+        super.startAlgeOps();
 
-        checkAnswer.setVisibility(View.VISIBLE);
+        layoutLeftX.resetLayout();
+        layoutRightX.resetLayout();
+        layoutLeftOne.resetLayout();
+        layoutRightOne.resetLayout();
+
+        answerIsWrong();
+    }
+
+    //TODO: move to base activity
+    protected void answerIsCorrect() {
+        super.answerIsCorrect();
+
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
 
@@ -159,19 +134,13 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.setProgress(12);
         oneSeekbar.setProgress(12);
 
-        hasStarted = false;
     }
 
-    private void answerIsWrong() {
-        //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        //TODO: Make this more readable (this is to change the button placement when user has not yet answered correctly)
-        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) newQuestion.getLayoutParams();
-        newQuestionLayoutParams.leftToLeft = R.id.leftTwentyPercent;
-        newQuestionLayoutParams.leftMargin = 0;
-        newQuestionLayoutParams.rightMargin = 0;
-        newQuestion.setLayoutParams(newQuestionLayoutParams);
+    //TODO: move to base activity
+    protected void answerIsWrong() {
+        super.answerIsWrong();
 
-        checkAnswer.setVisibility(View.GONE);
+        checkButton.setVisibility(View.GONE);
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
 
@@ -220,7 +189,7 @@ public class AddActivity extends BaseOpsActivity {
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
-        private static final String TAG = "AlgeOpsOnClickListener";
+        private static final String TAG = "Add:ClickListener";
         private Context mContext;
         private int mOperation;
         private AlgeOpsRelativeLayout mView;
