@@ -56,20 +56,20 @@
 
     <android.support.constraint.Guideline
         android:layout_width="0dp"
-        android:layout_height="567dp"
+        android:layout_height="659dp"
         android:id="@+id/leftTwentyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="77dp"
-        app:layout_constraintGuide_percent="0.20052083" />
+        tools:layout_editor_absoluteX="85dp"
+        app:layout_constraintGuide_percent="0.20681265" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
-        android:layout_height="567dp"
+        android:layout_height="659dp"
         android:id="@+id/rightEightyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="310dp"
+        tools:layout_editor_absoluteX="332dp"
         app:layout_constraintGuide_percent="0.8072917" />
 
     <android.support.constraint.Guideline
@@ -78,7 +78,7 @@
         android:id="@+id/verticalFiftyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="194dp"
+        tools:layout_editor_absoluteX="208dp"
         app:layout_constraintGuide_percent="0.5052083" />
 
     <android.support.constraint.Guideline
@@ -87,7 +87,7 @@
         android:id="@+id/guideline5"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15167548"
-        tools:layout_editor_absoluteY="86dp"
+        tools:layout_editor_absoluteY="100dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
@@ -96,15 +96,15 @@
         android:id="@+id/guideline6"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.7548501"
-        tools:layout_editor_absoluteY="428dp"
+        tools:layout_editor_absoluteY="497dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
-        android:layout_width="384dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
         android:id="@+id/guideline7"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="256dp"
+        tools:layout_editor_absoluteY="298dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.4514991" />
 
