@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AlgeOpsImageView">
+        <attr name="value" format="enum" >
+            <enum name="positive_x" value="4"/>
+            <enum name="negative_x" value="5"/>
+            <enum name="positive_one" value="6"/>
+            <enum name="negative_one" value="7"/>
+        </attr>
+    </declare-styleable>
+</resources>

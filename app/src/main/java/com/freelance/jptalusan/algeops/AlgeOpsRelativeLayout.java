@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
@@ -17,7 +16,8 @@ import com.freelance.jptalusan.algeops.Utilities.Constants;
 //http://stackoverflow.com/questions/22779422/custom-view-extending-relative-layout
 public class AlgeOpsRelativeLayout extends RelativeLayout {
     private final static String TAG = "AlgeOpsRelLayout";
-    public int currVal = 0;
+    public int currXVal = 0;
+    public int currOneVal = 0;
     private AlgeOpsRelativeLayout algeOpsRelativeLayout = this;
     public Dimensions dimensions = new Dimensions();
     private int rows = 0;
@@ -78,8 +78,12 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 (int) scaledWidth,
                 (int) scaledHeight);
 
-        int rowFactor = getChildCount() / cols;
-        int colFactor = getChildCount() % cols;
+        //TODO: Should factor in x and ones values before computing
+        int rowFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) / cols;
+        int colFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) % cols;
+
+//        int rowFactor = getChildCount() / cols;
+//        int colFactor = getChildCount() % cols;
 
         //TODO: Fix arrangement of how objects are added (simple math)
         double leftMargin = colFactor * scaledHeight;
@@ -93,41 +97,95 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return params;
     }
 
-    //TODO: Change drawables
-    //TODO: Add new param or make use now of the addx, addone, subx, subone constants since in sub activity, only use 1 layout for all
-    //TODO: need to add new handling to subtract/add either one or x.
+    //TODO: Figure out how to implemement both x and 1 views in single layout (might have to use matrix)
+    //TODO: Create new method since they are similar (if/else)
     public void setImage(Context mContext, int mOperation) {
-        if (Constants.OPS_ADD == mOperation && 0 <= currVal && getChildCount() < maxChildren) {
-            //Add positive imageView drawable
-            ImageView myImage = new ImageView(mContext);
-            myImage.setImageResource(R.mipmap.ic_launcher);
-            myImage.setLayoutParams(generateParams());
-            addView(myImage);
-            currVal += 1;
-        } else if (Constants.OPS_ADD == mOperation && 0 > currVal) {
-            if (getChildCount() > 0) {
-                removeViewAt(getChildCount() - 1);
+        if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
+            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+            opsImageView.setValue(Constants.OPS_ADD_X);
+            opsImageView.setImageResource(R.mipmap.ic_launcher);
+            opsImageView.setLayoutParams(generateParams());
+            addView(opsImageView);
+            currXVal += 1;
+        } else if (mOperation == Constants.OPS_ADD_X && currXVal < 0) {
+            if (getChildCount() > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.OPS_SUB_X) {
+                        removeView(temp);
+                        break;
+                    }
+                }
             }
-            currVal += 1;
+            currXVal += 1;
         }
 
-        if (Constants.OPS_SUB == mOperation && 0 >= currVal && getChildCount() < maxChildren) {
-            //Add positive imageView drawable
-            ImageView myImage = new ImageView(mContext);
-            myImage.setImageResource(R.drawable.chrome);
-            myImage.setLayoutParams(generateParams());
-            addView(myImage);
-            currVal -= 1;
-        } else if (Constants.OPS_SUB == mOperation && 0 < currVal) {
-            if (getChildCount() > 0) {
-                removeViewAt(getChildCount() - 1);
+        if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
+            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+            opsImageView.setValue(Constants.OPS_SUB_X);
+            opsImageView.setImageResource(R.drawable.neglauncher);
+            opsImageView.setLayoutParams(generateParams());
+            addView(opsImageView);
+            currXVal -= 1;
+        } else if (mOperation == Constants.OPS_SUB_X && currXVal > 0) {
+            if (getChildCount() > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.OPS_ADD_X) {
+                        removeView(temp);
+                        break;
+                    }
+                }
             }
-            currVal -= 1;
+            currXVal -=1;
         }
+
+        if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
+            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+            opsImageView.setValue(Constants.OPS_ADD_ONE);
+            opsImageView.setImageResource(R.drawable.chrome);
+            opsImageView.setLayoutParams(generateParams());
+            addView(opsImageView);
+            currOneVal += 1;
+        } else if (mOperation == Constants.OPS_ADD_ONE && currOneVal < 0) {
+            if (getChildCount() > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.OPS_SUB_ONE) {
+                        removeView(temp);
+                        break;
+                    }
+                }
+            }
+            currOneVal += 1;
+        }
+
+        if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
+            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+            opsImageView.setValue(Constants.OPS_SUB_ONE);
+            opsImageView.setImageResource(R.drawable.negchrome);
+            opsImageView.setLayoutParams(generateParams());
+            addView(opsImageView);
+            currOneVal -= 1;
+        } else if (mOperation == Constants.OPS_SUB_ONE && currOneVal > 0) {
+            if (getChildCount() > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.OPS_ADD_ONE) {
+                        removeView(temp);
+                        break;
+                    }
+                }
+            }
+            currOneVal -= 1;
+        }
+
+        //TODO: Could add a refresh here to redraw all the images again this time at correct positions
     }
 
     public void resetLayout() {
         this.removeAllViews();
-        currVal = 0;
+        currXVal = 0;
+        currOneVal = 0;
     }
 }

@@ -97,10 +97,10 @@ public class SubtractActivity extends BaseOpsActivity {
 
         subLayout.getViewDimensions();
 
-        addXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, subLayout));
-        subXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, subLayout));
-        addOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, subLayout));
-        subOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, subLayout));
+        addXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, subLayout));
+        subXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, subLayout));
+        addOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, subLayout));
+        subOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, subLayout));
 
         //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
@@ -119,6 +119,8 @@ public class SubtractActivity extends BaseOpsActivity {
 
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
+        xSeekbarImageView.setVisibility(View.VISIBLE);
+        oneSeekbarImageView.setVisibility(View.VISIBLE);
     }
 
     //TODO: move to base activity
@@ -127,6 +129,8 @@ public class SubtractActivity extends BaseOpsActivity {
 
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
+        xSeekbarImageView.setVisibility(View.GONE);
+        oneSeekbarImageView.setVisibility(View.GONE);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
@@ -159,7 +163,8 @@ public class SubtractActivity extends BaseOpsActivity {
 //                }
 
 //                Log.d(TAG, isCorrect + "");
-                Log.d(TAG, "Currval: " + mView.currVal);
+                Log.d(TAG, "CurrXval: " + mView.currXVal);
+                Log.d(TAG, "CurrOneval: " + mView.currOneVal);
                 Log.d(TAG, mView.dimensions.toString());
                 Log.d(TAG, "Children: " + mView.getChildCount() + "");
             }

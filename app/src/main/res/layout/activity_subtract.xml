@@ -23,7 +23,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50364965"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="181dp" />
+        tools:layout_editor_absoluteX="193dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.20681265"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="74dp" />
+        tools:layout_editor_absoluteX="79dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.8029197"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="289dp" />
+        tools:layout_editor_absoluteX="308dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
         android:id="@+id/guideline3"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="224dp"
+        tools:layout_editor_absoluteX="239dp"
         app:layout_constraintGuide_percent="0.62222224" />
 
     <android.support.constraint.Guideline
@@ -103,7 +103,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.025"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="9dp" />
+        tools:layout_editor_absoluteX="10dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -202,13 +202,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addsubXButton"
-        app:layout_constraintTop_toTopOf="@+id/addOneImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/addOneImageView"
+        android:id="@+id/addOneButton"
+        app:layout_constraintLeft_toRightOf="@+id/subAlgeOpsRelLayout"
         app:layout_constraintRight_toLeftOf="@+id/guideline9"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/addOneImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/addOneImageView"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp" />
 
@@ -230,7 +230,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addOneButton"
+        android:id="@+id/addsubXButton"
         app:layout_constraintRight_toLeftOf="@+id/guideline9"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/addsubXImageView"

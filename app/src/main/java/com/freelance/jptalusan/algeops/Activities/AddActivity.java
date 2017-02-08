@@ -91,17 +91,17 @@ public class AddActivity extends BaseOpsActivity {
         layoutLeftOne.getViewDimensions();
         layoutRightOne.getViewDimensions();
 
-        leftXAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, layoutLeftX));
-        leftXSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB, layoutLeftX));
+        leftXAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, layoutLeftX));
+        leftXSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, layoutLeftX));
 
-        rightXAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, layoutRightX));
-        rightXSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB, layoutRightX));
+        rightXAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, layoutRightX));
+        rightXSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, layoutRightX));
 
-        leftOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, layoutLeftOne));
-        leftOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB, layoutLeftOne));
+        leftOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutLeftOne));
+        leftOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutLeftOne));
 
-        rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD, layoutRightOne));
-        rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB, layoutRightOne));
+        rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
+        rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
 
         xSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_X, xSeekbarText));
         oneSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_ONE, oneSeekbarText));
@@ -205,10 +205,10 @@ public class AddActivity extends BaseOpsActivity {
             if (hasStarted) {
                 mView.setImage(mContext, mOperation);
 
-                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currVal,
-                        layoutLeftOne.currVal,
-                        layoutRightX.currVal,
-                        layoutRightOne.currVal);
+                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currXVal,
+                        layoutLeftOne.currOneVal,
+                        layoutRightX.currXVal,
+                        layoutRightOne.currOneVal);
 
                 if (isCorrect) {
                     answerIsCorrect();
@@ -217,7 +217,6 @@ public class AddActivity extends BaseOpsActivity {
                 }
 
                 Log.d(TAG, isCorrect + "");
-                Log.d(TAG, "Currval: " + mView.currVal);
                 Log.d(TAG, mView.dimensions.toString());
                 Log.d(TAG, "Children: " + mView.getChildCount() + "");
             }
