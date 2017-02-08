@@ -78,12 +78,12 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 (int) scaledWidth,
                 (int) scaledHeight);
 
-        int rowFactor = getChildCount() % rows;
+        int rowFactor = getChildCount() / cols;
         int colFactor = getChildCount() % cols;
 
         //TODO: Fix arrangement of how objects are added (simple math)
-        double topMargin = rowFactor * scaledHeight;
         double leftMargin = colFactor * scaledHeight;
+        double topMargin = rowFactor * scaledHeight;
 
         Log.d(TAG, "Top: " + topMargin + ", Left: " + leftMargin);
         Log.d(TAG, "rowF: " + rowFactor + ", colF: " + colFactor);
