@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 //https://github.com/anothem/android-range-seek-bar <--might go back to this
 //https://github.com/syedowaisali/crystal-range-seekbar <-- seems better
 /**
@@ -17,7 +17,7 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 //Same value for initial (before check) then if wrong, move the corresponding value to right one
 public class LayoutWithSeekBarView extends LinearLayout {
     private static final String TAG = "SeekbarView";
-    private CrystalRangeSeekbar crystalRangeSeekbar;
+    private RangeSeekBar rangeSeekBar;
     private RelativeLayout relativeLayout;
 
     public LayoutWithSeekBarView(Context context) {
@@ -56,9 +56,10 @@ public class LayoutWithSeekBarView extends LinearLayout {
         // a real application your images should be in the
         // application package so they are always available.
         relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
-        crystalRangeSeekbar = (CrystalRangeSeekbar)this.findViewById(R.id.seekbar);
-        crystalRangeSeekbar.setLeftThumbDrawable(null);
-        crystalRangeSeekbar.setLeftThumbHighlightDrawable(null);
+        rangeSeekBar = (RangeSeekBar) this.findViewById(R.id.seekbar);
+//        crystalRangeSeekbar.setLeftThumbDrawable(null);
+//        crystalRangeSeekbar.setLeftThumbHighlightDrawable(null);
+
         ImageView iv = new ImageView(this.getContext());
         iv.setImageResource(R.drawable.chrome);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(40, 40);

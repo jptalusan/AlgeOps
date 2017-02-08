@@ -133,10 +133,11 @@ public class SubtractActivity extends BaseOpsActivity {
 //        newQuestionLayoutParams.rightToLeft = R.id.rightEightyPercent;
 //        startButton.setLayoutParams(newQuestionLayoutParams);
 
-        xSeekbar.setVisibility(View.GONE);
-        oneSeekbar.setVisibility(View.GONE);
-        xSeekbarImageView.setVisibility(View.GONE);
-        oneSeekbarImageView.setVisibility(View.GONE);
+        //TODO: uncomment
+//        xSeekbar.setVisibility(View.GONE);
+//        oneSeekbar.setVisibility(View.GONE);
+//        xSeekbarImageView.setVisibility(View.GONE);
+//        oneSeekbarImageView.setVisibility(View.GONE);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
