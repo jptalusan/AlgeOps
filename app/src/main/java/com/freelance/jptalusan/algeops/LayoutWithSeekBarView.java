@@ -8,12 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-//https://github.com/anothem/android-range-seek-bar
+//https://github.com/anothem/android-range-seek-bar <--might go back to this
 //https://github.com/syedowaisali/crystal-range-seekbar <-- seems better
 /**
  * Created by jtalusan on 2/7/2017.
  */
-
+//TODO: add listener on change and addview to layout
+//Same value for initial (before check) then if wrong, move the corresponding value to right one
 public class LayoutWithSeekBarView extends LinearLayout {
     private static final String TAG = "SeekbarView";
     private CrystalRangeSeekbar crystalRangeSeekbar;

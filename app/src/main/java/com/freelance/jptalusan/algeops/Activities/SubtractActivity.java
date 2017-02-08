@@ -126,6 +126,12 @@ public class SubtractActivity extends BaseOpsActivity {
     //TODO: move to base activity
     protected void answerIsWrong() {
         super.answerIsWrong();
+//        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
+//        newQuestionLayoutParams.leftToLeft = R.id.leftTwentyPercent;
+//        newQuestionLayoutParams.leftMargin = 0;
+//        newQuestionLayoutParams.rightMargin = 0;
+//        newQuestionLayoutParams.rightToLeft = R.id.rightEightyPercent;
+//        startButton.setLayoutParams(newQuestionLayoutParams);
 
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);

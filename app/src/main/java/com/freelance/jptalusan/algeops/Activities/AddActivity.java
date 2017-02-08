@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
-import com.freelance.jptalusan.algeops.AlgeOpsSeekbar;
+import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 
@@ -32,8 +30,8 @@ public class AddActivity extends BaseOpsActivity {
     protected AlgeOpsRelativeLayout layoutRightOne;
     protected AlgeOpsRelativeLayout layoutLeftOne;
 
-    private AlgeOpsSeekbar xSeekbar;
-    private AlgeOpsSeekbar oneSeekbar;
+    private LayoutWithSeekBarView xSeekbar;
+    private LayoutWithSeekBarView oneSeekbar;
 
     private TextView xSeekbarText;
     private TextView oneSeekbarText;
@@ -66,11 +64,8 @@ public class AddActivity extends BaseOpsActivity {
         firstPartEq     = (TextView) findViewById(R.id.firstEqTextView);
         secondPartEq    = (TextView) findViewById(R.id.secondEqTextView);
 
-        xSeekbar        = (AlgeOpsSeekbar) findViewById(R.id.xSeekBar);
-        oneSeekbar      = (AlgeOpsSeekbar) findViewById(R.id.oneSeekBar);
-
-        xSeekbarText    = (TextView) findViewById(R.id.xSeekBarCount);
-        oneSeekbarText  = (TextView) findViewById(R.id.oneSeekBarCount);
+        xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
+        oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
 
         xSeekbarImage   = (ImageView) findViewById(R.id.xSeekBarImage);
         oneSeekbarImage = (ImageView) findViewById(R.id.oneSeekBarImage);
@@ -103,8 +98,8 @@ public class AddActivity extends BaseOpsActivity {
         rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
 
-        xSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_X, xSeekbarText));
-        oneSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_ONE, oneSeekbarText));
+//        xSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_X, xSeekbarText));
+//        oneSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_ONE, oneSeekbarText));
     }
 
     protected void startAlgeOps() {
@@ -125,14 +120,11 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
 
-        xSeekbarText.setVisibility(View.VISIBLE);
-        oneSeekbarText.setVisibility(View.VISIBLE);
-
         xSeekbarImage.setVisibility(View.VISIBLE);
         oneSeekbarImage.setVisibility(View.VISIBLE);
 
-        xSeekbar.setProgress(12);
-        oneSeekbar.setProgress(12);
+//        xSeekbar.setProgress(12);
+//        oneSeekbar.setProgress(12);
 
     }
 
@@ -144,49 +136,46 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
 
-        xSeekbarText.setVisibility(View.GONE);
-        oneSeekbarText.setVisibility(View.GONE);
-
         xSeekbarImage.setVisibility(View.GONE);
         oneSeekbarImage.setVisibility(View.GONE);
     }
 
-    public class AlgeOpsSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
-        private static final String TAG = "Seekbar";
-        private Context mContext;
-        private int mOperation;
-        private TextView mTv;
-
-        public AlgeOpsSeekBarChangeListener(Context context, int operation, TextView tv) {
-            mContext = context;
-            mOperation = operation;
-            mTv = tv;
-        }
-
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-            mTv.setText(i + "");
-
-            int x = xSeekbar.getProgress() - Constants.SEEKBAR_MAX;
-            int one = oneSeekbar.getProgress() - Constants.SEEKBAR_MAX;
-
-            Log.d(TAG, x + "," + one);
-            //TODO: stop bar movement once correct
-            if (eq.isFinalAnswerCorrect(x, one)) {
-                Toast.makeText(mContext, "Correct!", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
-    }
+//    public class AlgeOpsSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
+//        private static final String TAG = "Seekbar";
+//        private Context mContext;
+//        private int mOperation;
+//        private TextView mTv;
+//
+//        public AlgeOpsSeekBarChangeListener(Context context, int operation, TextView tv) {
+//            mContext = context;
+//            mOperation = operation;
+//            mTv = tv;
+//        }
+//
+//        @Override
+//        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+//            mTv.setText(i + "");
+//
+//            int x = xSeekbar.getProgress() - Constants.SEEKBAR_MAX;
+//            int one = oneSeekbar.getProgress() - Constants.SEEKBAR_MAX;
+//
+//            Log.d(TAG, x + "," + one);
+//            //TODO: stop bar movement once correct
+//            if (eq.isFinalAnswerCorrect(x, one)) {
+//                Toast.makeText(mContext, "Correct!", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//        @Override
+//        public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//        }
+//
+//        @Override
+//        public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//        }
+//    }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
         private static final String TAG = "Add:ClickListener";

@@ -79,11 +79,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 (int) scaledHeight);
 
         //TODO: Should factor in x and ones values before computing
-        int rowFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) / cols;
-        int colFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) % cols;
+//        int rowFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) / cols;
+//        int colFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) % cols;
 
-//        int rowFactor = getChildCount() / cols;
-//        int colFactor = getChildCount() % cols;
+        int rowFactor = getChildCount() / cols;
+        int colFactor = getChildCount() % cols;
 
         //TODO: Fix arrangement of how objects are added (simple math)
         double leftMargin = colFactor * scaledHeight;
@@ -113,11 +113,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.OPS_SUB_X) {
                         removeView(temp);
+                        currXVal += 1;
                         break;
                     }
                 }
             }
-            currXVal += 1;
         }
 
         if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
@@ -133,11 +133,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.OPS_ADD_X) {
                         removeView(temp);
+                        currXVal -=1;
                         break;
                     }
                 }
             }
-            currXVal -=1;
         }
 
         if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
@@ -153,11 +153,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.OPS_SUB_ONE) {
                         removeView(temp);
+                        currOneVal += 1;
                         break;
                     }
                 }
             }
-            currOneVal += 1;
         }
 
         if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
@@ -173,14 +173,47 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.OPS_ADD_ONE) {
                         removeView(temp);
+                        currOneVal -= 1;
                         break;
                     }
                 }
             }
-            currOneVal -= 1;
         }
 
         //TODO: Could add a refresh here to redraw all the images again this time at correct positions
+        //If i remove it all here then i wouldn't have to do everything above. just get the currvals
+        removeAllViews();
+        for (int i = 0; i < Math.abs(currXVal); ++i) {
+            if (currXVal > 0) {
+                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+                opsImageView.setValue(Constants.OPS_ADD_X);
+                opsImageView.setImageResource(R.mipmap.ic_launcher);
+                opsImageView.setLayoutParams(generateParams());
+                addView(opsImageView);
+            } else {
+                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+                opsImageView.setValue(Constants.OPS_SUB_X);
+                opsImageView.setImageResource(R.drawable.neglauncher);
+                opsImageView.setLayoutParams(generateParams());
+                addView(opsImageView);
+            }
+        }
+
+        for (int i = 0; i < Math.abs(currOneVal); ++i) {
+            if (currOneVal > 0) {
+                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+                opsImageView.setValue(Constants.OPS_ADD_ONE);
+                opsImageView.setImageResource(R.drawable.chrome);
+                opsImageView.setLayoutParams(generateParams());
+                addView(opsImageView);
+            } else {
+                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
+                opsImageView.setValue(Constants.OPS_SUB_ONE);
+                opsImageView.setImageResource(R.drawable.negchrome);
+                opsImageView.setLayoutParams(generateParams());
+                addView(opsImageView);
+            }
+        }
     }
 
     public void resetLayout() {
