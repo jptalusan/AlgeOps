@@ -115,9 +115,9 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/cube"
         android:id="@+id/addXImageView"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -125,12 +125,14 @@
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        android:background="@android:color/holo_green_dark" />
 
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/chrome"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/cube"
         android:id="@+id/subXImageView"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/addXImageView"
@@ -140,15 +142,16 @@
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintHorizontal_bias="0.56" />
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_red_dark" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/twocubes"
         android:id="@+id/addOneImageView"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/subXImageView"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
@@ -156,12 +159,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/chrome"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/circle"
         android:id="@+id/subOneImageView"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -169,82 +172,92 @@
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        app:layout_constraintBottom_toTopOf="@+id/guideline22"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_green_dark" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addXButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
+        android:id="@+id/subPosXButton"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/addXImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/addXImageView"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:id="@+id/subXButton"
-        app:layout_constraintTop_toTopOf="@+id/subXImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/subXImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
+        android:id="@+id/subNegXButton"
+        app:layout_constraintTop_toTopOf="@+id/guideline20"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addOneButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/plus"
+        android:id="@+id/addPosNegXButton"
         app:layout_constraintLeft_toRightOf="@+id/subAlgeOpsRelLayout"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintTop_toTopOf="@+id/addOneImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/addOneImageView"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toTopOf="@+id/guideline21"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:id="@+id/subOneButton"
-        app:layout_constraintTop_toTopOf="@+id/subOneImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/subOneImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
+        android:id="@+id/subPosOneButton"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline22"
+        android:layout_marginBottom="8dp"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addsubXButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
+        android:id="@+id/subNegOneButton"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/addsubXImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/addsubXImageView"
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        android:layout_marginBottom="8dp"
+        android:cropToPadding="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/circle"
         android:id="@+id/addsubXImageView"
         app:layout_constraintTop_toBottomOf="@+id/subOneImageView"
         android:layout_marginEnd="16dp"
@@ -253,37 +266,41 @@
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline23"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_red_dark" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_dialog"
-        android:id="@+id/addsubOneButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/plus"
+        android:id="@+id/addPosNegOneButton"
         app:layout_constraintRight_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/addsubOneImageView"
-        app:layout_constraintBottom_toBottomOf="@+id/addsubOneImageView"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline11"
+        android:cropToPadding="true"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        app:srcCompat="@drawable/chrome"
+        app:srcCompat="@drawable/twocircles"
         android:id="@+id/addsubOneImageView"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/addsubXImageView"
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="16dp"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline23" />
 
     <com.freelance.jptalusan.algeops.LayoutWithSeekBarView
         android:id="@+id/subXSeekBar"
@@ -390,6 +407,33 @@
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.35978836" />
 
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline14"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="58dp"
+        app:layout_constraintGuide_percent="0.15104167" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline20"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1904762"
+        tools:layout_editor_absoluteY="108dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline21"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27513227"
+        tools:layout_editor_absoluteY="156dp"
+        tools:layout_editor_absoluteX="0dp" />
+
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -407,11 +451,20 @@
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guideline14"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="58dp"
-        app:layout_constraintGuide_percent="0.15104167" />
+        android:id="@+id/guideline22"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.44620812"
+        tools:layout_editor_absoluteY="253dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline23"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5326279"
+        tools:layout_editor_absoluteY="302dp"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </android.support.constraint.ConstraintLayout>

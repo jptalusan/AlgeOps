@@ -7,7 +7,6 @@ import android.widget.Button;
 
 import com.freelance.jptalusan.algeops.R;
 
-//TODO: Create drawables
 //http://stackoverflow.com/questions/22274545/add-drawable-in-relative-layout-programmatically
 public class MainActivity extends BaseOpsActivity {
 

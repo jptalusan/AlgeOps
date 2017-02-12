@@ -25,12 +25,12 @@ public class SubtractActivity extends BaseOpsActivity {
     private ImageView addsubXImageView;
     private ImageView addsubOneImageView;
 
-    private ImageButton addXButton;
-    private ImageButton subXButton;
-    private ImageButton addOneButton;
-    private ImageButton subOneButton;
-    private ImageButton addsubXButton;
-    private ImageButton addsubOneButton;
+    private ImageButton addPosXButton;
+    private ImageButton subNegXButton;
+    private ImageButton addPosNegXButton;
+    private ImageButton subPosOneButton;
+    private ImageButton subNegOneButton;
+    private ImageButton addPosNegOneButton;
 
     private ImageView xSeekbarImageView;
     private ImageView oneSeekbarImageView;
@@ -76,12 +76,12 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
-        addXButton = (ImageButton) findViewById(R.id.addXButton);
-        subXButton = (ImageButton) findViewById(R.id.subXButton);
-        addOneButton = (ImageButton) findViewById(R.id.addOneButton);
-        subOneButton = (ImageButton) findViewById(R.id.subOneButton);
-        addsubXButton = (ImageButton) findViewById(R.id.addsubXButton);
-        addsubOneButton = (ImageButton) findViewById(R.id.addsubOneButton);
+        addPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
+        subNegXButton = (ImageButton) findViewById(R.id.subNegXButton);
+        addPosNegXButton = (ImageButton) findViewById(R.id.addPosNegXButton);
+        subPosOneButton = (ImageButton) findViewById(R.id.subPosOneButton);
+        subNegOneButton = (ImageButton) findViewById(R.id.subNegOneButton);
+        addPosNegOneButton = (ImageButton) findViewById(R.id.addPosNegOneButton);
 
         subLayout = (AlgeOpsRelativeLayout) findViewById(R.id.subAlgeOpsRelLayout);
 
@@ -100,10 +100,11 @@ public class SubtractActivity extends BaseOpsActivity {
 
         subLayout.getViewDimensions();
 
-        addXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, subLayout));
-        subXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, subLayout));
-        addOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, subLayout));
-        subOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, subLayout));
+        //TODO: Not working yet, refactor based on meeting
+        addPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, subLayout));
+        subNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, subLayout));
+        subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, subLayout));
+        subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, subLayout));
 
         //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
