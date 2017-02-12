@@ -19,7 +19,7 @@
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/imageView"
+        app:layout_constraintRight_toLeftOf="@+id/operationImageView"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintHorizontal_bias="0.66"
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
-        android:id="@+id/imageView"
+        android:id="@+id/operationImageView"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="16dp"
@@ -51,26 +51,26 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/operationImageView"
         android:layout_marginLeft="8dp"
         android:textAlignment="center" />
 
     <android.support.constraint.Guideline
         android:layout_width="0dp"
-        android:layout_height="567dp"
+        android:layout_height="0dp"
         android:id="@+id/leftTwentyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="79dp"
+        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.20681265" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
-        android:layout_height="567dp"
+        android:layout_height="0dp"
         android:id="@+id/rightEightyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="310dp"
+        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.8072917" />
 
     <android.support.constraint.Guideline
@@ -79,7 +79,7 @@
         android:id="@+id/verticalFiftyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="194dp"
+        tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.5052083" />
 
     <android.support.constraint.Guideline
@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline5"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10229277"
-        tools:layout_editor_absoluteY="58dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintGuide_percent="0.10229277" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -97,15 +97,15 @@
         android:id="@+id/guideline6"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.654321"
-        tools:layout_editor_absoluteY="371dp"
+        tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
-        android:layout_width="384dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/guideline7"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="203dp"
+        tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.3580247" />
 
@@ -124,48 +124,50 @@
         android:layout_marginTop="8dp" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_width="0dp"
+        app:srcCompat="@drawable/plus"
         android:id="@+id/leftXAdd"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        android:layout_marginStart="16dp"
+        android:cropToPadding="true"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/layoutLeftX"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintRight_toLeftOf="@+id/layoutLeftX"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/leftTwentyPercent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginLeft="8dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/cube"
         android:id="@+id/imageView2"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/leftXAdd"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintRight_toLeftOf="@+id/leftTwentyPercent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/leftXSub"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
         android:id="@+id/leftXSub"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline17"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintRight_toLeftOf="@+id/leftTwentyPercent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:cropToPadding="true" />
 
     <com.freelance.jptalusan.algeops.LayoutWithSeekBarView
         android:layout_width="0dp"
@@ -177,21 +179,19 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/layoutLeftOne"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:srcCompat="@android:drawable/btn_star"
         android:id="@+id/xSeekBarImage"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
         app:layout_constraintTop_toTopOf="@+id/xSeekBar"
-        app:layout_constraintRight_toLeftOf="@+id/xSeekBar"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/guideline15"
         app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -202,16 +202,14 @@
         android:id="@+id/oneSeekBarImage"
         app:layout_constraintBottom_toBottomOf="@+id/oneSeekBar"
         app:layout_constraintTop_toTopOf="@+id/oneSeekBar"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintRight_toLeftOf="@+id/oneSeekBar"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/guideline15" />
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@android:color/darker_gray"
         android:id="@+id/layoutLeftX"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
@@ -227,7 +225,7 @@
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_green_dark"
+        android:background="@android:color/darker_gray"
         android:id="@+id/layoutRightX"
         app:rows="3"
         app:cols="2"
@@ -241,7 +239,7 @@
     </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
-        android:background="@android:color/holo_orange_light"
+        android:background="@android:color/darker_gray"
         android:id="@+id/layoutLeftOne"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -255,141 +253,146 @@
     </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/plus"
         android:id="@+id/leftOneAdd"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintRight_toLeftOf="@+id/layoutLeftOne"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        app:layout_constraintVertical_bias="0.65999997"
+        android:cropToPadding="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        app:srcCompat="@drawable/circle"
         android:id="@+id/imageView5"
-        app:layout_constraintBottom_toTopOf="@+id/leftOneSub"
         app:layout_constraintRight_toLeftOf="@+id/leftTwentyPercent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/leftOneAdd"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline18"
+        app:layout_constraintBottom_toTopOf="@+id/guideline19"
+        android:background="@android:color/darker_gray" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
         android:id="@+id/leftOneSub"
         app:layout_constraintRight_toLeftOf="@+id/layoutLeftOne"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintTop_toTopOf="@+id/guideline19"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/plus"
         android:id="@+id/rightXAdd"
         app:layout_constraintTop_toTopOf="@+id/guideline5"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        android:cropToPadding="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/cube"
         android:id="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/rightXAdd"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintLeft_toRightOf="@+id/layoutRightX"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/rightXSub"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
+        android:background="@android:color/darker_gray"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
         android:id="@+id/rightXSub"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline17"
+        android:cropToPadding="true" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/plus"
         android:id="@+id/rightOneAdd"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
+        android:cropToPadding="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_launcher"
+        app:srcCompat="@drawable/circle"
         android:id="@+id/imageView7"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/rightOneAdd"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintBottom_toTopOf="@+id/rightOneSub"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@android:color/darker_gray" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/btn_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:srcCompat="@drawable/minus"
         android:id="@+id/rightOneSub"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/rightEightyPercent"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/guideline19"
+        android:cropToPadding="true" />
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@android:color/darker_gray"
         android:id="@+id/layoutRightOne"
         app:rows="3"
         app:cols="2"
@@ -421,16 +424,16 @@
         android:layout_height="0dp"
         android:id="@+id/guideline4"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="514dp"
+        tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.90652555" />
 
     <android.support.constraint.Guideline
-        android:layout_width="384dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/guideline8"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="445dp"
+        tools:layout_editor_absoluteY="0dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.7848325" />
 
@@ -444,5 +447,50 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline15"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15104167"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline16"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1957672"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline17"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27689594"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline18"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.46031746"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline19"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5643739"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
 </android.support.constraint.ConstraintLayout>

@@ -45,12 +45,34 @@ public class Equation {
         return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")";
     }
 
-    //TODO: must remove zeroes. Check algetiles
+    //TODO: must remove zeroes. Check algetiles, check formatting
     public String getPart(int part) {
-        return (part == 1 ? ax + "x+" + b : cx + "x+" + d)
-                .replace("0x", "")
-                .replace("+0", "")
-                .replace("+-", " - ")
-                .replace("+", " + ");
+        String output = "";
+        int x = 0;
+        int one = 0;
+        //vars = (ax + c)
+        if (part == 1) {
+            x = ax;
+            one = b;
+        } else {
+            x = cx;
+            one = d;
+        }
+
+        if (x != 0)
+            output += x + "x+";
+        if (one != 0)
+            output += one;
+
+        output = output.replace(" ", "");
+        output = output.replace("+-", "-");
+        output = output.replace("+", " + ");
+        output = output.replace("-", " - ");
+        return output;
+//        return (part == 1 ? ax + "x+" + b : cx + "x+" + d)
+//                .replace("0x", "")
+//                .replace("+0", "")
+//                .replace("+-", " - ")
+//                .replace("+", " + ");
     }
 }

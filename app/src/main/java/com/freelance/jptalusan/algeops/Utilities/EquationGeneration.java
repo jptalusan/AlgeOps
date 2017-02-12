@@ -12,25 +12,29 @@ public class EquationGeneration {
     public static Equation generateEquation(String equationType) {
         int maxPossible = 6;
         int minPossible = -6;
-        int ax = pickRandom(minPossible, maxPossible);
+
+        long seed = Calendar.getInstance().getTimeInMillis();
+        Random rnd = new Random((int)seed);
+
+        int ax = pickRandom(rnd, minPossible, maxPossible);
         int b = 0;
         int cx = 0;
-        int d = pickRandom(minPossible, maxPossible);
+        int d = pickRandom(rnd, minPossible, maxPossible);
 
         if (d <= -5) {
-            b = pickRandom((-10 - d), maxPossible);
+            b = pickRandom(rnd, (-10 - d), maxPossible);
         } else if (d >= -4 && d <= 4) {
-            b = pickRandom(minPossible, maxPossible);
+            b = pickRandom(rnd, minPossible, maxPossible);
         } else {
-            b = pickRandom(minPossible, (10 - d));
+            b = pickRandom(rnd, minPossible, (10 - d));
         }
 
         if (d <= -5) {
-            cx = pickRandom((-10 - ax), maxPossible);
+            cx = pickRandom(rnd, (-10 - ax), maxPossible);
         } else if (d >= -4 && d <= 4) {
-            cx = pickRandom(minPossible, maxPossible);
+            cx = pickRandom(rnd, minPossible, maxPossible);
         } else {
-            cx = pickRandom(minPossible, (10 - ax));
+            cx = pickRandom(rnd, minPossible, (10 - ax));
         }
 
         Equation generatedEquation = new Equation(ax, b, cx, d);
@@ -44,9 +48,7 @@ public class EquationGeneration {
         return generatedEquation;
     }
 
-    private static int pickRandom(int min, int max) {
-        long seed = Calendar.getInstance().getTimeInMillis();
-        Random rnd = new Random((int)seed);
+    private static int pickRandom(Random rnd, int min, int max) {
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
         int randomNum = rnd.nextInt((max - min) + 1) + min;

@@ -70,6 +70,9 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbarImage   = (ImageView) findViewById(R.id.xSeekBarImage);
         oneSeekbarImage = (ImageView) findViewById(R.id.oneSeekBarImage);
 
+        operationImageView = (ImageView) findViewById(R.id.operationImageView);
+        operationImageView.setImageResource(R.drawable.plus);
+
         startButton.setText("START");
         //TODO: Add method to reset everything, remove all child views and set all currvals to 0
         startButton.setOnClickListener(new View.OnClickListener() {

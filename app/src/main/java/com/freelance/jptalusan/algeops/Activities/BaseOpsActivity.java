@@ -1,10 +1,12 @@
 package com.freelance.jptalusan.algeops.Activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.R;
@@ -27,9 +29,12 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     public boolean hasStarted = false;
 
+    public ImageView operationImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     protected void startAlgeOps() {

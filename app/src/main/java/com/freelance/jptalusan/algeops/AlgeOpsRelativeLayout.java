@@ -2,6 +2,7 @@ package com.freelance.jptalusan.algeops;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
@@ -23,6 +24,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     private int rows = 0;
     private int cols = 0;
     private int maxChildren = 0;
+
+    private int positiveX;
+    private int negativeX;
+    private int positiveOne;
+    private int negativeOne;
 
     public AlgeOpsRelativeLayout(Context context) {
         super(context);
@@ -103,7 +109,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
             AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
             opsImageView.setValue(Constants.OPS_ADD_X);
-            opsImageView.setImageResource(R.mipmap.ic_launcher);
+            opsImageView.setImageResource(R.drawable.cube);
+            opsImageView.setBackgroundColor(Color.GREEN);
             opsImageView.setLayoutParams(generateParams());
             addView(opsImageView);
             currXVal += 1;
@@ -123,7 +130,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
             AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
             opsImageView.setValue(Constants.OPS_SUB_X);
-            opsImageView.setImageResource(R.drawable.neglauncher);
+            opsImageView.setImageResource(R.drawable.cube);
+            opsImageView.setBackgroundColor(Color.RED);
             opsImageView.setLayoutParams(generateParams());
             addView(opsImageView);
             currXVal -= 1;
@@ -143,7 +151,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
             AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
             opsImageView.setValue(Constants.OPS_ADD_ONE);
-            opsImageView.setImageResource(R.drawable.chrome);
+            opsImageView.setImageResource(R.drawable.circle);
+            opsImageView.setBackgroundColor(Color.GREEN);
             opsImageView.setLayoutParams(generateParams());
             addView(opsImageView);
             currOneVal += 1;
@@ -163,7 +172,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
             AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
             opsImageView.setValue(Constants.OPS_SUB_ONE);
-            opsImageView.setImageResource(R.drawable.negchrome);
+            opsImageView.setImageResource(R.drawable.circle);
+            opsImageView.setBackgroundColor(Color.RED);
             opsImageView.setLayoutParams(generateParams());
             addView(opsImageView);
             currOneVal -= 1;
@@ -187,13 +197,15 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             if (currXVal > 0) {
                 AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
                 opsImageView.setValue(Constants.OPS_ADD_X);
-                opsImageView.setImageResource(R.mipmap.ic_launcher);
+                opsImageView.setImageResource(R.drawable.cube);
+                opsImageView.setBackgroundColor(Color.GREEN);
                 opsImageView.setLayoutParams(generateParams());
                 addView(opsImageView);
             } else {
                 AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
                 opsImageView.setValue(Constants.OPS_SUB_X);
-                opsImageView.setImageResource(R.drawable.neglauncher);
+                opsImageView.setImageResource(R.drawable.cube);
+                opsImageView.setBackgroundColor(Color.RED);
                 opsImageView.setLayoutParams(generateParams());
                 addView(opsImageView);
             }
@@ -203,13 +215,15 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             if (currOneVal > 0) {
                 AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
                 opsImageView.setValue(Constants.OPS_ADD_ONE);
-                opsImageView.setImageResource(R.drawable.chrome);
+                opsImageView.setImageResource(R.drawable.circle);
+                opsImageView.setBackgroundColor(Color.GREEN);
                 opsImageView.setLayoutParams(generateParams());
                 addView(opsImageView);
             } else {
                 AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
                 opsImageView.setValue(Constants.OPS_SUB_ONE);
-                opsImageView.setImageResource(R.drawable.negchrome);
+                opsImageView.setImageResource(R.drawable.circle);
+                opsImageView.setBackgroundColor(Color.RED);
                 opsImageView.setLayoutParams(generateParams());
                 addView(opsImageView);
             }

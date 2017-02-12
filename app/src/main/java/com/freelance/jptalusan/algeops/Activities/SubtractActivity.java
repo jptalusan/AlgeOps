@@ -61,6 +61,9 @@ public class SubtractActivity extends BaseOpsActivity {
         xSeekbarImageView = (ImageView) findViewById(R.id.xSeekbarImageView);
         oneSeekbarImageView = (ImageView) findViewById(R.id.oneSeekbarImageView);
 
+        operationImageView = (ImageView) findViewById(R.id.operationImageView);
+        operationImageView.setImageResource(R.drawable.minus);
+
         addXImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
