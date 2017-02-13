@@ -69,6 +69,8 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
     //TODO: get correct and incorrect values and use that to set the thumbs.
     //TODO: change color for min/max values
+    //Change the rangeseekbar being shown at run time, when user inputs incorrect value
+    //when min and max values have been matched (at correctValue) then that is OK.
     public void answerIsIncorrect(int incorrectValue, int correctValue) {
         if (incorrectValue < correctValue) {
             rangeSeekBar.setSelectedMinValue(incorrectValue);
