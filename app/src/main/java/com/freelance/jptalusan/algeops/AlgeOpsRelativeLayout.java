@@ -32,6 +32,10 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public int negativeOne;
 
     public int initialValueForSub = 0;
+    public int initialPositiveX = 0;
+    public int initialNegativeX = 0;
+    public int initialPositiveOne = 0;
+    public int initialNegativeOne = 0;
 
     public AlgeOpsRelativeLayout(Context context) {
         super(context);
@@ -189,10 +193,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
     }
 
+    //TODO: initialValueForSub is not working correctly, should use specific pos/neg x and one values instead
     public boolean setSubImage(Context context, int operation) {
         if (operation == Constants.OPS_SUB_POS_X) {
-            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != initialValueForSub; --i) {
+            if (positiveX > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.POS_X) {
                         removeView(temp);
@@ -204,8 +209,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_X) {
-            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != initialValueForSub; --i) {
+            if (negativeX > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.NEG_X) {
                         removeView(temp);
@@ -227,8 +232,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_POS_ONE) {
-            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != initialValueForSub; --i) {
+            if (positiveOne > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.POS_ONE) {
                         removeView(temp);
@@ -240,8 +245,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_ONE) {
-            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != initialValueForSub; --i) {
+            if (negativeOne > 0) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != 0; --i) {
                     AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                     if (temp.getValue() == Constants.NEG_ONE) {
                         removeView(temp);
@@ -277,6 +282,19 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         for (int i = 0; i < negativeOne; ++i) {
             addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
         }
+
+        for (int i = 0; i < initialPositiveX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+        }
+        for (int i = 0; i < initialNegativeX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+        }
+        for (int i = 0; i < initialPositiveOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+        }
+        for (int i = 0; i < initialNegativeOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+        }
         return true;
     }
 
@@ -290,19 +308,24 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         for (int i = 0; i < Math.abs(x); ++i) {
             if (x > 0) {
                 addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
-                positiveX += 1;
+//                positiveX += 1;
+                initialPositiveX += 1;
             } else {
                 addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
-                negativeX += 1;
+//                negativeX += 1;
+                initialNegativeX += 1;
             }
         }
+        //Some problem with the initial value here, i think i should not increment the non initial
         for (int i = 0; i < Math.abs(b); ++i) {
             if (b > 0) {
                 addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
-                positiveOne += 1;
+//                positiveOne += 1;
+                initialPositiveOne += 1;
             } else {
                 addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
-                negativeOne += 1;
+//                negativeOne += 1;
+                initialNegativeOne += 1;
             }
         }
         initialValueForSub = getChildCount();
@@ -326,5 +349,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         positiveOne = 0;
         negativeOne = 0;
         initialValueForSub = 0;
+        initialPositiveX = 0;
+        initialNegativeX = 0;
+        initialPositiveOne = 0;
+        initialNegativeOne = 0;
     }
 }

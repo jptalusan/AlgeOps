@@ -166,9 +166,11 @@ public class SubtractActivity extends BaseOpsActivity {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
                 if (mView.setSubImage(mContext, mOperation)) {
-
+                    playCorrectSound();
+                } else {
+                    playWrongSound();
                 }
-
+//TODO: check if correct using initial (left side) and currvalues instead.
 //                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currVal,
 //                        layoutLeftOne.currVal,
 //                        layoutRightX.currVal,
