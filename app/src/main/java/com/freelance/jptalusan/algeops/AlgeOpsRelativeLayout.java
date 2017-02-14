@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.Equation;
 
 /**
  * Created by JPTalusan on 29/01/2017.
@@ -25,10 +26,12 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     private int cols = 0;
     private int maxChildren = 0;
 
-    private int positiveX;
-    private int negativeX;
-    private int positiveOne;
-    private int negativeOne;
+    public int positiveX;
+    public int negativeX;
+    public int positiveOne;
+    public int negativeOne;
+
+    public int initialValueForSub = 0;
 
     public AlgeOpsRelativeLayout(Context context) {
         super(context);
@@ -107,12 +110,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     //TODO: Create new method since they are similar (if/else)
     public void setImage(Context mContext, int mOperation) {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
-            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-            opsImageView.setValue(Constants.OPS_ADD_X);
-            opsImageView.setImageResource(R.drawable.cube);
-            opsImageView.setBackgroundColor(Color.GREEN);
-            opsImageView.setLayoutParams(generateParams());
-            addView(opsImageView);
             currXVal += 1;
         } else if (mOperation == Constants.OPS_ADD_X && currXVal < 0) {
             if (getChildCount() > 0) { //unnecessary i think, but good to check
@@ -128,12 +125,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
 
         if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
-            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-            opsImageView.setValue(Constants.OPS_SUB_X);
-            opsImageView.setImageResource(R.drawable.cube);
-            opsImageView.setBackgroundColor(Color.RED);
-            opsImageView.setLayoutParams(generateParams());
-            addView(opsImageView);
             currXVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_X && currXVal > 0) {
             if (getChildCount() > 0) { //unnecessary i think, but good to check
@@ -149,12 +140,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
 
         if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
-            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-            opsImageView.setValue(Constants.OPS_ADD_ONE);
-            opsImageView.setImageResource(R.drawable.circle);
-            opsImageView.setBackgroundColor(Color.GREEN);
-            opsImageView.setLayoutParams(generateParams());
-            addView(opsImageView);
             currOneVal += 1;
         } else if (mOperation == Constants.OPS_ADD_ONE && currOneVal < 0) {
             if (getChildCount() > 0) { //unnecessary i think, but good to check
@@ -170,12 +155,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
 
         if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
-            AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-            opsImageView.setValue(Constants.OPS_SUB_ONE);
-            opsImageView.setImageResource(R.drawable.circle);
-            opsImageView.setBackgroundColor(Color.RED);
-            opsImageView.setLayoutParams(generateParams());
-            addView(opsImageView);
             currOneVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_ONE && currOneVal > 0) {
             if (getChildCount() > 0) { //unnecessary i think, but good to check
@@ -195,44 +174,153 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         removeAllViews();
         for (int i = 0; i < Math.abs(currXVal); ++i) {
             if (currXVal > 0) {
-                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-                opsImageView.setValue(Constants.OPS_ADD_X);
-                opsImageView.setImageResource(R.drawable.cube);
-                opsImageView.setBackgroundColor(Color.GREEN);
-                opsImageView.setLayoutParams(generateParams());
-                addView(opsImageView);
+                addImageToView(mContext, R.drawable.cube, Color.GREEN, Constants.OPS_ADD_X);
             } else {
-                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-                opsImageView.setValue(Constants.OPS_SUB_X);
-                opsImageView.setImageResource(R.drawable.cube);
-                opsImageView.setBackgroundColor(Color.RED);
-                opsImageView.setLayoutParams(generateParams());
-                addView(opsImageView);
+                addImageToView(mContext, R.drawable.cube, Color.RED, Constants.OPS_SUB_X);
             }
         }
 
         for (int i = 0; i < Math.abs(currOneVal); ++i) {
             if (currOneVal > 0) {
-                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-                opsImageView.setValue(Constants.OPS_ADD_ONE);
-                opsImageView.setImageResource(R.drawable.circle);
-                opsImageView.setBackgroundColor(Color.GREEN);
-                opsImageView.setLayoutParams(generateParams());
-                addView(opsImageView);
+                addImageToView(mContext, R.drawable.circle, Color.GREEN, Constants.OPS_ADD_ONE);
             } else {
-                AlgeOpsImageView opsImageView = new AlgeOpsImageView(mContext);
-                opsImageView.setValue(Constants.OPS_SUB_ONE);
-                opsImageView.setImageResource(R.drawable.circle);
-                opsImageView.setBackgroundColor(Color.RED);
-                opsImageView.setLayoutParams(generateParams());
-                addView(opsImageView);
+                addImageToView(mContext, R.drawable.circle, Color.RED, Constants.OPS_SUB_ONE);
             }
         }
+    }
+
+    public boolean setSubImage(Context context, int operation) {
+        if (operation == Constants.OPS_SUB_POS_X) {
+            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != initialValueForSub; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.POS_X) {
+                        removeView(temp);
+                        positiveX -= 1;
+                        break;
+                    }
+                }
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_NEG_X) {
+            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != initialValueForSub; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.NEG_X) {
+                        removeView(temp);
+                        negativeX -= 1;
+                        break;
+                    }
+                }
+                return false;
+            }
+        } else if (operation == Constants.OPS_ADD_POS_NEG_X) {
+            if (getChildCount() + 1 < maxChildren) {
+                addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+                addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+
+                positiveX += 1;
+                negativeX += 1;
+            } else {
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_POS_ONE) {
+            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != initialValueForSub; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.POS_ONE) {
+                        removeView(temp);
+                        positiveOne -= 1;
+                        break;
+                    }
+                }
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_NEG_ONE) {
+            if (getChildCount() > initialValueForSub) { //unnecessary i think, but good to check
+                for (int i = getChildCount(); i != initialValueForSub; --i) {
+                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                    if (temp.getValue() == Constants.NEG_ONE) {
+                        removeView(temp);
+                        negativeOne -= 1;
+                        break;
+                    }
+                }
+                return false;
+            }
+        } else if (operation == Constants.OPS_ADD_POS_NEG_ONE) {
+            if (getChildCount() + 1 < maxChildren) {
+                addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+                addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+
+                positiveOne += 1;
+                negativeOne += 1;
+            } else {
+                return false;
+            }
+        }
+
+        removeAllViews();
+        for (int i = 0; i < positiveX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+        }
+        for (int i = 0; i < negativeX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+        }
+        for (int i = 0; i < positiveOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+        }
+        for (int i = 0; i < negativeOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+        }
+        return true;
+    }
+
+    //TODO: Why is this not working, not image is displayed
+    public void populateImageViewBasedOnEq(Context context, Equation eq) {
+        Log.d(TAG, "populate");
+        int x = eq.getAx();
+        int b = eq.getB();
+        Log.d(TAG, x + "+" + b);
+
+        for (int i = 0; i < Math.abs(x); ++i) {
+            if (x > 0) {
+                addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+                positiveX += 1;
+            } else {
+                addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+                negativeX += 1;
+            }
+        }
+        for (int i = 0; i < Math.abs(b); ++i) {
+            if (x > 0) {
+                addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+                positiveOne += 1;
+            } else {
+                addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+                negativeOne += 1;
+            }
+        }
+        initialValueForSub = getChildCount();
+    }
+
+    private void addImageToView(Context c, int drawable, int color, int value) {
+        AlgeOpsImageView opsImageView = new AlgeOpsImageView(c);
+        opsImageView.setValue(value);
+        opsImageView.setImageResource(drawable);
+        opsImageView.setBackgroundColor(color);
+        opsImageView.setLayoutParams(generateParams());
+        addView(opsImageView);
     }
 
     public void resetLayout() {
         this.removeAllViews();
         currXVal = 0;
         currOneVal = 0;
+        positiveX = 0;
+        negativeX = 0;
+        positiveOne = 0;
+        negativeOne = 0;
+        initialValueForSub = 0;
     }
 }

@@ -6,6 +6,8 @@ package com.freelance.jptalusan.algeops.Utilities;
 
 public class Constants {
 
+    //addition
+    public static final int NULL = 0;
     public static final int OPS_ADD = 1;
     public static final int OPS_SUB = -1;
     public static final int OPS_X = 2;
@@ -16,6 +18,20 @@ public class Constants {
     public static final int OPS_SUB_ONE = 7;
     public static final int OPS_ADD_SUB_X = 8;
     public static final int OPS_ADD_SUB_ONE = 9;
+
+    //subtract
+    public static final int OPS_SUB_POS_X = 10;
+    public static final int OPS_SUB_NEG_X = 11;
+    public static final int OPS_ADD_POS_NEG_X = 12;
+
+    public static final int OPS_SUB_POS_ONE = 13;
+    public static final int OPS_SUB_NEG_ONE = 14;
+    public static final int OPS_ADD_POS_NEG_ONE = 15;
+
+    public static final int POS_X = 16;
+    public static final int NEG_X = 17;
+    public static final int POS_ONE = 18;
+    public static final int NEG_ONE = 19;
 
     public static int SEEKBAR_MAX = 12;
     public static int SEEKBAR_MIN = -12;

@@ -1,6 +1,7 @@
 package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,8 @@ public class BaseOpsActivity extends AppCompatActivity {
     public boolean hasStarted = false;
 
     public ImageView operationImageView;
+
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +74,15 @@ public class BaseOpsActivity extends AppCompatActivity {
         newQuestionLayoutParams.leftMargin = 0;
         newQuestionLayoutParams.rightMargin = 0;
         startButton.setLayoutParams(newQuestionLayoutParams);
+    }
+
+    public void playWrongSound() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.wrong);
+        mediaPlayer.start();
+    }
+
+    public void playCorrectSound() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.correct);
+        mediaPlayer.start();
     }
 }

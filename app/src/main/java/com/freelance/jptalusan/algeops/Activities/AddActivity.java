@@ -82,6 +82,13 @@ public class AddActivity extends BaseOpsActivity {
             }
         });
 
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playCorrectSound();
+            }
+        });
+
         answerIsWrong();
 
         layoutLeftX.getViewDimensions();

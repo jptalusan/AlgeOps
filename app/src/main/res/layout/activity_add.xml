@@ -61,7 +61,7 @@
         android:id="@+id/leftTwentyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="79dp"
         app:layout_constraintGuide_percent="0.20681265" />
 
     <android.support.constraint.Guideline
@@ -70,7 +70,7 @@
         android:id="@+id/rightEightyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="310dp"
         app:layout_constraintGuide_percent="0.8072917" />
 
     <android.support.constraint.Guideline
@@ -79,7 +79,7 @@
         android:id="@+id/verticalFiftyPercent"
         android:orientation="vertical"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteX="194dp"
         app:layout_constraintGuide_percent="0.5052083" />
 
     <android.support.constraint.Guideline
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline5"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="58dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.10229277" />
 
@@ -97,7 +97,7 @@
         android:id="@+id/guideline6"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.654321"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="371dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline7"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="203dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.3580247" />
 
@@ -208,24 +208,9 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline15" />
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
-        android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/layoutLeftX"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintRight_toLeftOf="@+id/verticalFiftyPercent"
-        app:rows="3"
-        app:cols="2"
-        android:layout_width="0dp">
-
-    </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
-
-    <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_dark"
         android:id="@+id/layoutRightX"
         app:rows="3"
         app:cols="2"
@@ -239,7 +224,7 @@
     </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/holo_blue_light"
         android:id="@+id/layoutLeftOne"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -392,7 +377,7 @@
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/darker_gray"
+        android:background="?attr/actionModeSplitBackground"
         android:id="@+id/layoutRightOne"
         app:rows="3"
         app:cols="2"
@@ -424,7 +409,7 @@
         android:layout_height="0dp"
         android:id="@+id/guideline4"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="514dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.90652555" />
 
@@ -433,7 +418,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline8"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="445dp"
         tools:layout_editor_absoluteX="0dp"
         app:layout_constraintGuide_percent="0.7848325" />
 
@@ -456,7 +441,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.15104167"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="58dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -464,7 +449,7 @@
         android:id="@+id/guideline16"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1957672"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="111dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
@@ -473,7 +458,7 @@
         android:id="@+id/guideline17"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.27689594"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="157dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
@@ -482,7 +467,7 @@
         android:id="@+id/guideline18"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.46031746"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="261dp"
         tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
@@ -491,6 +476,21 @@
         android:id="@+id/guideline19"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5643739"
-        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteY="320dp"
         tools:layout_editor_absoluteX="0dp" />
+
+    <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
+        android:layout_height="0dp"
+        android:background="@android:color/holo_blue_bright"
+        android:id="@+id/layoutLeftX"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintLeft_toLeftOf="@+id/leftTwentyPercent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintRight_toLeftOf="@+id/verticalFiftyPercent"
+        app:rows="3"
+        app:cols="2"
+        android:layout_width="0dp">
+
+    </com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout>
 </android.support.constraint.ConstraintLayout>

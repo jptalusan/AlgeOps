@@ -79,6 +79,7 @@ public class SubtractActivity extends BaseOpsActivity {
         addPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
         subNegXButton = (ImageButton) findViewById(R.id.subNegXButton);
         addPosNegXButton = (ImageButton) findViewById(R.id.addPosNegXButton);
+
         subPosOneButton = (ImageButton) findViewById(R.id.subPosOneButton);
         subNegOneButton = (ImageButton) findViewById(R.id.subNegOneButton);
         addPosNegOneButton = (ImageButton) findViewById(R.id.addPosNegOneButton);
@@ -96,25 +97,29 @@ public class SubtractActivity extends BaseOpsActivity {
                 startAlgeOps();
             }
         });
+
         answerIsWrong();
 
         subLayout.getViewDimensions();
 
-        //TODO: Not working yet, refactor based on meeting
-        addPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_X, subLayout));
-        subNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_X, subLayout));
-        subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, subLayout));
-        subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, subLayout));
+        addPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_X, subLayout));
+        subNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_X, subLayout));
+        addPosNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_X, subLayout));
+
+        subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_ONE, subLayout));
+        subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_ONE, subLayout));
+        addPosNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_ONE, subLayout));
 
         //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
 
     protected void startAlgeOps() {
         super.startAlgeOps();
-
         subLayout.resetLayout();
-
         answerIsWrong();
+
+        Log.d(TAG, "JP Talusan:" + eq.toString());
+        subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
     }
 
     //TODO: move to base activity
@@ -160,7 +165,9 @@ public class SubtractActivity extends BaseOpsActivity {
         public void onClick(View view) {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
-                mView.setImage(mContext, mOperation);
+                if (mView.setSubImage(mContext, mOperation)) {
+
+                }
 
 //                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currVal,
 //                        layoutLeftOne.currVal,
@@ -174,8 +181,10 @@ public class SubtractActivity extends BaseOpsActivity {
 //                }
 
 //                Log.d(TAG, isCorrect + "");
-                Log.d(TAG, "CurrXval: " + mView.currXVal);
-                Log.d(TAG, "CurrOneval: " + mView.currOneVal);
+                Log.d(TAG, "Pos X: " + mView.positiveX);
+                Log.d(TAG, "Neg X: " + mView.negativeX);
+                Log.d(TAG, "Pos One: " + mView.positiveOne);
+                Log.d(TAG, "Neg One: " + mView.negativeOne);
                 Log.d(TAG, mView.dimensions.toString());
                 Log.d(TAG, "Children: " + mView.getChildCount() + "");
             }

@@ -5,10 +5,19 @@ package com.freelance.jptalusan.algeops.Utilities;
  */
 
 public class Equation {
-    int ax;
-    int b;
-    int cx;
-    int d;
+    private int ax;
+
+    public int getAx() {
+        return ax;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    private int b;
+    private int cx;
+    private int d;
 
     public Equation(int ax, int b, int cx, int d) {
         this.ax = ax;
@@ -60,19 +69,17 @@ public class Equation {
         }
 
         if (x != 0)
-            output += x + "x+";
+            output += x + "x";
+        if (x != 0 && one != 0)
+            output += "+";
         if (one != 0)
             output += one;
+
 
         output = output.replace(" ", "");
         output = output.replace("+-", "-");
         output = output.replace("+", " + ");
         output = output.replace("-", " - ");
         return output;
-//        return (part == 1 ? ax + "x+" + b : cx + "x+" + d)
-//                .replace("0x", "")
-//                .replace("+0", "")
-//                .replace("+-", " - ")
-//                .replace("+", " + ");
     }
 }
