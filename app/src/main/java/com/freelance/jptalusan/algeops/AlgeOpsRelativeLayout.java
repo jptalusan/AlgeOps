@@ -200,6 +200,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                         break;
                     }
                 }
+            } else {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_X) {
@@ -212,6 +213,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                         break;
                     }
                 }
+            } else {
                 return false;
             }
         } else if (operation == Constants.OPS_ADD_POS_NEG_X) {
@@ -234,6 +236,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                         break;
                     }
                 }
+            } else {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_ONE) {
@@ -246,6 +249,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                         break;
                     }
                 }
+            } else {
                 return false;
             }
         } else if (operation == Constants.OPS_ADD_POS_NEG_ONE) {
@@ -293,7 +297,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             }
         }
         for (int i = 0; i < Math.abs(b); ++i) {
-            if (x > 0) {
+            if (b > 0) {
                 addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
                 positiveOne += 1;
             } else {
