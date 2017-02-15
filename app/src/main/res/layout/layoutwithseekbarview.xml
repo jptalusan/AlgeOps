@@ -19,7 +19,8 @@
         app:singleThumb="true"
         app:valuesAboveThumbs="true"
         app:textAboveThumbsColor="@android:color/holo_green_light"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_weight="1" />
 
     <org.florescu.android.rangeseekbar.RangeSeekBar
         android:id="@+id/rangeseekbar"
@@ -30,9 +31,10 @@
         app:singleThumb="false"
         app:valuesAboveThumbs="true"
         app:textAboveThumbsColor="@android:color/holo_green_light"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_weight="1" />
 
-    <Space
+    <!--Space
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dp"/-->
 </merge>

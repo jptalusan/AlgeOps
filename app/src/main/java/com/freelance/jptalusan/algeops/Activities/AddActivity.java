@@ -150,50 +150,13 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbarImage.setVisibility(View.GONE);
     }
 
-//    public class AlgeOpsSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
-//        private static final String TAG = "Seekbar";
-//        private Context mContext;
-//        private int mOperation;
-//        private TextView mTv;
-//
-//        public AlgeOpsSeekBarChangeListener(Context context, int operation, TextView tv) {
-//            mContext = context;
-//            mOperation = operation;
-//            mTv = tv;
-//        }
-//
-//        @Override
-//        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//            mTv.setText(i + "");
-//
-//            int x = xSeekbar.getProgress() - Constants.SEEKBAR_MAX;
-//            int one = oneSeekbar.getProgress() - Constants.SEEKBAR_MAX;
-//
-//            Log.d(TAG, x + "," + one);
-//            //TODO: stop bar movement once correct
-//            if (eq.isFinalAnswerCorrect(x, one)) {
-//                Toast.makeText(mContext, "Correct!", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//
-//        @Override
-//        public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//        }
-//
-//        @Override
-//        public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//        }
-//    }
-
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
         private static final String TAG = "Add:ClickListener";
         private Context mContext;
         private int mOperation;
         private AlgeOpsRelativeLayout mView;
 
-        public AlgeOpsButtonsOnClickListener(Context context, int operation, AlgeOpsRelativeLayout view) {
+        AlgeOpsButtonsOnClickListener(Context context, int operation, AlgeOpsRelativeLayout view) {
             mContext = context;
             mOperation = operation;
             mView = view;
@@ -204,12 +167,14 @@ public class AddActivity extends BaseOpsActivity {
             if (hasStarted) {
                 mView.setImage(mContext, mOperation);
 
-                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currXVal,
+                boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
                         layoutLeftOne.currOneVal,
                         layoutRightX.currXVal,
                         layoutRightOne.currOneVal);
 
                 if (isCorrect) {
+                    xSeekbar.getViewDimensions();
+                    oneSeekbar.getViewDimensions();
                     answerIsCorrect();
                 } else {
                     answerIsWrong();

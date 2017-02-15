@@ -9,6 +9,7 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 
 /**
@@ -37,6 +38,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public int initialPositiveOne = 0;
     public int initialNegativeOne = 0;
 
+    private double scaledWidth;
+    private double scaledHeight;
+
     public AlgeOpsRelativeLayout(Context context) {
         super(context);
     }
@@ -46,6 +50,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AlgeOpsRelativeLayoutOptions, 0, 0);
         rows = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_rows, 0);
         cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
+        a.recycle();
         maxChildren = rows * cols;
     }
 
@@ -54,6 +59,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AlgeOpsRelativeLayoutOptions, 0, 0);
         rows = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_rows, 0);
         cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
+        a.recycle();
         maxChildren = rows * cols;
     }
 
@@ -64,41 +70,23 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 algeOpsRelativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width  = algeOpsRelativeLayout.getMeasuredWidth();
                 dimensions.height = algeOpsRelativeLayout.getMeasuredHeight();
+
+                //TODO: move to get dimensions
+                scaledWidth = dimensions.width / cols;
+                scaledHeight = dimensions.height / rows;
             }
         });
     }
 
-    public class Dimensions {
-        double height;
-        double width;
-
-        @Override
-        public String toString() {
-            return "Dimensions{" +
-                    "height=" + height +
-                    ", width=" + width +
-                    '}';
-        }
-    }
-
-    //TODO: fix for sub. modulo problem
     public RelativeLayout.LayoutParams generateParams() {
-        //TODO: move to get dimensions
-        double scaledWidth = dimensions.width / cols;
-        double scaledHeight = dimensions.height / rows;
         //(width, height)
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 (int) scaledWidth,
                 (int) scaledHeight);
 
-        //TODO: Should factor in x and ones values before computing
-//        int rowFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) / cols;
-//        int colFactor = (Math.abs(currXVal) + Math.abs(currOneVal)) % cols;
-
         int rowFactor = getChildCount() / cols;
         int colFactor = getChildCount() % cols;
 
-        //TODO: Fix arrangement of how objects are added (simple math)
         double leftMargin = colFactor * scaledHeight;
         double topMargin = rowFactor * scaledHeight;
 
@@ -110,8 +98,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return params;
     }
 
-    //TODO: Figure out how to implemement both x and 1 views in single layout (might have to use matrix)
-    //TODO: Create new method since they are similar (if/else)
     public void setImage(Context mContext, int mOperation) {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
             currXVal += 1;
@@ -270,6 +256,21 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         }
 
         removeAllViews();
+
+        //Draw initial value first
+        for (int i = 0; i < initialPositiveX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+        }
+        for (int i = 0; i < initialNegativeX; ++i) {
+            addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+        }
+        for (int i = 0; i < initialPositiveOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+        }
+        for (int i = 0; i < initialNegativeOne; ++i) {
+            addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+        }
+
         for (int i = 0; i < positiveX; ++i) {
             addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
         }
@@ -283,48 +284,28 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
         }
 
-        for (int i = 0; i < initialPositiveX; ++i) {
-            addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
-        }
-        for (int i = 0; i < initialNegativeX; ++i) {
-            addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
-        }
-        for (int i = 0; i < initialPositiveOne; ++i) {
-            addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
-        }
-        for (int i = 0; i < initialNegativeOne; ++i) {
-            addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
-        }
         return true;
     }
 
-    //TODO: Why is this not working, not image is displayed
     public void populateImageViewBasedOnEq(Context context, Equation eq) {
-        Log.d(TAG, "populate");
         int x = eq.getAx();
         int b = eq.getB();
-        Log.d(TAG, x + "+" + b);
 
         for (int i = 0; i < Math.abs(x); ++i) {
             if (x > 0) {
                 addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
-//                positiveX += 1;
                 initialPositiveX += 1;
             } else {
                 addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
-//                negativeX += 1;
                 initialNegativeX += 1;
             }
         }
-        //Some problem with the initial value here, i think i should not increment the non initial
         for (int i = 0; i < Math.abs(b); ++i) {
             if (b > 0) {
                 addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
-//                positiveOne += 1;
                 initialPositiveOne += 1;
             } else {
                 addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
-//                negativeOne += 1;
                 initialNegativeOne += 1;
             }
         }

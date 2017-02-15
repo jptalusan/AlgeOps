@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -63,18 +61,6 @@ public class SubtractActivity extends BaseOpsActivity {
 
         operationImageView = (ImageView) findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.minus);
-
-        addXImageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                addXImageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int width, height;
-                width  = addXImageView.getMeasuredWidth();
-                height = addXImageView.getMeasuredHeight();
-
-                ViewGroup.LayoutParams params = addXImageView.getLayoutParams();
-            }
-        });
 
         addPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
         subNegXButton = (ImageButton) findViewById(R.id.subNegXButton);
@@ -142,11 +128,10 @@ public class SubtractActivity extends BaseOpsActivity {
 //        newQuestionLayoutParams.rightToLeft = R.id.rightEightyPercent;
 //        startButton.setLayoutParams(newQuestionLayoutParams);
 
-        //TODO: uncomment
-//        xSeekbar.setVisibility(View.GONE);
-//        oneSeekbar.setVisibility(View.GONE);
-//        xSeekbarImageView.setVisibility(View.GONE);
-//        oneSeekbarImageView.setVisibility(View.GONE);
+        xSeekbar.setVisibility(View.GONE);
+        oneSeekbar.setVisibility(View.GONE);
+        xSeekbarImageView.setVisibility(View.GONE);
+        oneSeekbarImageView.setVisibility(View.GONE);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
@@ -155,7 +140,7 @@ public class SubtractActivity extends BaseOpsActivity {
         private int mOperation;
         private AlgeOpsRelativeLayout mView;
 
-        public AlgeOpsButtonsOnClickListener(Context context, int operation, AlgeOpsRelativeLayout view) {
+        AlgeOpsButtonsOnClickListener(Context context, int operation, AlgeOpsRelativeLayout view) {
             mContext = context;
             mOperation = operation;
             mView = view;
@@ -170,25 +155,31 @@ public class SubtractActivity extends BaseOpsActivity {
                 } else {
                     playWrongSound();
                 }
-//TODO: check if correct using initial (left side) and currvalues instead.
-//                boolean isCorrect = eq.isAnswerCorrect(layoutLeftX.currVal,
-//                        layoutLeftOne.currVal,
-//                        layoutRightX.currVal,
-//                        layoutRightOne.currVal);
-//
-//                if (isCorrect) {
-//                    answerIsCorrect();
-//                } else {
-//                    answerIsWrong();
-//                }
 
-//                Log.d(TAG, isCorrect + "");
-                Log.d(TAG, "Pos X: " + mView.positiveX);
-                Log.d(TAG, "Neg X: " + mView.negativeX);
-                Log.d(TAG, "Pos One: " + mView.positiveOne);
-                Log.d(TAG, "Neg One: " + mView.negativeOne);
-                Log.d(TAG, mView.dimensions.toString());
-                Log.d(TAG, "Children: " + mView.getChildCount() + "");
+                //initx = initPosX - initNegX
+                //init1 = initPos1 - initNegX
+                //answerX = initx + -1(posX - negX)
+                //answer1 = init1 + -1(pos1 - neg1)
+                int initX = mView.initialPositiveX - mView.initialNegativeX;
+                int init1 = mView.initialPositiveOne - mView.initialNegativeOne;
+                int answX = initX + (mView.positiveX - mView.negativeX);
+                int answ1 = init1 + (mView.positiveOne - mView.negativeOne);
+//TODO: check if correct using initial (left side) and currvalues instead.
+                boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
+
+                if (isCorrect) {
+                    xSeekbar.getViewDimensions();
+                    oneSeekbar.getViewDimensions();
+                    answerIsCorrect();
+                } else {
+                    answerIsWrong();
+                }
+
+                Log.d(TAG, "EQ:" + eq.toString());
+                Log.d(TAG, "initX: " + initX + ", init1: " + init1);
+                Log.d(TAG, "X: " + (mView.positiveX - mView.negativeX) + ", 1: " + (mView.positiveOne - mView.negativeOne));
+                Log.d(TAG, "Correct:" + eq.computeSubtractAnswer());
+                Log.d(TAG, "Answer:" + answX + " + " + answ1);
             }
         }
     }

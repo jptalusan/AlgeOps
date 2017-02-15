@@ -19,46 +19,44 @@ public class Equation {
     private int cx;
     private int d;
 
-    public Equation(int ax, int b, int cx, int d) {
+    Equation(int ax, int b, int cx, int d) {
         this.ax = ax;
         this.b = b;
         this.cx = cx;
         this.d = d;
     }
 
-    public boolean isValid() {
+    boolean isValid() {
         return !(ax == 0 && b == 0 && cx == 0 && d == 0);
     }
 
-    public boolean isAnswerCorrect(int ax, int b, int cx, int d) {
-        if ((this.ax == ax) &&
+    public boolean isAdditionAnswerCorrect(int ax, int b, int cx, int d) {
+        return ((this.ax == ax) &&
                 (this.b == b) &&
                 (this.cx == cx) &&
-                (this.d == d))
-        {
-            return true;
-        }
-        return false;
+                (this.d == d));
+    }
+
+    public boolean isSubtractAnswerCorrect(int ax, int b) {
+        return ((this.ax - this.cx) == ax &&
+                (this.b - this.d) == b);
     }
 
     public boolean isFinalAnswerCorrect(int x, int one) {
-        if ((x == (ax + cx) &&
-                one == (b + d))) {
-            return true;
-        }
-        return false;
+        return ((x == (ax + cx) &&
+                one == (b + d)));
     }
 
     @Override
     public String toString() {
-        return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")";
+        return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")".replace("+-", "-");
     }
 
     //TODO: fix formatting, stray + found
     public String getPart(int part) {
         String output = "";
-        int x = 0;
-        int one = 0;
+        int x;
+        int one;
         //vars = (ax + c)
         if (part == 1) {
             x = ax;
@@ -81,5 +79,11 @@ public class Equation {
         output = output.replace("+", " + ");
         output = output.replace("-", " - ");
         return output;
+    }
+
+    public String computeSubtractAnswer() {
+        String out = (this.ax - this.cx) + " + ";
+        out += (this.b - this.d);
+        return out;
     }
 }
