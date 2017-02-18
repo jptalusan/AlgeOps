@@ -83,6 +83,12 @@ public class SubtractActivity extends BaseOpsActivity {
                 startAlgeOps();
             }
         });
+        checkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isSeekBarAnswerCorrect();
+            }
+        });
 
         answerIsWrong();
 
@@ -99,12 +105,33 @@ public class SubtractActivity extends BaseOpsActivity {
         //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
 
+    //TODO Somethjing wrong here
+    private void isSeekBarAnswerCorrect() {
+        if (eq.isSubtractAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
+            playCorrectSound();
+        } else {
+            if (!xSeekbar.checkAnswer() && !oneSeekbar.checkAnswer()) {
+                playWrongSound();
+                Log.d("Seekbar", "corrX:" + (eq.getAx() - eq.getCx()) + "");
+                xSeekbar.setCorrectAnswer(eq.getAx() - eq.getCx());
+                xSeekbar.answerIsIncorrect();
+
+                Log.d("Seekbar", "corr1:" + (eq.getB() - eq.getD()) + "");
+                oneSeekbar.setCorrectAnswer(eq.getB() - eq.getD());
+                oneSeekbar.answerIsIncorrect();
+            } else {
+                playCorrectSound();
+            }
+        }
+    }
+
     protected void startAlgeOps() {
         super.startAlgeOps();
         subLayout.resetLayout();
+        xSeekbar.resetSeekBars();
+        oneSeekbar.resetSeekBars();
         answerIsWrong();
 
-        Log.d(TAG, "JP Talusan:" + eq.toString());
         subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
     }
 

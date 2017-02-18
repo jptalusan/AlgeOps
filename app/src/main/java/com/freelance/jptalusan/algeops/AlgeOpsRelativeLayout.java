@@ -90,73 +90,75 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         double leftMargin = colFactor * scaledHeight;
         double topMargin = rowFactor * scaledHeight;
 
-        Log.d(TAG, "Top: " + topMargin + ", Left: " + leftMargin);
-        Log.d(TAG, "rowF: " + rowFactor + ", colF: " + colFactor);
         params.topMargin = (int) topMargin;
         params.leftMargin = (int) leftMargin;
 
         return params;
     }
 
+    public boolean removeImage(int type) {
+        if (getChildCount() > 0) {
+            for (int i = getChildCount(); i != 0; --i) {
+                AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                if (temp.getValue() == type) {
+                    removeView(temp);
+                    switch (type) {
+                        case Constants.OPS_SUB_X:
+                            currXVal += 1;
+                            break;
+                        case Constants.OPS_ADD_X:
+                            currXVal -= 1;
+                            break;
+                        case Constants.OPS_SUB_ONE:
+                            currOneVal += 1;
+                            break;
+                        case Constants.OPS_ADD_ONE:
+                            currOneVal -= 1;
+                            break;
+                        case Constants.POS_X:
+                            positiveX -= 1;
+                            break;
+                        case Constants.NEG_X:
+                            negativeX -= 1;
+                            break;
+                        case Constants.POS_ONE:
+                            positiveOne -= 1;
+                            break;
+                        case Constants.NEG_ONE:
+                            negativeOne -= 1;
+                            break;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     public void setImage(Context mContext, int mOperation) {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
             currXVal += 1;
         } else if (mOperation == Constants.OPS_ADD_X && currXVal < 0) {
-            if (getChildCount() > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.OPS_SUB_X) {
-                        removeView(temp);
-                        currXVal += 1;
-                        break;
-                    }
-                }
-            }
+            removeImage(Constants.OPS_SUB_X);
         }
 
         if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
             currXVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_X && currXVal > 0) {
-            if (getChildCount() > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.OPS_ADD_X) {
-                        removeView(temp);
-                        currXVal -=1;
-                        break;
-                    }
-                }
-            }
+            removeImage(Constants.OPS_ADD_X);
         }
 
         if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
             currOneVal += 1;
         } else if (mOperation == Constants.OPS_ADD_ONE && currOneVal < 0) {
-            if (getChildCount() > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.OPS_SUB_ONE) {
-                        removeView(temp);
-                        currOneVal += 1;
-                        break;
-                    }
-                }
-            }
+            removeImage(Constants.OPS_SUB_ONE);
         }
 
         if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
             currOneVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_ONE && currOneVal > 0) {
-            if (getChildCount() > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.OPS_ADD_ONE) {
-                        removeView(temp);
-                        currOneVal -= 1;
-                        break;
-                    }
-                }
-            }
+            removeImage(Constants.OPS_ADD_ONE);
         }
 
         //TODO: Could add a refresh here to redraw all the images again this time at correct positions
@@ -183,27 +185,13 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public boolean setSubImage(Context context, int operation) {
         if (operation == Constants.OPS_SUB_POS_X) {
             if (positiveX > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.POS_X) {
-                        removeView(temp);
-                        positiveX -= 1;
-                        break;
-                    }
-                }
+                removeImage(Constants.POS_X);
             } else {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_X) {
             if (negativeX > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.NEG_X) {
-                        removeView(temp);
-                        negativeX -= 1;
-                        break;
-                    }
-                }
+                removeImage(Constants.NEG_X);
             } else {
                 return false;
             }
@@ -219,27 +207,13 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             }
         } else if (operation == Constants.OPS_SUB_POS_ONE) {
             if (positiveOne > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.POS_ONE) {
-                        removeView(temp);
-                        positiveOne -= 1;
-                        break;
-                    }
-                }
+                removeImage(Constants.POS_ONE);
             } else {
                 return false;
             }
         } else if (operation == Constants.OPS_SUB_NEG_ONE) {
             if (negativeOne > 0) { //unnecessary i think, but good to check
-                for (int i = getChildCount(); i != 0; --i) {
-                    AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
-                    if (temp.getValue() == Constants.NEG_ONE) {
-                        removeView(temp);
-                        negativeOne -= 1;
-                        break;
-                    }
-                }
+                removeImage(Constants.NEG_ONE);
             } else {
                 return false;
             }

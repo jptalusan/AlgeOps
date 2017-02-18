@@ -85,7 +85,7 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                playCorrectSound();
+                isSeekBarAnswerCorrect();
             }
         });
 
@@ -107,9 +107,26 @@ public class AddActivity extends BaseOpsActivity {
 
         rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
+    }
 
-//        xSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_X, xSeekbarText));
-//        oneSeekbar.setOnSeekBarChangeListener(new AlgeOpsSeekBarChangeListener(this, Constants.OPS_ONE, oneSeekbarText));
+    //TODO: still not working properly
+    private void isSeekBarAnswerCorrect() {
+        if (eq.isFinalAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
+            playCorrectSound();
+        } else {
+            if (!xSeekbar.checkAnswer() && !oneSeekbar.checkAnswer()) {
+                playWrongSound();
+                Log.d("Seekbar", "corrX:" + (eq.getAx() + eq.getCx()) + "");
+                xSeekbar.setCorrectAnswer(eq.getAx() + eq.getCx());
+                xSeekbar.answerIsIncorrect();
+
+                Log.d("Seekbar", "corr1:" + (eq.getB() + eq.getD()) + "");
+                oneSeekbar.setCorrectAnswer(eq.getB() + eq.getD());
+                oneSeekbar.answerIsIncorrect();
+            } else {
+                playCorrectSound();
+            }
+        }
     }
 
     protected void startAlgeOps() {
@@ -119,6 +136,9 @@ public class AddActivity extends BaseOpsActivity {
         layoutRightX.resetLayout();
         layoutLeftOne.resetLayout();
         layoutRightOne.resetLayout();
+
+        xSeekbar.resetSeekBars();
+        oneSeekbar.resetSeekBars();
 
         answerIsWrong();
     }

@@ -17,6 +17,15 @@ public class Equation {
 
     private int b;
     private int cx;
+
+    public int getD() {
+        return d;
+    }
+
+    public int getCx() {
+        return cx;
+    }
+
     private int d;
 
     Equation(int ax, int b, int cx, int d) {
@@ -27,7 +36,7 @@ public class Equation {
     }
 
     boolean isValid() {
-        return !(ax == 0 && b == 0 && cx == 0 && d == 0);
+        return !((ax == 0 && b == 0) || (cx == 0 && d == 0));
     }
 
     public boolean isAdditionAnswerCorrect(int ax, int b, int cx, int d) {
