@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,8 +15,6 @@ import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
-
-import static android.R.attr.max;
 //https://github.com/anothem/android-range-seek-bar <--might go back to this
 //https://github.com/syedowaisali/crystal-range-seekbar <-- seems better
 /**
@@ -38,7 +34,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
     private int type = -1;
     private int userAnswer = 0;
     private int correctAnswer = 0;
-    private boolean twoThumbs = false;
+    public boolean twoThumbs = false;
 
     public LayoutWithSeekBarView(Context context) {
         super(context);
@@ -125,13 +121,22 @@ public class LayoutWithSeekBarView extends LinearLayout {
     //when min and max values have been matched (at correctValue) then that is OK.
     public void answerIsIncorrect() {
         twoThumbs = true;
+
+
         if (userAnswer < correctAnswer) {
+            if (seekBar.getVisibility() != VISIBLE) {
+                userAnswer = rangeSeekBar.getSelectedMinValue();
+            }
             rangeSeekBar.setSelectedMinValue(userAnswer);
             rangeSeekBar.setSelectedMaxValue(correctAnswer);
 
             drawValuesInRelativeLayout(userAnswer, false);
             drawValuesInRelativeLayout(correctAnswer, true);
         } else {
+            if (seekBar.getVisibility() != VISIBLE) {
+                userAnswer = rangeSeekBar.getSelectedMaxValue();
+            }
+//            userAnswer = rangeSeekBar.getSelectedMaxValue();
             rangeSeekBar.setSelectedMaxValue(userAnswer);
             rangeSeekBar.setSelectedMinValue(correctAnswer);
 
@@ -139,8 +144,11 @@ public class LayoutWithSeekBarView extends LinearLayout {
             drawValuesInRelativeLayout(correctAnswer, true);
         }
 
-        rangeSeekBar.setVisibility(VISIBLE);
-        seekBar.setVisibility(GONE);
+        if (rangeSeekBar.getVisibility() == GONE)
+            rangeSeekBar.setVisibility(VISIBLE);
+
+        if (seekBar.getVisibility() == VISIBLE)
+            seekBar.setVisibility(GONE);
     }
 
     public void resetSeekBars() {
@@ -149,10 +157,13 @@ public class LayoutWithSeekBarView extends LinearLayout {
         rangeSeekBar.setVisibility(GONE);
         seekBar.setVisibility(VISIBLE);
         seekBar.resetSelectedValues();
+        rangeSeekBar.resetSelectedValues();;
         relativeLayout.removeAllViews();
         userAnswer = 0;
         correctAnswer = 0;
         twoThumbs = false;
+        seekBar.setEnabled(true);
+        rangeSeekBar.setEnabled(true);
     }
 
     //TODO: Return two single thumb if correct, review this, something is wrong
@@ -162,19 +173,13 @@ public class LayoutWithSeekBarView extends LinearLayout {
         if (twoThumbs) {
             Log.d(TAG, "max: " + max + ",min: " + min + ",corr:" + correctAnswer);
             if ((max == correctAnswer) && (min == correctAnswer)) {
+                relativeLayout.removeAllViews();
+                drawValuesInRelativeLayout(correctAnswer, true);
 //                rangeSeekBar.setEnabled(false);
                 return true;
-            } else {
-                return false;
-            }
-        } else {
-            if (max == correctAnswer) {
-//                seekBar.setEnabled(false);
-                return true;
-            } else {
-                return false;
             }
         }
+        return false;
     }
 
     public int getCorrectAnswer() {
@@ -189,7 +194,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
         return userAnswer;
     }
 
-    //TODO: add for rangeseekbar also
+    //TODO: add for rangeseekbar also, so for now this would not work for range.
     public class AlgeOpsRangeSeekBarListener implements RangeSeekBar.OnRangeSeekBarChangeListener<Integer> {
 
         @Override
@@ -244,7 +249,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
         }
 
         //TODO: What if correct answer is 0, 0 is blank when drawing, unless explitly set to zero
-        if (maxValue == 0) {
+//        if (maxValue == 0) {
             ImageView imageView = new ImageView(getContext());
 
             if (type == Constants.X) {
@@ -264,6 +269,6 @@ public class LayoutWithSeekBarView extends LinearLayout {
             imageView.setLayoutParams(params);
 //            imageView.setVisibility(INVISIBLE);
             relativeLayout.addView(imageView);
-        }
+//        }
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
@@ -136,29 +135,37 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return false;
     }
 
-    public void setImage(Context mContext, int mOperation) {
+    public boolean setImage(Context mContext, int mOperation) {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
             currXVal += 1;
         } else if (mOperation == Constants.OPS_ADD_X && currXVal < 0) {
             removeImage(Constants.OPS_SUB_X);
+        } else if (mOperation == Constants.OPS_ADD_X && currXVal == 6 && getChildCount() >= maxChildren) {
+            return false;
         }
 
         if (mOperation == Constants.OPS_SUB_X && currXVal <= 0 && getChildCount() < maxChildren) {
             currXVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_X && currXVal > 0) {
             removeImage(Constants.OPS_ADD_X);
+        } else if (mOperation == Constants.OPS_SUB_X && currXVal == -6 && getChildCount() >= maxChildren) {
+            return false;
         }
 
         if (mOperation == Constants.OPS_ADD_ONE && currOneVal >= 0 && getChildCount() < maxChildren) {
             currOneVal += 1;
         } else if (mOperation == Constants.OPS_ADD_ONE && currOneVal < 0) {
             removeImage(Constants.OPS_SUB_ONE);
+        } else if (mOperation == Constants.OPS_ADD_ONE && currOneVal == 6 && getChildCount() >= maxChildren) {
+            return false;
         }
 
         if (mOperation == Constants.OPS_SUB_ONE && currOneVal <= 0 && getChildCount() < maxChildren) {
             currOneVal -= 1;
         } else if (mOperation == Constants.OPS_SUB_ONE && currOneVal > 0) {
             removeImage(Constants.OPS_ADD_ONE);
+        } else if (mOperation == Constants.OPS_SUB_ONE && currOneVal == -6 && getChildCount() >= maxChildren) {
+            return false;
         }
 
         //TODO: Could add a refresh here to redraw all the images again this time at correct positions
@@ -179,9 +186,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 addImageToView(mContext, R.drawable.circle, Color.RED, Constants.OPS_SUB_ONE);
             }
         }
+        return true;
     }
 
-    //TODO: initialValueForSub is not working correctly, should use specific pos/neg x and one values instead
     public boolean setSubImage(Context context, int operation) {
         if (operation == Constants.OPS_SUB_POS_X) {
             if (positiveX > 0) { //unnecessary i think, but good to check

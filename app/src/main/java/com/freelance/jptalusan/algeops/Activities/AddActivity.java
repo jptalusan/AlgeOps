@@ -14,8 +14,8 @@ import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 
-//TODO: Add behavior and button responses
 public class AddActivity extends BaseOpsActivity {
+    private static final String TAG = "AddActivity";
     private ImageButton leftXAdd;
     private ImageButton leftXSub;
     private ImageButton rightXAdd;
@@ -109,22 +109,38 @@ public class AddActivity extends BaseOpsActivity {
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
     }
 
-    //TODO: still not working properly
     private void isSeekBarAnswerCorrect() {
-        if (eq.isFinalAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
-            playCorrectSound();
-        } else {
-            if (!xSeekbar.checkAnswer() && !oneSeekbar.checkAnswer()) {
-                playWrongSound();
-                Log.d("Seekbar", "corrX:" + (eq.getAx() + eq.getCx()) + "");
+        Log.d(TAG, "corrX:" + (eq.getAx() + eq.getCx()) + "");
+        Log.d(TAG, "corr1:" + (eq.getB() + eq.getD()) + "");
+
+        if (xSeekbar.twoThumbs && oneSeekbar.twoThumbs) {
+            if (xSeekbar.checkAnswer() && oneSeekbar.checkAnswer()) {
+                playSound(R.raw.correct);
+                Log.d(TAG, "Two thumb: Answer is correct.");
+            } else {
+                Log.d(TAG, "Two thumb: inccorect");
+                playSound(R.raw.wrong);
                 xSeekbar.setCorrectAnswer(eq.getAx() + eq.getCx());
                 xSeekbar.answerIsIncorrect();
 
-                Log.d("Seekbar", "corr1:" + (eq.getB() + eq.getD()) + "");
                 oneSeekbar.setCorrectAnswer(eq.getB() + eq.getD());
                 oneSeekbar.answerIsIncorrect();
+            }
+        } else {
+            Log.d(TAG, "userX:" + xSeekbar.getUserAnswer() + ", user1:" + oneSeekbar.getUserAnswer());
+            if (eq.isFinalAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
+                playSound(R.raw.correct);
+                Log.d(TAG, "One thumb: Answer is correct.");
             } else {
-                playCorrectSound();
+                Log.d(TAG, "One thumb: incorrect.");
+                playSound(R.raw.wrong);
+                xSeekbar.setCorrectAnswer(eq.getAx() + eq.getCx());
+                xSeekbar.answerIsIncorrect();
+                oneSeekbar.setCorrectAnswer(eq.getB() + eq.getD());
+                oneSeekbar.answerIsIncorrect();
+                //Added recent
+                xSeekbar.setEnabled(false);
+                oneSeekbar.setEnabled(false);
             }
         }
     }
@@ -185,7 +201,11 @@ public class AddActivity extends BaseOpsActivity {
         @Override
         public void onClick(View view) {
             if (hasStarted) {
-                mView.setImage(mContext, mOperation);
+                if (mView.setImage(mContext, mOperation)) {
+                    playSound(R.raw.correct);
+                } else {
+                    playSound(R.raw.wrong);
+                }
 
                 boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
                         layoutLeftOne.currOneVal,

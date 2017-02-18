@@ -77,13 +77,14 @@ public class BaseOpsActivity extends AppCompatActivity {
         startButton.setLayoutParams(newQuestionLayoutParams);
     }
 
-    public void playWrongSound() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.wrong);
+    public void playSound(int soundFile) {
+        mediaPlayer = MediaPlayer.create(this, soundFile);
         mediaPlayer.start();
-    }
-
-    public void playCorrectSound() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.correct);
-        mediaPlayer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
     }
 }

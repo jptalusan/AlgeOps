@@ -105,22 +105,41 @@ public class SubtractActivity extends BaseOpsActivity {
         //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
 
-    //TODO Somethjing wrong here
     private void isSeekBarAnswerCorrect() {
-        if (eq.isSubtractAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
-            playCorrectSound();
-        } else {
-            if (!xSeekbar.checkAnswer() && !oneSeekbar.checkAnswer()) {
-                playWrongSound();
-                Log.d("Seekbar", "corrX:" + (eq.getAx() - eq.getCx()) + "");
+        Log.d("Seekbar", "corrX:" + (eq.getAx() - eq.getCx()) + "");
+        Log.d("Seekbar", "corr1:" + (eq.getB() - eq.getD()) + "");
+
+        if (xSeekbar.twoThumbs && oneSeekbar.twoThumbs) {
+            if (xSeekbar.checkAnswer() && oneSeekbar.checkAnswer()) {
+                playSound(R.raw.correct);
+                Log.d(TAG, "Two thumb: Answer is correct.");
+                //Added recent
+                xSeekbar.setEnabled(false);
+                oneSeekbar.setEnabled(false);
+            } else {
+                Log.d(TAG, "Two thumb: inccorect");
+                playSound(R.raw.wrong);
                 xSeekbar.setCorrectAnswer(eq.getAx() - eq.getCx());
                 xSeekbar.answerIsIncorrect();
 
-                Log.d("Seekbar", "corr1:" + (eq.getB() - eq.getD()) + "");
                 oneSeekbar.setCorrectAnswer(eq.getB() - eq.getD());
                 oneSeekbar.answerIsIncorrect();
+            }
+        } else {
+            Log.d(TAG, "userX:" + xSeekbar.getUserAnswer() + ", user1:" + oneSeekbar.getUserAnswer());
+            if (eq.isSubtractAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
+                playSound(R.raw.correct);
+                Log.d(TAG, "One thumb: Answer is correct.");
+                //Added recent
+                xSeekbar.setEnabled(false);
+                oneSeekbar.setEnabled(false);
             } else {
-                playCorrectSound();
+                Log.d(TAG, "One thumb: incorrect.");
+                playSound(R.raw.wrong);
+                xSeekbar.setCorrectAnswer(eq.getAx() - eq.getCx());
+                xSeekbar.answerIsIncorrect();
+                oneSeekbar.setCorrectAnswer(eq.getB() - eq.getD());
+                oneSeekbar.answerIsIncorrect();
             }
         }
     }
@@ -148,12 +167,6 @@ public class SubtractActivity extends BaseOpsActivity {
     //TODO: move to base activity
     protected void answerIsWrong() {
         super.answerIsWrong();
-//        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
-//        newQuestionLayoutParams.leftToLeft = R.id.leftTwentyPercent;
-//        newQuestionLayoutParams.leftMargin = 0;
-//        newQuestionLayoutParams.rightMargin = 0;
-//        newQuestionLayoutParams.rightToLeft = R.id.rightEightyPercent;
-//        startButton.setLayoutParams(newQuestionLayoutParams);
 
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
@@ -178,9 +191,9 @@ public class SubtractActivity extends BaseOpsActivity {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
                 if (mView.setSubImage(mContext, mOperation)) {
-                    playCorrectSound();
+                    playSound(R.raw.correct);
                 } else {
-                    playWrongSound();
+                    playSound(R.raw.wrong);
                 }
 
                 //initx = initPosX - initNegX
@@ -191,7 +204,6 @@ public class SubtractActivity extends BaseOpsActivity {
                 int init1 = mView.initialPositiveOne - mView.initialNegativeOne;
                 int answX = initX + (mView.positiveX - mView.negativeX);
                 int answ1 = init1 + (mView.positiveOne - mView.negativeOne);
-//TODO: check if correct using initial (left side) and currvalues instead.
                 boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
 
                 if (isCorrect) {
