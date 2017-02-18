@@ -10,13 +10,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
 //https://tausiq.wordpress.com/2013/01/18/android-base-activity-class-example/
 //http://stackoverflow.com/questions/8821240/android-how-to-create-my-own-activity-and-extend-it
-//TODO: mediaplayer stops working after a while, use soundpool
 public class BaseOpsActivity extends AppCompatActivity {
     public Button startButton;
     public Button checkButton;
@@ -34,6 +34,11 @@ public class BaseOpsActivity extends AppCompatActivity {
     public ImageView operationImageView;
 
     private MediaPlayer mediaPlayer;
+
+    public LayoutWithSeekBarView xSeekbar;
+    public LayoutWithSeekBarView oneSeekbar;
+    public ImageView xSeekbarImageView;
+    public ImageView oneSeekbarImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,6 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     protected void answerIsCorrect() {
         //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        //TODO: Make this more readable (this is to change the button placement when user has not yet answered correctly)
         ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
         newQuestionLayoutParams.leftToLeft = R.id.verticalFiftyPercent;
         newQuestionLayoutParams.leftMargin = 0;
@@ -64,17 +68,29 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         checkButton.setVisibility(View.VISIBLE);
         hasStarted = false;
+
+        xSeekbar.setVisibility(View.VISIBLE);
+        oneSeekbar.setVisibility(View.VISIBLE);
+
+        xSeekbarImageView.setVisibility(View.VISIBLE);
+        oneSeekbarImageView.setVisibility(View.VISIBLE);
     }
 
     protected void answerIsWrong() {
         checkButton.setVisibility(View.GONE);
         //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        //TODO: Make this more readable (this is to change the button placement when user has not yet answered correctly)
         ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
         newQuestionLayoutParams.leftToLeft = R.id.leftTwentyPercent;
         newQuestionLayoutParams.leftMargin = 0;
         newQuestionLayoutParams.rightMargin = 0;
         startButton.setLayoutParams(newQuestionLayoutParams);
+
+        checkButton.setVisibility(View.GONE);
+        xSeekbar.setVisibility(View.GONE);
+        oneSeekbar.setVisibility(View.GONE);
+
+        xSeekbarImageView.setVisibility(View.GONE);
+        oneSeekbarImageView.setVisibility(View.GONE);
     }
 
     public void playSound(int soundFile) {

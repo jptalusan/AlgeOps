@@ -70,7 +70,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
                 dimensions.width  = algeOpsRelativeLayout.getMeasuredWidth();
                 dimensions.height = algeOpsRelativeLayout.getMeasuredHeight();
 
-                //TODO: move to get dimensions
                 scaledWidth = dimensions.width / cols;
                 scaledHeight = dimensions.height / rows;
             }
@@ -168,7 +167,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             return false;
         }
 
-        //TODO: Could add a refresh here to redraw all the images again this time at correct positions
         //If i remove it all here then i wouldn't have to do everything above. just get the currvals
         removeAllViews();
         for (int i = 0; i < Math.abs(currXVal); ++i) {

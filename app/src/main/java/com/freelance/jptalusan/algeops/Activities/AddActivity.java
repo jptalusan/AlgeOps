@@ -30,14 +30,8 @@ public class AddActivity extends BaseOpsActivity {
     protected AlgeOpsRelativeLayout layoutRightOne;
     protected AlgeOpsRelativeLayout layoutLeftOne;
 
-    private LayoutWithSeekBarView xSeekbar;
-    private LayoutWithSeekBarView oneSeekbar;
-
     private TextView xSeekbarText;
     private TextView oneSeekbarText;
-
-    private ImageView xSeekbarImage;
-    private ImageView oneSeekbarImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +61,13 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
 
-        xSeekbarImage   = (ImageView) findViewById(R.id.xSeekBarImage);
-        oneSeekbarImage = (ImageView) findViewById(R.id.oneSeekBarImage);
+        super.xSeekbarImageView   = (ImageView) findViewById(R.id.xSeekBarImage);
+        oneSeekbarImageView = (ImageView) findViewById(R.id.oneSeekBarImage);
 
         operationImageView = (ImageView) findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.plus);
 
         startButton.setText("START");
-        //TODO: Add method to reset everything, remove all child views and set all currvals to 0
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,33 +150,6 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbar.resetSeekBars();
 
         answerIsWrong();
-    }
-
-    //TODO: move to base activity
-    protected void answerIsCorrect() {
-        super.answerIsCorrect();
-
-        xSeekbar.setVisibility(View.VISIBLE);
-        oneSeekbar.setVisibility(View.VISIBLE);
-
-        xSeekbarImage.setVisibility(View.VISIBLE);
-        oneSeekbarImage.setVisibility(View.VISIBLE);
-
-//        xSeekbar.setProgress(12);
-//        oneSeekbar.setProgress(12);
-
-    }
-
-    //TODO: move to base activity
-    protected void answerIsWrong() {
-        super.answerIsWrong();
-
-        checkButton.setVisibility(View.GONE);
-        xSeekbar.setVisibility(View.GONE);
-        oneSeekbar.setVisibility(View.GONE);
-
-        xSeekbarImage.setVisibility(View.GONE);
-        oneSeekbarImage.setVisibility(View.GONE);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {

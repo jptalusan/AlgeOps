@@ -30,12 +30,6 @@ public class SubtractActivity extends BaseOpsActivity {
     private ImageButton subNegOneButton;
     private ImageButton addPosNegOneButton;
 
-    private ImageView xSeekbarImageView;
-    private ImageView oneSeekbarImageView;
-
-    private LayoutWithSeekBarView xSeekbar;
-    private LayoutWithSeekBarView oneSeekbar;
-
     private AlgeOpsRelativeLayout subLayout;
 
     @Override
@@ -76,7 +70,6 @@ public class SubtractActivity extends BaseOpsActivity {
         oneSeekbar = (LayoutWithSeekBarView) findViewById(R.id.subOneSeekBar);
 
         startButton.setText("START");
-        //TODO: Add method to reset everything, remove all child views and set all currvals to 0
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,8 +94,6 @@ public class SubtractActivity extends BaseOpsActivity {
         subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_ONE, subLayout));
         subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_ONE, subLayout));
         addPosNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_ONE, subLayout));
-
-        //TODO: What to do with 2 other buttons? (with 2 pics each)
     }
 
     private void isSeekBarAnswerCorrect() {
@@ -152,26 +143,6 @@ public class SubtractActivity extends BaseOpsActivity {
         answerIsWrong();
 
         subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
-    }
-
-    //TODO: move to base activity
-    protected void answerIsCorrect() {
-        super.answerIsCorrect();
-
-        xSeekbar.setVisibility(View.VISIBLE);
-        oneSeekbar.setVisibility(View.VISIBLE);
-        xSeekbarImageView.setVisibility(View.VISIBLE);
-        oneSeekbarImageView.setVisibility(View.VISIBLE);
-    }
-
-    //TODO: move to base activity
-    protected void answerIsWrong() {
-        super.answerIsWrong();
-
-        xSeekbar.setVisibility(View.GONE);
-        oneSeekbar.setVisibility(View.GONE);
-        xSeekbarImageView.setVisibility(View.GONE);
-        oneSeekbarImageView.setVisibility(View.GONE);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {

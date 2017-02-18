@@ -61,7 +61,6 @@ public class Equation {
         return "Equation = (" + ax + "x+" + b + ")" + "(" + cx + "x+" + d + ")".replace("+-", "-");
     }
 
-    //TODO: fix formatting, stray + found
     public String getPart(int part) {
         String output = "";
         int x;

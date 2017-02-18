@@ -20,7 +20,7 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 /**
  * Created by jtalusan on 2/7/2017.
  */
-//TODO: add listener on change and addview to layout
+//TODO: problem when answer is zero, zero does not get colored blue
 //TODO: add attr for number of objects
 //Same value for initial (before check) then if wrong, move the corresponding value to right one
 public class LayoutWithSeekBarView extends LinearLayout {
@@ -115,8 +115,6 @@ public class LayoutWithSeekBarView extends LinearLayout {
         });
     }
 
-    //TODO: get correct and incorrect values and use that to set the thumbs.
-    //TODO: change color for min/max values
     //Change the rangeseekbar being shown at run time, when user inputs incorrect value
     //when min and max values have been matched (at correctValue) then that is OK.
     public void answerIsIncorrect() {
@@ -166,7 +164,6 @@ public class LayoutWithSeekBarView extends LinearLayout {
         rangeSeekBar.setEnabled(true);
     }
 
-    //TODO: Return two single thumb if correct, review this, something is wrong
     public boolean checkAnswer() {
         int max = rangeSeekBar.getSelectedMaxValue();
         int min = rangeSeekBar.getSelectedMinValue();
@@ -212,7 +209,6 @@ public class LayoutWithSeekBarView extends LinearLayout {
         double center = 0.0;
         center = dimensions.width / 2;
 
-        //TODO: add if statement if single thumb?
         for (int i = 0; i < Math.abs(maxValue); ++i) {
 
             ImageView imageView = new ImageView(getContext());
@@ -248,7 +244,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
             }
         }
 
-        //TODO: What if correct answer is 0, 0 is blank when drawing, unless explitly set to zero
+        //TODO: if zero is correct then color blue
 //        if (maxValue == 0) {
             ImageView imageView = new ImageView(getContext());
 
