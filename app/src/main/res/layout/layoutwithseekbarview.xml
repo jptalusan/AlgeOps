@@ -10,31 +10,15 @@
 
     </RelativeLayout>
 
-    <org.florescu.android.rangeseekbar.RangeSeekBar
+    <io.apptik.widget.MultiSlider
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:absoluteMaxValue="10"
-        app:absoluteMinValue="-10"
-        app:singleThumb="true"
-        app:valuesAboveThumbs="true"
-        app:textAboveThumbsColor="@android:color/holo_green_light"
+        app:scaleMin="-10"
+        app:scaleMax="10"
+        app:scaleStep="1"
+        app:thumbNumber="1"
+        app:drawThumbsApart="false"
         android:visibility="visible"
-        android:layout_weight="1" />
-
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-        android:id="@+id/rangeseekbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:absoluteMaxValue="10"
-        app:absoluteMinValue="-10"
-        app:singleThumb="false"
-        app:valuesAboveThumbs="true"
-        app:textAboveThumbsColor="@android:color/holo_green_light"
-        android:visibility="gone"
-        android:layout_weight="1" />
-
-    <!--Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/-->
+        android:layout_weight="1"/>
 </merge>

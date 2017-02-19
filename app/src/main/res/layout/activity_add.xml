@@ -180,29 +180,35 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
 
-    <ImageView
+    <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/cube"
+        android:background="@drawable/cube"
         android:id="@+id/xSeekBarImage"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
         app:layout_constraintTop_toTopOf="@+id/xSeekBar"
-        app:layout_constraintRight_toLeftOf="@+id/guideline15" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline15"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center"
+        android:textColor="@android:color/holo_green_light"/>
 
-    <ImageView
+    <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/circle"
+        android:background="@drawable/circle"
         android:id="@+id/oneSeekBarImage"
         app:layout_constraintBottom_toBottomOf="@+id/oneSeekBar"
         app:layout_constraintTop_toTopOf="@+id/oneSeekBar"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline15" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline15"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center"
+        android:textColor="@android:color/holo_green_light"/>
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:layout_width="0dp"

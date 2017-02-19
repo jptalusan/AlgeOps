@@ -36,6 +36,10 @@ public class Equation {
     }
 
     boolean isValid() {
+        //Checking if the total boxes would go beyond 24
+        if (ax + (-1 * cx) + b + (-1 * d) > 24) {
+            return false;
+        }
         return !((ax == 0 && b == 0) || (cx == 0 && d == 0));
     }
 

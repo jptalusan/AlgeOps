@@ -17,6 +17,8 @@ import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
+import io.apptik.widget.MultiSlider;
+
 import static com.freelance.jptalusan.algeops.Utilities.LayoutUtilities.getNumberOfViewsToRemove;
 
 public class AddActivity extends BaseOpsActivity {
@@ -66,8 +68,31 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
 
-        super.xSeekbarImageView   = (ImageView) findViewById(R.id.xSeekBarImage);
-        oneSeekbarImageView = (ImageView) findViewById(R.id.oneSeekBarImage);
+        //1 thumb
+        xSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+                xSeekbar.relativeLayout.removeAllViews();
+                xSeekbar.setUserAnswer(value);
+                xSeekbar.drawValuesInRelativeLayout(value, false);
+                xSeekbarImageView.setText(Integer.toString(value));
+            }
+        });
+
+        oneSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
+            @Override
+            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+                oneSeekbar.relativeLayout.removeAllViews();
+                oneSeekbar.setUserAnswer(value);
+                oneSeekbar.drawValuesInRelativeLayout(value, false);
+                oneSeekbarImageView.setText(Integer.toString(value));
+            }
+        });
+
+        xSeekbarImageView   = (TextView) findViewById(R.id.xSeekBarImage);
+        oneSeekbarImageView = (TextView) findViewById(R.id.oneSeekBarImage);
 
         operationImageView = (ImageView) findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.plus);
@@ -138,39 +163,33 @@ public class AddActivity extends BaseOpsActivity {
     }
 
     private void isSeekBarAnswerCorrect() {
-        Log.d(TAG, "corrX:" + (eq.getAx() + eq.getCx()) + "");
-        Log.d(TAG, "corr1:" + (eq.getB() + eq.getD()) + "");
+        Log.d("Seekbar", "corrX:" + (eq.getAx() + eq.getCx()) + "");
+        Log.d("Seekbar", "corr1:" + (eq.getB() + eq.getD()) + "");
 
-        if (xSeekbar.twoThumbs && oneSeekbar.twoThumbs) {
-            if (xSeekbar.checkAnswer() && oneSeekbar.checkAnswer()) {
-                playSound(R.raw.correct);
-                Log.d(TAG, "Two thumb: Answer is correct.");
-            } else {
-                Log.d(TAG, "Two thumb: inccorect");
-                playSound(R.raw.wrong);
-                xSeekbar.setCorrectAnswer(eq.getAx() + eq.getCx());
-                xSeekbar.answerIsIncorrect();
+        int xCorrectAnswer = eq.getAx() + eq.getCx();
+        int oneCorrectAnswer = eq.getB() + eq.getD();
 
-                oneSeekbar.setCorrectAnswer(eq.getB() + eq.getD());
-                oneSeekbar.answerIsIncorrect();
-            }
+        if (xSeekbar.getUserAnswer() == xCorrectAnswer &&
+                oneSeekbar.getUserAnswer() == oneCorrectAnswer) {
+            playSound(R.raw.correct);
+            Log.d(TAG, "correct");
         } else {
-            Log.d(TAG, "userX:" + xSeekbar.getUserAnswer() + ", user1:" + oneSeekbar.getUserAnswer());
-            if (eq.isFinalAnswerCorrect(xSeekbar.getUserAnswer(), oneSeekbar.getUserAnswer())) {
-                playSound(R.raw.correct);
-                Log.d(TAG, "One thumb: Answer is correct.");
-            } else {
-                Log.d(TAG, "One thumb: incorrect.");
-                playSound(R.raw.wrong);
-                xSeekbar.setCorrectAnswer(eq.getAx() + eq.getCx());
-                xSeekbar.answerIsIncorrect();
-                oneSeekbar.setCorrectAnswer(eq.getB() + eq.getD());
-                oneSeekbar.answerIsIncorrect();
-                //Added recent
-                xSeekbar.setEnabled(false);
-                oneSeekbar.setEnabled(false);
-            }
+            playSound(R.raw.wrong);
+            xSeekbar.setCorrectAnswer(xCorrectAnswer);
+            oneSeekbar.setCorrectAnswer(oneCorrectAnswer);
+            xSeekbar.answerIsIncorrect();
+            oneSeekbar.answerIsIncorrect();
+
+            xSeekbarImageView.setText(Integer.toString(xCorrectAnswer));
+            xSeekbarImageView.setTextColor(Color.RED);
+            oneSeekbarImageView.setText(Integer.toString(oneCorrectAnswer));
+            oneSeekbarImageView.setTextColor(Color.RED);
+
+            Log.d(TAG, "incorrect");
         }
+
+//        xSeekbar.setEnabled(false);
+//        oneSeekbar.setEnabled(false);
     }
 
     protected void startAlgeOps() {

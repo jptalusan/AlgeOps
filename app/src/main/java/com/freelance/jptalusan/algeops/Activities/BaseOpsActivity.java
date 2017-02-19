@@ -15,6 +15,8 @@ import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
+import org.w3c.dom.Text;
+
 //https://tausiq.wordpress.com/2013/01/18/android-base-activity-class-example/
 //http://stackoverflow.com/questions/8821240/android-how-to-create-my-own-activity-and-extend-it
 public class BaseOpsActivity extends AppCompatActivity {
@@ -37,8 +39,8 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     public LayoutWithSeekBarView xSeekbar;
     public LayoutWithSeekBarView oneSeekbar;
-    public ImageView xSeekbarImageView;
-    public ImageView oneSeekbarImageView;
+    public TextView xSeekbarImageView;
+    public TextView oneSeekbarImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -352,25 +352,31 @@
         tools:layout_editor_absoluteY="513dp"
         tools:layout_editor_absoluteX="0dp" />
 
-    <ImageView
+    <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/cube"
+        android:background="@drawable/cube"
         android:id="@+id/xSeekbarImageView"
         app:layout_constraintTop_toTopOf="@+id/subXSeekBar"
         app:layout_constraintBottom_toBottomOf="@+id/subXSeekBar"
         app:layout_constraintLeft_toLeftOf="@+id/guideline10"
-        app:layout_constraintRight_toLeftOf="@+id/guideline14" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline14"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center"
+        android:textColor="@android:color/holo_green_light"/>
 
-    <ImageView
+    <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/circle"
+        android:background="@drawable/circle"
         android:id="@+id/oneSeekbarImageView"
         app:layout_constraintTop_toTopOf="@+id/subOneSeekBar"
         app:layout_constraintBottom_toBottomOf="@+id/subOneSeekBar"
         app:layout_constraintLeft_toLeftOf="@+id/guideline10"
-        app:layout_constraintRight_toLeftOf="@+id/guideline14" />
+        app:layout_constraintRight_toLeftOf="@+id/guideline14"
+        android:textAlignment="center"
+        android:gravity="center_vertical|center"
+        android:textColor="@android:color/holo_green_light" />
 
     <Button
         android:text="CHECK"

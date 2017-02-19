@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class EquationGeneration {
 
-    //TODO: check max values for equation (subtract)
     public static Equation generateEquation(String equationType) {
         int maxPossible = 6;
         int minPossible = -6;
