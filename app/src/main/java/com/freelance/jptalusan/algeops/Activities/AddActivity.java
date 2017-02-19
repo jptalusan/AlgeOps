@@ -1,7 +1,9 @@
 package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,9 @@ import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
+
+import static com.freelance.jptalusan.algeops.Utilities.LayoutUtilities.getNumberOfViewsToRemove;
 
 public class AddActivity extends BaseOpsActivity {
     private static final String TAG = "AddActivity";
@@ -78,6 +83,7 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cancelOutViews();
                 isSeekBarAnswerCorrect();
             }
         });
@@ -100,6 +106,35 @@ public class AddActivity extends BaseOpsActivity {
 
         rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
+    }
+
+    private void cancelOutViews() {
+        int countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
+        Log.d(TAG, "Cancelling out X: " + countX);
+        Handler handler1 = new Handler();
+        for (int i = 0; i < countX; ++i) {
+            handler1.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    layoutLeftX.removeImage(layoutLeftX.getObjectTypeInside());
+                    layoutRightX.removeImage(layoutRightX.getObjectTypeInside());
+                }
+            }, 1000 * i);
+        }
+
+        int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
+        Log.d(TAG, "Cancelling out 1: " + countOne);
+        for (int i = 0; i < countOne; ++i) {
+            handler1.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    layoutLeftOne.removeImage(layoutLeftOne.getObjectTypeInside());
+                    layoutRightOne.removeImage(layoutRightOne.getObjectTypeInside());
+                }
+            }, 1500 * i);
+        }
     }
 
     private void isSeekBarAnswerCorrect() {

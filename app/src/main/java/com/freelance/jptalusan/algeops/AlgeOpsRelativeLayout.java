@@ -314,4 +314,13 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         initialPositiveOne = 0;
         initialNegativeOne = 0;
     }
+
+    public int getObjectTypeInside() {
+        if (this.getChildCount() > 0) {
+            AlgeOpsImageView temp = (AlgeOpsImageView) getChildAt(0);
+            return temp.getValue();
+        } else {
+            return -1;
+        }
+    }
 }

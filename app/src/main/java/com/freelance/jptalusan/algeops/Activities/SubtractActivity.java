@@ -2,6 +2,7 @@ package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,12 @@ import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
+
+import static com.freelance.jptalusan.algeops.R.id.layoutLeftOne;
+import static com.freelance.jptalusan.algeops.R.id.layoutLeftX;
+import static com.freelance.jptalusan.algeops.R.id.layoutRightOne;
+import static com.freelance.jptalusan.algeops.R.id.layoutRightX;
 
 public class SubtractActivity extends BaseOpsActivity {
     private static final String TAG = "SubActivity";
@@ -79,6 +86,7 @@ public class SubtractActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cancelOutViews();
                 isSeekBarAnswerCorrect();
             }
         });
@@ -94,6 +102,36 @@ public class SubtractActivity extends BaseOpsActivity {
         subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_ONE, subLayout));
         subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_ONE, subLayout));
         addPosNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_ONE, subLayout));
+    }
+
+    //TODO: Do i also have to cancel out the initial views? or only added views?
+    private void cancelOutViews() {
+        int countX = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_X);
+        Log.d(TAG, "Cancelling out X: " + countX);
+        Handler handler1 = new Handler();
+        for (int i = 0; i < countX; ++i) {
+            handler1.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    subLayout.removeImage(Constants.POS_X);
+                    subLayout.removeImage(Constants.NEG_X);
+                }
+            }, 1000 * i);
+        }
+
+        int countOne = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
+        Log.d(TAG, "Cancelling out 1: " + countOne);
+        for (int i = 0; i < countOne; ++i) {
+            handler1.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    subLayout.removeImage(Constants.POS_ONE);
+                    subLayout.removeImage(Constants.NEG_ONE);
+                }
+            }, 1500 * i);
+        }
     }
 
     private void isSeekBarAnswerCorrect() {

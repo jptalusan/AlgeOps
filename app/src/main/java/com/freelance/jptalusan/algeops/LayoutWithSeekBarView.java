@@ -20,8 +20,8 @@ import org.florescu.android.rangeseekbar.RangeSeekBar;
 /**
  * Created by jtalusan on 2/7/2017.
  */
-//TODO: problem when answer is zero, zero does not get colored blue
-//TODO: add attr for number of objects
+//TODO: add attr for number of object
+//TODO: The items will appear above the number line as per their value. Example:
 //Same value for initial (before check) then if wrong, move the corresponding value to right one
 public class LayoutWithSeekBarView extends LinearLayout {
     private static final String TAG = "SeekbarView";
@@ -171,7 +171,11 @@ public class LayoutWithSeekBarView extends LinearLayout {
             Log.d(TAG, "max: " + max + ",min: " + min + ",corr:" + correctAnswer);
             if ((max == correctAnswer) && (min == correctAnswer)) {
                 relativeLayout.removeAllViews();
+                //Returning to original state (single thumb)
                 drawValuesInRelativeLayout(correctAnswer, true);
+                rangeSeekBar.setVisibility(GONE);
+                seekBar.setVisibility(VISIBLE);
+                seekBar.setSelectedMaxValue(correctAnswer);
 //                rangeSeekBar.setEnabled(false);
                 return true;
             }
@@ -261,6 +265,9 @@ public class LayoutWithSeekBarView extends LinearLayout {
             params.leftMargin = (int) (center - params.width / 2);
             Log.d(TAG, "Left:" + params.leftMargin);
             params.topMargin = 0;
+
+            if (colorLast && maxValue == 0)
+                imageView.setBackgroundColor(Color.BLUE);
 
             imageView.setLayoutParams(params);
 //            imageView.setVisibility(INVISIBLE);
