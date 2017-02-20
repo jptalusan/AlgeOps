@@ -37,9 +37,12 @@ public class Equation {
 
     boolean isValid() {
         //Checking if the total boxes would go beyond 24
-        if (ax + (-1 * cx) + b + (-1 * d) > 24) {
+        if (Math.abs(ax) + Math.abs(cx) + Math.abs(b) + Math.abs(d) > 24)
             return false;
-        }
+
+        if (Math.abs(ax) + Math.abs(cx) > 10 || Math.abs(b) + Math.abs(d) > 10)
+            return false;
+
         return !((ax == 0 && b == 0) || (cx == 0 && d == 0));
     }
 

@@ -2,8 +2,10 @@ package com.freelance.jptalusan.algeops;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,18 +17,10 @@ import android.widget.RelativeLayout;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 
-import org.florescu.android.rangeseekbar.RangeSeekBar;
-
 import io.apptik.widget.MultiSlider;
-//https://github.com/anothem/android-range-seek-bar <--might go back to this
-//https://github.com/syedowaisali/crystal-range-seekbar <-- seems better
 /**
  * Created by jtalusan on 2/7/2017.
  */
-//TODO: problem when answer is zero, zero does not get colored blue
-//TODO: add attr for number of object
-//TODO: The items will appear above the number line as per their value. Example:
-//Same value for initial (before check) then if wrong, move the corresponding value to right one
 public class LayoutWithSeekBarView extends LinearLayout {
     private static final String TAG = "SeekbarView";
     public MultiSlider seekBar;
@@ -38,6 +32,8 @@ public class LayoutWithSeekBarView extends LinearLayout {
     private int userAnswer = 0;
     private int correctAnswer = 0;
     private MultiSlider.Thumb correctAnswerThumb;
+    private MultiSlider.Thumb dummyThumb;
+    public boolean isAnswerIncorrect = false;
 
     public LayoutWithSeekBarView(Context context) {
         super(context);
@@ -83,6 +79,12 @@ public class LayoutWithSeekBarView extends LinearLayout {
         relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
         seekBar = (MultiSlider) this.findViewById(R.id.seekbar);
         correctAnswerThumb = seekBar.new Thumb();
+        dummyThumb = seekBar.new Thumb();
+        dummyThumb.setEnabled(false);
+        dummyThumb.setInvisibleThumb(true);
+        seekBar.addThumb(dummyThumb);
+        seekBar.getThumb(0).setRange(null);
+        seekBar.getThumb(1).setRange(null);
     }
 
     public void getViewDimensions() {
@@ -107,13 +109,22 @@ public class LayoutWithSeekBarView extends LinearLayout {
     //Change the rangeseekbar being shown at run time, when user inputs incorrect value
     //when min and max values have been matched (at correctValue) then that is OK.
     public void answerIsIncorrect() {
+        isAnswerIncorrect = true;
         correctAnswerThumb.setMin(correctAnswer);
         correctAnswerThumb.setMax(correctAnswer);
         correctAnswerThumb.setValue(correctAnswer);
-//        correctAnswerThumb.setThumb(new ColorDrawable(Color.RED));
-        seekBar.addThumb(correctAnswerThumb);
-//        seekBar.getThumb(1).setRange(new ColorDrawable(Color.RED));
 
+        Drawable dr = getResources().getDrawable(R.drawable.red);
+        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+// Scale it to 50 x 50
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, (int) (dimensions.width / 20), (int) dimensions.height, true));
+
+        correctAnswerThumb.setThumb(d);
+        seekBar.addThumb(correctAnswerThumb);
+//        seekBar.getThumb(1).setRange(new ColorDrawable(Color.BLUE));
+//        seekBar.getThumb(2).setRange(new ColorDrawable(Color.RED));
+
+        Log.d("AddAc", "userAnswer: " + userAnswer);
         drawValuesInRelativeLayout(userAnswer, false);
         drawValuesInRelativeLayout(correctAnswer, true);
 
@@ -129,7 +140,13 @@ public class LayoutWithSeekBarView extends LinearLayout {
         seekBar.setEnabled(true);
         seekBar.removeThumb(correctAnswerThumb);
         seekBar.getThumb(0).setValue(0);
+        isAnswerIncorrect = false;
 //        seekBar.clearThumbs();
+    }
+
+    public void removeAllViewsInRelativeLayout() {
+        if (!isAnswerIncorrect)
+            relativeLayout.removeAllViews();
     }
 
     public void setCorrectAnswer(int correctAnswer) {
@@ -180,7 +197,6 @@ public class LayoutWithSeekBarView extends LinearLayout {
             }
         }
 
-        //TODO: if zero is correct then color blue
 //        if (maxValue == 0) {
             ImageView imageView = new ImageView(getContext());
 

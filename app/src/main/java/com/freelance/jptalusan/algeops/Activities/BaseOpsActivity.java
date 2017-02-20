@@ -1,6 +1,7 @@
 package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -14,8 +15,6 @@ import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
-
-import org.w3c.dom.Text;
 
 //https://tausiq.wordpress.com/2013/01/18/android-base-activity-class-example/
 //http://stackoverflow.com/questions/8821240/android-how-to-create-my-own-activity-and-extend-it
@@ -56,6 +55,9 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         firstPartEq.setText(firstPart);
         secondPartEq.setText(secondPart);
+
+        xSeekbarImageView.setTextColor(Color.GREEN);
+        oneSeekbarImageView.setTextColor(Color.GREEN);
 
         startButton.setText("NEW");
     }

@@ -19,12 +19,6 @@ import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
 
-import static com.freelance.jptalusan.algeops.R.id.layoutLeftOne;
-import static com.freelance.jptalusan.algeops.R.id.layoutLeftX;
-import static com.freelance.jptalusan.algeops.R.id.layoutRightOne;
-import static com.freelance.jptalusan.algeops.R.id.layoutRightX;
-import static com.freelance.jptalusan.algeops.R.id.one;
-
 public class SubtractActivity extends BaseOpsActivity {
     private static final String TAG = "SubActivity";
     private ImageView addXImageView;
@@ -84,7 +78,7 @@ public class SubtractActivity extends BaseOpsActivity {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
                 Log.d(TAG, "thumb " + thumbIndex + ":" + value);
-                xSeekbar.relativeLayout.removeAllViews();
+                xSeekbar.removeAllViewsInRelativeLayout();
                 xSeekbar.setUserAnswer(value);
                 xSeekbar.drawValuesInRelativeLayout(value, false);
                 xSeekbarImageView.setText(Integer.toString(value));
@@ -95,7 +89,7 @@ public class SubtractActivity extends BaseOpsActivity {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
                 Log.d(TAG, "thumb " + thumbIndex + ":" + value);
-                oneSeekbar.relativeLayout.removeAllViews();
+                oneSeekbar.removeAllViewsInRelativeLayout();
                 oneSeekbar.setUserAnswer(value);
                 oneSeekbar.drawValuesInRelativeLayout(value, false);
                 oneSeekbarImageView.setText(Integer.toString(value));
@@ -173,17 +167,23 @@ public class SubtractActivity extends BaseOpsActivity {
                 oneSeekbar.getUserAnswer() == oneCorrectAnswer) {
             playSound(R.raw.correct);
             Log.d(TAG, "correct");
+            xSeekbar.seekBar.setEnabled(false);
+            oneSeekbar.seekBar.setEnabled(false);
         } else {
             playSound(R.raw.wrong);
-            xSeekbar.setCorrectAnswer(xCorrectAnswer);
-            oneSeekbar.setCorrectAnswer(oneCorrectAnswer);
-            xSeekbar.answerIsIncorrect();
-            oneSeekbar.answerIsIncorrect();
+            if (xSeekbar.getUserAnswer() != xCorrectAnswer) {
+                xSeekbar.setCorrectAnswer(xCorrectAnswer);
+                xSeekbar.answerIsIncorrect();
+                xSeekbarImageView.setText(Integer.toString(xCorrectAnswer));
+                xSeekbarImageView.setTextColor(Color.RED);
+            }
 
-            xSeekbarImageView.setText(Integer.toString(xCorrectAnswer));
-            xSeekbarImageView.setTextColor(Color.RED);
-            oneSeekbarImageView.setText(Integer.toString(oneCorrectAnswer));
-            oneSeekbarImageView.setTextColor(Color.RED);
+            if (oneSeekbar.getUserAnswer() != oneCorrectAnswer) {
+                oneSeekbar.setCorrectAnswer(oneCorrectAnswer);
+                oneSeekbar.answerIsIncorrect();
+                oneSeekbarImageView.setText(Integer.toString(oneCorrectAnswer));
+                oneSeekbarImageView.setTextColor(Color.RED);
+            }
 
             Log.d(TAG, "incorrect");
         }
