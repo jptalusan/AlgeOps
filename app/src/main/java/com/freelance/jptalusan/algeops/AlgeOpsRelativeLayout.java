@@ -85,7 +85,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         int rowFactor = getChildCount() / cols;
         int colFactor = getChildCount() % cols;
 
-        double leftMargin = colFactor * scaledHeight;
+        double leftMargin = colFactor * scaledWidth;
         double topMargin = rowFactor * scaledHeight;
 
         params.topMargin = (int) topMargin;
