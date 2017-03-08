@@ -189,7 +189,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
             }
         }
 
-        if (colorLast && 0 == maxValue) {
+        if (0 == maxValue) {
             ImageView imageView = new ImageView(getContext());
 
             if (type == Constants.X) {
@@ -207,6 +207,10 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
             imageView.setBackgroundColor(Color.BLUE);
             imageView.setLayoutParams(params);
+            if (colorLast)
+                imageView.setVisibility(VISIBLE);
+            else
+                imageView.setVisibility(INVISIBLE);
             relativeLayout.addView(imageView);
         }
     }
