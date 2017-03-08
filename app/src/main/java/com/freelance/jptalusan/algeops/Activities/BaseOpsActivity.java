@@ -56,8 +56,8 @@ public class BaseOpsActivity extends AppCompatActivity {
         firstPartEq.setText(firstPart);
         secondPartEq.setText(secondPart);
 
-        xSeekbarImageView.setTextColor(Color.GREEN);
-        oneSeekbarImageView.setTextColor(Color.GREEN);
+        xSeekbarImageView.setTextColor(Color.BLACK);
+        oneSeekbarImageView.setTextColor(Color.BLACK);
 
         startButton.setText("NEW");
     }
@@ -78,6 +78,9 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         xSeekbarImageView.setVisibility(View.VISIBLE);
         oneSeekbarImageView.setVisibility(View.VISIBLE);
+
+        xSeekbarImageView.setTextColor(Color.BLACK);
+        oneSeekbarImageView.setTextColor(Color.BLACK);
     }
 
     protected void answerIsWrong() {

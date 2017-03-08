@@ -294,8 +294,20 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     private void addImageToView(Context c, int drawable, int color, int value) {
         AlgeOpsImageView opsImageView = new AlgeOpsImageView(c);
         opsImageView.setValue(value);
-        opsImageView.setImageResource(drawable);
-        opsImageView.setBackgroundColor(color);
+
+        if (Color.GREEN == color) {
+            if (R.drawable.cube == drawable) {
+                opsImageView.setImageResource(R.drawable.green_cube);
+            } else {
+                opsImageView.setImageResource(R.drawable.green_circle);
+            }
+        } else if (Color.RED == color) {
+            if (R.drawable.cube == drawable) {
+                opsImageView.setImageResource(R.drawable.red_cube);
+            } else {
+                opsImageView.setImageResource(R.drawable.red_circle);
+            }
+        }
         opsImageView.setLayoutParams(generateParams());
         addView(opsImageView);
     }

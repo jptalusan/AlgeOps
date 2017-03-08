@@ -2,10 +2,7 @@ package com.freelance.jptalusan.algeops;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -114,15 +111,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
         correctAnswerThumb.setMax(correctAnswer);
         correctAnswerThumb.setValue(correctAnswer);
 
-        Drawable dr = getResources().getDrawable(R.drawable.red);
-        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-// Scale it to 50 x 50
-        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, (int) (dimensions.width / 20), (int) dimensions.height, true));
-
-        correctAnswerThumb.setThumb(d);
         seekBar.addThumb(correctAnswerThumb);
-//        seekBar.getThumb(1).setRange(new ColorDrawable(Color.BLUE));
-//        seekBar.getThumb(2).setRange(new ColorDrawable(Color.RED));
 
         Log.d("AddAc", "userAnswer: " + userAnswer);
         drawValuesInRelativeLayout(userAnswer, false);
@@ -168,21 +157,24 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
             ImageView imageView = new ImageView(getContext());
 
-            if (type == Constants.X) {
-                imageView.setImageResource(R.drawable.cube);
-            } else {
-                imageView.setImageResource(R.drawable.circle);
-            }
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
                     (int) dimensions.height);
 
             if (maxValue > 0) {
-                imageView.setBackgroundColor(Color.GREEN);
+                if (type == Constants.X) {
+                    imageView.setImageResource(R.drawable.green_cube);
+                } else {
+                    imageView.setImageResource(R.drawable.green_circle);
+                }
                 params.leftMargin = (int) (center + params.width / 2) + (params.width * i);
                 params.topMargin = 0;
             } else if (maxValue < 0){
-                imageView.setBackgroundColor(Color.RED);
+                if (type == Constants.X) {
+                    imageView.setImageResource(R.drawable.red_cube);
+                } else {
+                    imageView.setImageResource(R.drawable.red_circle);
+                }
                 //TODO: WOW MAGIC Number
                 params.leftMargin = (int) (center - params.width / 2) - (params.width * (i + 1));
                 params.topMargin = 0;
@@ -197,7 +189,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
             }
         }
 
-//        if (maxValue == 0) {
+        if (colorLast && 0 == maxValue) {
             ImageView imageView = new ImageView(getContext());
 
             if (type == Constants.X) {
@@ -212,10 +204,10 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
             params.leftMargin = (int) (center - params.width / 2);
             params.topMargin = 0;
-            if (colorLast && 0 == maxValue)
-                imageView.setBackgroundColor(Color.BLUE);
+
+            imageView.setBackgroundColor(Color.BLUE);
             imageView.setLayoutParams(params);
             relativeLayout.addView(imageView);
-//        }
+        }
     }
 }

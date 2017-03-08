@@ -75,6 +75,10 @@ public class AddActivity extends BaseOpsActivity {
                 xSeekbar.setUserAnswer(value);
                 xSeekbar.drawValuesInRelativeLayout(value, false);
                 xSeekbarImageView.setText(Integer.toString(value));
+                if (value > 0)
+                    xSeekbarImageView.setTextColor(Color.GREEN);
+                else
+                    xSeekbarImageView.setTextColor(Color.RED);
             }
         });
 
@@ -86,6 +90,10 @@ public class AddActivity extends BaseOpsActivity {
                 oneSeekbar.setUserAnswer(value);
                 oneSeekbar.drawValuesInRelativeLayout(value, false);
                 oneSeekbarImageView.setText(Integer.toString(value));
+                if (value > 0)
+                    oneSeekbarImageView.setTextColor(Color.GREEN);
+                else
+                    oneSeekbarImageView.setTextColor(Color.RED);
             }
         });
 
@@ -179,14 +187,20 @@ public class AddActivity extends BaseOpsActivity {
                 xSeekbar.setCorrectAnswer(xCorrectAnswer);
                 xSeekbar.answerIsIncorrect();
                 xSeekbarImageView.setText(Integer.toString(xCorrectAnswer));
-                xSeekbarImageView.setTextColor(Color.RED);
+                if (xCorrectAnswer > 0)
+                    xSeekbarImageView.setTextColor(Color.GREEN);
+                else
+                    xSeekbarImageView.setTextColor(Color.RED);
             }
 
             if (oneSeekbar.getUserAnswer() != oneCorrectAnswer) {
                 oneSeekbar.setCorrectAnswer(oneCorrectAnswer);
                 oneSeekbar.answerIsIncorrect();
                 oneSeekbarImageView.setText(Integer.toString(oneCorrectAnswer));
-                oneSeekbarImageView.setTextColor(Color.RED);
+                if (xCorrectAnswer > 0)
+                    oneSeekbarImageView.setTextColor(Color.GREEN);
+                else
+                    oneSeekbarImageView.setTextColor(Color.RED);
             }
 
             Log.d(TAG, "incorrect");
