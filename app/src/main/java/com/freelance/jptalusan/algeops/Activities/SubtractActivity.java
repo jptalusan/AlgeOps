@@ -108,8 +108,7 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
-        startButton.setText("START");
-
+        startAlgeOps();
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,8 +119,35 @@ public class SubtractActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelOutViews();
-                isSeekBarAnswerCorrect();
+                if (!isFirstAnswerCorrect) {
+                    //initx = initPosX - initNegX
+                    //init1 = initPos1 - initNegX
+                    //answerX = initx + -1(posX - negX)
+                    //answer1 = init1 + -1(pos1 - neg1)
+                    int initX = subLayout.initialPositiveX - subLayout.initialNegativeX;
+                    int init1 = subLayout.initialPositiveOne - subLayout.initialNegativeOne;
+                    int answX = initX + (subLayout.positiveX - subLayout.negativeX);
+                    int answ1 = init1 + (subLayout.positiveOne - subLayout.negativeOne);
+                    boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
+
+                    if (isCorrect) {
+                        isFirstAnswerCorrect = true;
+                        xSeekbar.getViewDimensions();
+                        oneSeekbar.getViewDimensions();
+                        answerIsCorrect();
+                        cancelOutViews();
+                    } else {
+                        answerIsWrong();
+                        playSound(R.raw.wrong);
+                    }
+                } else if (!isSecondAnswerCorrect) {
+                    Log.d(TAG, "First ans correct.");
+                    if (isSeekBarAnswerCorrect()) {
+                        isSecondAnswerCorrect = true;
+                    } else {
+                        playSound(R.raw.wrong);
+                    }
+                }
             }
         });
 
@@ -168,7 +194,7 @@ public class SubtractActivity extends BaseOpsActivity {
         }
     }
 
-    private void isSeekBarAnswerCorrect() {
+    private boolean isSeekBarAnswerCorrect() {
         Log.d("Seekbar", "corrX:" + (eq.getAx() - eq.getCx()) + "");
         Log.d("Seekbar", "corr1:" + (eq.getB() - eq.getD()) + "");
 
@@ -181,6 +207,7 @@ public class SubtractActivity extends BaseOpsActivity {
             Log.d(TAG, "correct");
             xSeekbar.seekBar.setEnabled(false);
             oneSeekbar.seekBar.setEnabled(false);
+            return true;
         } else {
             playSound(R.raw.wrong);
             if (xSeekbar.getUserAnswer() != xCorrectAnswer) {
@@ -203,11 +230,8 @@ public class SubtractActivity extends BaseOpsActivity {
                     oneSeekbarImageView.setTextColor(Color.RED);
             }
 
-            Log.d(TAG, "incorrect");
+            return false;
         }
-
-//        xSeekbar.setEnabled(false);
-//        oneSeekbar.setEnabled(false);
     }
 
     protected void startAlgeOps() {
@@ -241,30 +265,6 @@ public class SubtractActivity extends BaseOpsActivity {
                 } else {
                     playSound(R.raw.wrong);
                 }
-
-                //initx = initPosX - initNegX
-                //init1 = initPos1 - initNegX
-                //answerX = initx + -1(posX - negX)
-                //answer1 = init1 + -1(pos1 - neg1)
-                int initX = mView.initialPositiveX - mView.initialNegativeX;
-                int init1 = mView.initialPositiveOne - mView.initialNegativeOne;
-                int answX = initX + (mView.positiveX - mView.negativeX);
-                int answ1 = init1 + (mView.positiveOne - mView.negativeOne);
-                boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
-
-                if (isCorrect) {
-                    xSeekbar.getViewDimensions();
-                    oneSeekbar.getViewDimensions();
-                    answerIsCorrect();
-                } else {
-                    answerIsWrong();
-                }
-
-                Log.d(TAG, "EQ:" + eq.toString());
-                Log.d(TAG, "initX: " + initX + ", init1: " + init1);
-                Log.d(TAG, "X: " + (mView.positiveX - mView.negativeX) + ", 1: " + (mView.positiveOne - mView.negativeOne));
-                Log.d(TAG, "Correct:" + eq.computeSubtractAnswer());
-                Log.d(TAG, "Answer:" + answX + " + " + answ1);
             }
         }
     }

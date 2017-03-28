@@ -35,9 +35,6 @@ public class AddActivity extends BaseOpsActivity {
     protected AlgeOpsRelativeLayout layoutRightOne;
     protected AlgeOpsRelativeLayout layoutLeftOne;
 
-    private TextView xSeekbarText;
-    private TextView oneSeekbarText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +104,7 @@ public class AddActivity extends BaseOpsActivity {
         operationImageView = (ImageView) findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.plus);
 
-        startButton.setText("START");
+        startAlgeOps();
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,8 +115,30 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelOutViews();
-                isSeekBarAnswerCorrect();
+            if (!isFirstAnswerCorrect) {
+                boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
+                        layoutLeftOne.currOneVal,
+                        layoutRightX.currXVal,
+                        layoutRightOne.currOneVal);
+
+                Log.d(TAG, "Check if 1st is correct: " + isCorrect);
+                if (isCorrect) {
+                    isFirstAnswerCorrect = true;
+                    xSeekbar.getViewDimensions();
+                    oneSeekbar.getViewDimensions();
+                    answerIsCorrect();
+                    cancelOutViews();
+                } else {
+                    answerIsWrong();
+                }
+            } else if (!isSecondAnswerCorrect){
+                Log.d(TAG, "First ans correct.");
+                if (isSeekBarAnswerCorrect()) {
+                    isSecondAnswerCorrect = true;
+                } else {
+                    playSound(R.raw.wrong);
+                }
+            }
             }
         });
 
@@ -172,7 +191,7 @@ public class AddActivity extends BaseOpsActivity {
         }
     }
 
-    private void isSeekBarAnswerCorrect() {
+    private boolean isSeekBarAnswerCorrect() {
         Log.d("Seekbar", "corrX:" + (eq.getAx() + eq.getCx()) + "");
         Log.d("Seekbar", "corr1:" + (eq.getB() + eq.getD()) + "");
 
@@ -185,6 +204,7 @@ public class AddActivity extends BaseOpsActivity {
             Log.d(TAG, "correct");
             xSeekbar.seekBar.setEnabled(false);
             oneSeekbar.seekBar.setEnabled(false);
+            return true;
         } else {
             playSound(R.raw.wrong);
             if (xSeekbar.getUserAnswer() != xCorrectAnswer) {
@@ -207,11 +227,8 @@ public class AddActivity extends BaseOpsActivity {
                     oneSeekbarImageView.setTextColor(Color.RED);
             }
 
-            Log.d(TAG, "incorrect");
+            return false;
         }
-
-//        xSeekbar.setEnabled(false);
-//        oneSeekbar.setEnabled(false);
     }
 
     protected void startAlgeOps() {
@@ -248,23 +265,6 @@ public class AddActivity extends BaseOpsActivity {
                 } else {
                     playSound(R.raw.wrong);
                 }
-
-                boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
-                        layoutLeftOne.currOneVal,
-                        layoutRightX.currXVal,
-                        layoutRightOne.currOneVal);
-
-                if (isCorrect) {
-                    xSeekbar.getViewDimensions();
-                    oneSeekbar.getViewDimensions();
-                    answerIsCorrect();
-                } else {
-                    answerIsWrong();
-                }
-
-                Log.d(TAG, isCorrect + "");
-                Log.d(TAG, mView.dimensions.toString());
-                Log.d(TAG, "Children: " + mView.getChildCount() + "");
             }
         }
     }

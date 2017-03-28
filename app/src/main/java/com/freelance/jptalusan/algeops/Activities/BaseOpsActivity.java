@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
-import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
@@ -36,10 +34,13 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
 
-    public LayoutWithSeekBarView xSeekbar;
-    public LayoutWithSeekBarView oneSeekbar;
-    public TextView xSeekbarImageView;
-    public TextView oneSeekbarImageView;
+    protected LayoutWithSeekBarView xSeekbar;
+    protected LayoutWithSeekBarView oneSeekbar;
+    protected TextView xSeekbarImageView;
+    protected TextView oneSeekbarImageView;
+
+    protected boolean isFirstAnswerCorrect = false;
+    protected boolean isSecondAnswerCorrect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +61,12 @@ public class BaseOpsActivity extends AppCompatActivity {
         oneSeekbarImageView.setTextColor(Color.BLACK);
 
         startButton.setText("NEW");
+
+        isFirstAnswerCorrect = false;
+        isSecondAnswerCorrect = false;
     }
 
     protected void answerIsCorrect() {
-        //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
-        newQuestionLayoutParams.leftToLeft = R.id.verticalFiftyPercent;
-        newQuestionLayoutParams.leftMargin = 0;
-        newQuestionLayoutParams.rightMargin = 0;
-        startButton.setLayoutParams(newQuestionLayoutParams);
-
-        checkButton.setVisibility(View.VISIBLE);
         hasStarted = false;
 
         xSeekbar.setVisibility(View.VISIBLE);
@@ -84,15 +80,6 @@ public class BaseOpsActivity extends AppCompatActivity {
     }
 
     protected void answerIsWrong() {
-        checkButton.setVisibility(View.GONE);
-        //http://stackoverflow.com/questions/39831710/add-view-to-constraintlayout-with-constraints-similar-to-another-child
-        ConstraintLayout.LayoutParams newQuestionLayoutParams = (ConstraintLayout.LayoutParams) startButton.getLayoutParams();
-        newQuestionLayoutParams.leftToLeft = R.id.leftTwentyPercent;
-        newQuestionLayoutParams.leftMargin = 0;
-        newQuestionLayoutParams.rightMargin = 0;
-        startButton.setLayoutParams(newQuestionLayoutParams);
-
-        checkButton.setVisibility(View.GONE);
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
 

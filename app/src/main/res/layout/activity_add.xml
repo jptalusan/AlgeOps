@@ -8,7 +8,6 @@
     tools:context="com.freelance.jptalusan.algeops.Activities.AddActivity">
 
     <TextView
-        android:text="TextView"
         android:layout_width="146dp"
         android:layout_height="wrap_content"
         android:id="@+id/firstEqTextView"
@@ -38,7 +37,6 @@
         app:layout_constraintRight_toLeftOf="@+id/verticalFiftyPercent" />
 
     <TextView
-        android:text="TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/secondEqTextView"

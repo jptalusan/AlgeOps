@@ -5,8 +5,6 @@ import android.util.Log;
 
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by talusan on 2/19/2017.
  */
@@ -24,8 +22,8 @@ public class LayoutUtilities {
             currValRight = right.currOneVal;
         }
 
-        if (Math.abs(currValLeft) == Math.abs(currValRight)) {
-            return Math.abs(currValLeft);
+        if (currValLeft == currValRight) {
+            return 0;
         } else if ((currValLeft > 0 && currValRight < 0) ||
             (currValLeft < 0 && currValRight > 0)) {
             return Math.abs(currValLeft) > Math.abs(currValRight) ? Math.abs(currValRight) : Math.abs(currValLeft);
