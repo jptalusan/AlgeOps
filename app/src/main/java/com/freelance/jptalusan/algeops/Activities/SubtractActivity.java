@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -108,7 +109,6 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
-        startAlgeOps();
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,8 +153,6 @@ public class SubtractActivity extends BaseOpsActivity {
 
         answerIsWrong();
 
-        subLayout.getViewDimensions();
-
         addPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_X, subLayout));
         subNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_X, subLayout));
         addPosNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_X, subLayout));
@@ -162,6 +160,16 @@ public class SubtractActivity extends BaseOpsActivity {
         subPosOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_ONE, subLayout));
         subNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_ONE, subLayout));
         addPosNegOneButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_ONE, subLayout));
+
+        subLayout.getViewDimensions();
+        ViewTreeObserver vto = subLayout.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener (new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                subLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                startAlgeOps();
+            }
+        });
     }
 
     //TODO: Do i also have to cancel out the initial views? or only added views?
