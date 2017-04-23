@@ -33,8 +33,8 @@ public class Constants {
     public static final int POS_ONE = 18;
     public static final int NEG_ONE = 19;
 
-    public static final int SEEKBAR_MAX = 12;
-    public static final int SEEKBAR_MIN = -12;
+    public static final int SEEKBAR_MAX = 10;
+    public static final int SEEKBAR_MIN = -10;
 
     public static final int X = 1;
     public static final int ONE = 2;

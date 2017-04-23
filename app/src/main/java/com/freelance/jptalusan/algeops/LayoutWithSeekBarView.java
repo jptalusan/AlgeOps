@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
@@ -22,6 +23,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
     private static final String TAG = "SeekbarView";
     public MultiSlider seekBar;
     public RelativeLayout relativeLayout;
+    public RelativeLayout numbersLayout;
     private Dimensions dimensions = new Dimensions();
     private Dimensions layoutDims = new Dimensions();
     private LayoutWithSeekBarView layoutWithSeekBarView = this;
@@ -74,6 +76,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
         // a real application your images should be in the
         // application package so they are always available.
         relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
+        numbersLayout  = (RelativeLayout) this.findViewById(R.id.numbersLayout);
         seekBar = (MultiSlider) this.findViewById(R.id.seekbar);
         correctAnswerThumb = seekBar.new Thumb();
         dummyThumb = seekBar.new Thumb();
@@ -99,6 +102,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
                 relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width = relativeLayout.getMeasuredWidth();
                 dimensions.height = layoutDims.height / 2;
+//                drawNumbersinRelativeLayout();
             }
         });
     }
@@ -150,12 +154,37 @@ public class LayoutWithSeekBarView extends LinearLayout {
         userAnswer = answer;
     }
 
+    public void drawNumbersinRelativeLayout() {
+        double center = dimensions.width / 2;
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                (int) dimensions.width / 20,
+                (int) dimensions.height);
+        Log.d(TAG, dimensions.width + ", " + dimensions.height);
+        Log.d(TAG, params.width + ", " + params.height);
+
+        for (int i = Constants.SEEKBAR_MIN; i <= Constants.SEEKBAR_MAX; ++i) {
+            Log.d(TAG, "Numbers:" + i);
+            TextView textView = new TextView(getContext());
+            //params.leftMargin = (params.width / 2) + (params.width * (i + Constants.SEEKBAR_MAX));
+            params.leftMargin = 500;
+            params.topMargin = 0;
+
+            Log.d(TAG, params.leftMargin + "");
+            textView.setLayoutParams(params);
+            textView.setText(Integer.toString(i));
+            numbersLayout.addView(textView);
+        }
+
+    }
+
     public void drawValuesInRelativeLayout(Integer maxValue, boolean colorLast) {
         double center = dimensions.width / 2;
 
         for (int i = 0; i < Math.abs(maxValue); ++i) {
 
             ImageView imageView = new ImageView(getContext());
+            TextView textView   = new TextView(getContext());
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
@@ -185,12 +214,18 @@ public class LayoutWithSeekBarView extends LinearLayout {
                     imageView.setBackgroundColor(Color.BLUE);
 
                 imageView.setLayoutParams(params);
+                textView.setLayoutParams(params);
+                textView.setText(Integer.toString(maxValue));
                 relativeLayout.addView(imageView);
+
+                numbersLayout.removeAllViews();
+                numbersLayout.addView(textView);
             }
         }
 
         if (0 == maxValue) {
             ImageView imageView = new ImageView(getContext());
+            TextView textView   = new TextView(getContext());
 
             if (type == Constants.X) {
                 imageView.setImageResource(R.drawable.cube);
@@ -211,6 +246,13 @@ public class LayoutWithSeekBarView extends LinearLayout {
                 imageView.setVisibility(VISIBLE);
             else
                 imageView.setVisibility(INVISIBLE);
+
+            textView.setLayoutParams(params);
+            textView.setText(Integer.toString(maxValue));
+
+            numbersLayout.removeAllViews();
+            numbersLayout.addView(textView);
+
             relativeLayout.addView(imageView);
         }
     }

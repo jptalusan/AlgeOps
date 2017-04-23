@@ -126,6 +126,8 @@ public class AddActivity extends BaseOpsActivity {
                     isFirstAnswerCorrect = true;
                     xSeekbar.getViewDimensions();
                     oneSeekbar.getViewDimensions();
+                    xSeekbar.drawNumbersinRelativeLayout();
+                    oneSeekbar.drawNumbersinRelativeLayout();
                     answerIsCorrect();
                     cancelOutViews();
                 } else {

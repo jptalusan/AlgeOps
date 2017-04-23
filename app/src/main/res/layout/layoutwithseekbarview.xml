@@ -21,4 +21,11 @@
         app:drawThumbsApart="false"
         android:visibility="visible"
         android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/numbersLayout"
+        android:layout_weight="1">
+    </RelativeLayout>
 </merge>
