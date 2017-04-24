@@ -14,14 +14,16 @@ import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
+import me.grantland.widget.AutofitTextView;
+
 //https://tausiq.wordpress.com/2013/01/18/android-base-activity-class-example/
 //http://stackoverflow.com/questions/8821240/android-how-to-create-my-own-activity-and-extend-it
 public class BaseOpsActivity extends AppCompatActivity {
     public Button startButton;
     public Button checkButton;
 
-    public TextView firstPartEq;
-    public TextView secondPartEq;
+    public AutofitTextView firstPartEq;
+    public AutofitTextView secondPartEq;
 
     public String firstPart;
     public String secondPart;

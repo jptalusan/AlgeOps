@@ -102,7 +102,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
                 relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width = relativeLayout.getMeasuredWidth();
                 dimensions.height = layoutDims.height / 2;
-//                drawNumbersinRelativeLayout();
+                drawNumbersinRelativeLayout();
             }
         });
     }
@@ -157,25 +157,33 @@ public class LayoutWithSeekBarView extends LinearLayout {
     public void drawNumbersinRelativeLayout() {
         double center = dimensions.width / 2;
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                (int) dimensions.width / 20,
-                (int) dimensions.height);
-        Log.d(TAG, dimensions.width + ", " + dimensions.height);
-        Log.d(TAG, params.width + ", " + params.height);
-
+        numbersLayout.removeAllViews();
         for (int i = Constants.SEEKBAR_MIN; i <= Constants.SEEKBAR_MAX; ++i) {
-            Log.d(TAG, "Numbers:" + i);
             TextView textView = new TextView(getContext());
-            //params.leftMargin = (params.width / 2) + (params.width * (i + Constants.SEEKBAR_MAX));
-            params.leftMargin = 500;
-            params.topMargin = 0;
 
-            Log.d(TAG, params.leftMargin + "");
-            textView.setLayoutParams(params);
-            textView.setText(Integer.toString(i));
-            numbersLayout.addView(textView);
-        }
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    (int) dimensions.width / 20,
+                    (int) dimensions.height);
 
+            Log.d(TAG, "wxh:" + dimensions.width + "," + dimensions.height);
+
+            Log.d(TAG, "top, left: " + params.topMargin + "," + params.leftMargin);
+            if (i != 0) {
+                params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
+                textView.setLayoutParams(params);
+                float size = textView.getTextSize() - 15.0f;
+                textView.setTextSize(size);
+                textView.setText(Integer.toString(i));
+                numbersLayout.addView(textView);
+            } else {
+//                params.leftMargin = (int) (center - params.width / 2);
+//                textView.setLayoutParams(params);
+//                float size = textView.getTextSize() - 15.0f;
+//                textView.setTextSize(size);
+//                textView.setText(Integer.toString(i));
+//                numbersLayout.addView(textView);
+            }
+         }
     }
 
     public void drawValuesInRelativeLayout(Integer maxValue, boolean colorLast) {
@@ -214,12 +222,12 @@ public class LayoutWithSeekBarView extends LinearLayout {
                     imageView.setBackgroundColor(Color.BLUE);
 
                 imageView.setLayoutParams(params);
-                textView.setLayoutParams(params);
-                textView.setText(Integer.toString(maxValue));
+//                textView.setLayoutParams(params);
+//                textView.setText(Integer.toString(maxValue));
                 relativeLayout.addView(imageView);
 
-                numbersLayout.removeAllViews();
-                numbersLayout.addView(textView);
+//                numbersLayout.removeAllViews();
+//                numbersLayout.addView(textView);
             }
         }
 
@@ -247,11 +255,11 @@ public class LayoutWithSeekBarView extends LinearLayout {
             else
                 imageView.setVisibility(INVISIBLE);
 
-            textView.setLayoutParams(params);
-            textView.setText(Integer.toString(maxValue));
-
-            numbersLayout.removeAllViews();
-            numbersLayout.addView(textView);
+//            textView.setLayoutParams(params);
+//            textView.setText(Integer.toString(maxValue));
+//
+//            numbersLayout.removeAllViews();
+//            numbersLayout.addView(textView);
 
             relativeLayout.addView(imageView);
         }

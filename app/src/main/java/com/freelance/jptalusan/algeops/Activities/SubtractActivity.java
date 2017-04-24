@@ -19,6 +19,7 @@ import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
+import me.grantland.widget.AutofitTextView;
 
 public class SubtractActivity extends BaseOpsActivity {
     private static final String TAG = "SubActivity";
@@ -46,8 +47,8 @@ public class SubtractActivity extends BaseOpsActivity {
         startButton = (Button) findViewById(R.id.startButton);
         checkButton = (Button) findViewById(R.id.checkButton);
 
-        firstPartEq = (TextView) findViewById(R.id.firstEqTextView);
-        secondPartEq = (TextView) findViewById(R.id.secondEqTextView);
+        firstPartEq = (AutofitTextView) findViewById(R.id.firstEqTextView);
+        secondPartEq = (AutofitTextView) findViewById(R.id.secondEqTextView);
 
         addXImageView = (ImageView) findViewById(R.id.addXImageView);
         subXImageView = (ImageView) findViewById(R.id.subXImageView);

@@ -18,6 +18,7 @@ import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
+import me.grantland.widget.AutofitTextView;
 
 public class AddActivity extends BaseOpsActivity {
     private static final String TAG = "AddActivity";
@@ -57,8 +58,8 @@ public class AddActivity extends BaseOpsActivity {
         layoutLeftOne   = (AlgeOpsRelativeLayout) findViewById(R.id.layoutLeftOne);
         layoutRightOne  = (AlgeOpsRelativeLayout) findViewById(R.id.layoutRightOne);
 
-        firstPartEq     = (TextView) findViewById(R.id.firstEqTextView);
-        secondPartEq    = (TextView) findViewById(R.id.secondEqTextView);
+        firstPartEq     = (AutofitTextView) findViewById(R.id.firstEqTextView);
+        secondPartEq    = (AutofitTextView) findViewById(R.id.secondEqTextView);
 
         xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);

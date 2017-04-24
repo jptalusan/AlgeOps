@@ -10,22 +10,29 @@
 
     </RelativeLayout>
 
-    <io.apptik.widget.MultiSlider
-        android:id="@+id/seekbar"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:scaleMin="-10"
-        app:scaleMax="10"
-        app:scaleStep="1"
-        app:thumbNumber="1"
-        app:drawThumbsApart="false"
-        android:visibility="visible"
-        android:layout_weight="1"/>
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/numbersLayout"
+            android:layout_weight="1"
+            android:paddingTop="10dp">
+        </RelativeLayout>
+        <io.apptik.widget.MultiSlider
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:scaleMin="-10"
+            app:scaleMax="10"
+            app:scaleStep="1"
+            app:thumbNumber="1"
+            app:drawThumbsApart="false"
+            android:visibility="visible"
+            android:layout_weight="1"
+            android:alpha="0.5"/>
+    </FrameLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/numbersLayout"
-        android:layout_weight="1">
-    </RelativeLayout>
 </merge>
