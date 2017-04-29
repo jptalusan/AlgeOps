@@ -46,5 +46,14 @@ public class Constants {
     public static final String IS_FIRST_RUN_SUB = "isFirstRunSub";
     public static final String SUB_LEVEL = "subLevel";
 
+    public static final int LEVEL_1 = 1;
+    public static final int LEVEL_2 = 2;
+    public static final int LEVEL_3 = 3;
+    public static final int LEVEL_4 = 4;
+
+    public static final String CORRECT_ADD_ANSWERS = "correctAddAnswers";
+    public static final String CORRECT_SUB_ANSWERS = "correctSubAnswers";
+
+    public static final int LEVEL_UP = 3;
 
 }

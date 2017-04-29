@@ -9,9 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
+import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
@@ -24,11 +26,11 @@ public class BaseOpsActivity extends AppCompatActivity {
     public Button startButton;
     public Button checkButton;
 
-    public AutofitTextView firstPartEq;
-    public AutofitTextView secondPartEq;
+    public LinearLayout firstPartEq;
+    public LinearLayout secondPartEq;
 
-    public String firstPart;
-    public String secondPart;
+    protected String firstPart;
+    protected String secondPart;
 
     public Equation eq;
 
@@ -62,8 +64,9 @@ public class BaseOpsActivity extends AppCompatActivity {
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 
-        firstPartEq.setText(firstPart);
-        secondPartEq.setText(secondPart);
+        //Add processing to decide what to place
+//        firstPartEq.setText(firstPart);
+//        secondPartEq.setText(secondPart);
 
         xSeekbarImageView.setTextColor(Color.BLACK);
         oneSeekbarImageView.setTextColor(Color.BLACK);
@@ -104,5 +107,62 @@ public class BaseOpsActivity extends AppCompatActivity {
                 mediaPlayer.release();
             }
         });
+    }
+
+    protected void setEquationsLayout() {
+        int[] first = eq.getIntArr(1);
+        int[] second = eq.getIntArr(2);
+
+        if (first[0] != 0) {
+            AutofitTextView tv = new AutofitTextView(this);
+            tv.setText(Integer.toString(Math.abs(first[0])));
+            ImageView iv = new ImageView(this);
+            if (first[0] > 0)
+                iv.setImageResource(R.drawable.green_cube);
+            else
+                iv.setImageResource(R.drawable.red_cube);
+
+            firstPartEq.addView(tv);
+            firstPartEq.addView(iv);
+        }
+
+        if (first[1] != 0) {
+            AutofitTextView tv = new AutofitTextView(this);
+            tv.setText(Integer.toString(Math.abs(first[1])));
+            ImageView iv = new ImageView(this);
+            if (first[1] > 0)
+                iv.setImageResource(R.drawable.green_circle);
+            else
+                iv.setImageResource(R.drawable.red_circle);
+
+            firstPartEq.addView(tv);
+            firstPartEq.addView(iv);
+        }
+
+        if (second[0] != 0) {
+            AutofitTextView tv = new AutofitTextView(this);
+            tv.setText(Integer.toString(Math.abs(second[0])));
+            ImageView iv = new ImageView(this);
+            if (second[0] > 0)
+                iv.setImageResource(R.drawable.green_cube);
+            else
+                iv.setImageResource(R.drawable.red_cube);
+
+            secondPartEq.addView(tv);
+            secondPartEq.addView(iv);
+        }
+
+        if (second[1] != 0) {
+            AutofitTextView tv = new AutofitTextView(this);
+            tv.setText(Integer.toString(Math.abs(second[1])));
+            ImageView iv = new ImageView(this);
+            if (second[1] > 0)
+                iv.setImageResource(R.drawable.green_circle);
+            else
+                iv.setImageResource(R.drawable.red_circle);
+
+            secondPartEq.addView(tv);
+            secondPartEq.addView(iv);
+        }
     }
 }

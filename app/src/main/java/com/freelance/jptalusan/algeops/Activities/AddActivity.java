@@ -1,6 +1,7 @@
 package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
@@ -44,6 +47,7 @@ public class AddActivity extends BaseOpsActivity {
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_ADD, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_ADD, false).apply();
             prefs.edit().putInt(Constants.ADD_LEVEL, 1).apply();
+            prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, 0).apply();
         }
         level = prefs.getInt(Constants.ADD_LEVEL, 1);
 
@@ -64,8 +68,8 @@ public class AddActivity extends BaseOpsActivity {
         layoutLeftOne   = (AlgeOpsRelativeLayout) findViewById(R.id.layoutLeftOne);
         layoutRightOne  = (AlgeOpsRelativeLayout) findViewById(R.id.layoutRightOne);
 
-        firstPartEq     = (AutofitTextView) findViewById(R.id.firstEqTextView);
-        secondPartEq    = (AutofitTextView) findViewById(R.id.secondEqTextView);
+        firstPartEq     = (LinearLayout) findViewById(R.id.firstEqTextView);
+        secondPartEq    = (LinearLayout) findViewById(R.id.secondEqTextView);
 
         xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
@@ -74,7 +78,7 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+                //Log.d(TAG, "thumb " + thumbIndex + ":" + value);
                 xSeekbar.removeAllViewsInRelativeLayout();
                 xSeekbar.setUserAnswer(value);
                 xSeekbar.drawValuesInRelativeLayout(value, false);
@@ -91,7 +95,7 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+                //Log.d(TAG, "thumb " + thumbIndex + ":" + value);
                 oneSeekbar.removeAllViewsInRelativeLayout();
                 oneSeekbar.setUserAnswer(value);
                 oneSeekbar.drawValuesInRelativeLayout(value, false);
@@ -122,6 +126,7 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
             if (!isFirstAnswerCorrect) {
                 boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
                         layoutLeftOne.currOneVal,
@@ -138,14 +143,32 @@ public class AddActivity extends BaseOpsActivity {
                     answerIsCorrect();
                     cancelOutViews();
                 } else {
+                    if (correctAnswers != Constants.LEVEL_UP) {
+                        correctAnswers = 0;
+                        prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                        Log.d(TAG, "Back to start: " + correctAnswers);
+                    }
                     answerIsWrong();
                 }
             } else if (!isSecondAnswerCorrect){
                 Log.d(TAG, "First ans correct.");
                 if (isSeekBarAnswerCorrect()) {
                     isSecondAnswerCorrect = true;
+                    //Count if the user has 10 consecutive answers
+                    correctAnswers++;
+                    if (correctAnswers == Constants.LEVEL_UP) {
+                        Toast.makeText(AddActivity.this, "Congratulations! You are now in Level 2", Toast.LENGTH_SHORT).show();
+                        prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
+                    }
+                    prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                    Log.d(TAG, "Correct: " + correctAnswers);
                 } else {
                     playSound(R.raw.wrong);
+                    if (correctAnswers != Constants.LEVEL_UP) {
+                        correctAnswers = 0;
+                        prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                        Log.d(TAG, "Back to start: " + correctAnswers);
+                    }
                 }
             }
             }
@@ -242,6 +265,21 @@ public class AddActivity extends BaseOpsActivity {
 
     protected void startAlgeOps() {
         super.startAlgeOps();
+
+        firstPartEq.removeAllViews();
+        secondPartEq.removeAllViews();
+
+        if (prefs.getInt(Constants.ADD_LEVEL, 1) == Constants.LEVEL_1) {
+            setEquationsLayout();
+        } else {
+            AutofitTextView tv1 = new AutofitTextView(this);
+            tv1.setText(firstPart);
+            AutofitTextView tv2 = new AutofitTextView(this);
+            tv2.setText(secondPart);
+
+            firstPartEq.addView(tv1);
+            secondPartEq.addView(tv2);
+        }
 
         layoutLeftX.resetLayout();
         layoutRightX.resetLayout();

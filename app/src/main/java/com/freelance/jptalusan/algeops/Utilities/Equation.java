@@ -1,5 +1,9 @@
 package com.freelance.jptalusan.algeops.Utilities;
 
+import android.util.Log;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by JPTalusan on 20/01/2017.
  */
@@ -46,14 +50,18 @@ public class Equation {
         return !((ax == 0 && b == 0) || (cx == 0 && d == 0));
     }
 
+    //TODO: compute the total rather than if all is equal.
     public boolean isAdditionAnswerCorrect(int ax, int b, int cx, int d) {
+        Log.d(TAG, "isAdditionAnswerCorrect");
         return ((this.ax == ax) &&
                 (this.b == b) &&
                 (this.cx == cx) &&
                 (this.d == d));
     }
 
+    //TODO: Same as above
     public boolean isSubtractAnswerCorrect(int ax, int b) {
+        Log.d(TAG, "isSubtractAnswerCorrect");
         return ((this.ax - this.cx) == ax &&
                 (this.b - this.d) == b);
     }
@@ -93,6 +101,20 @@ public class Equation {
         output = output.replace("+-", "-");
         output = output.replace("+", " + ");
         output = output.replace("-", " - ");
+        return output;
+    }
+
+    public int[] getIntArr(int part) {
+        int[] output = {0, 0};
+        if (part == 1) {
+            Log.d(TAG, "getIntArr:" + ax + ", " + b);
+            output[0] = ax;
+            output[1] = b;
+        } else {
+            Log.d(TAG, "getIntArr:" + cx + ", " + d);
+            output[0] = cx;
+            output[1] = d;
+        }
         return output;
     }
 

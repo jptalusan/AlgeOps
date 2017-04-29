@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
@@ -47,8 +49,8 @@ public class SubtractActivity extends BaseOpsActivity {
         startButton = (Button) findViewById(R.id.startButton);
         checkButton = (Button) findViewById(R.id.checkButton);
 
-        firstPartEq = (AutofitTextView) findViewById(R.id.firstEqTextView);
-        secondPartEq = (AutofitTextView) findViewById(R.id.secondEqTextView);
+        firstPartEq = (LinearLayout) findViewById(R.id.firstEqTextView);
+        secondPartEq = (LinearLayout) findViewById(R.id.secondEqTextView);
 
         addXImageView = (ImageView) findViewById(R.id.addXImageView);
         subXImageView = (ImageView) findViewById(R.id.subXImageView);
