@@ -41,6 +41,12 @@ public class AddActivity extends BaseOpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        if (prefs.getBoolean(Constants.IS_FIRST_RUN_ADD, true)) {
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_ADD, false).apply();
+            prefs.edit().putInt(Constants.ADD_LEVEL, 1).apply();
+        }
+        level = prefs.getInt(Constants.ADD_LEVEL, 1);
+
         startButton     = (Button) findViewById(R.id.newQuestionButton);
         checkButton     = (Button) findViewById(R.id.checkButton);
 

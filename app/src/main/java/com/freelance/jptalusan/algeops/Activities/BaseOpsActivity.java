@@ -1,5 +1,6 @@
 package com.freelance.jptalusan.algeops.Activities;
 
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
+import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 
@@ -44,10 +46,14 @@ public class BaseOpsActivity extends AppCompatActivity {
     protected boolean isFirstAnswerCorrect = false;
     protected boolean isSecondAnswerCorrect = false;
 
+    protected SharedPreferences prefs;
+    protected int level;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        prefs = getSharedPreferences(Constants.PREFS, MODE_PRIVATE);
     }
 
     protected void startAlgeOps() {

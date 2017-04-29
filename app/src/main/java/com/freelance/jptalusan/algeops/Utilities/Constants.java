@@ -39,4 +39,12 @@ public class Constants {
     public static final int X = 1;
     public static final int ONE = 2;
 
+    //shared prefs
+    public static final String PREFS = "algeOpsPrefs";
+    public static final String IS_FIRST_RUN_ADD = "isFirstRunAdd";
+    public static final String ADD_LEVEL = "addLevel";
+    public static final String IS_FIRST_RUN_SUB = "isFirstRunSub";
+    public static final String SUB_LEVEL = "subLevel";
+
+
 }
