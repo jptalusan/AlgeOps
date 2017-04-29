@@ -206,14 +206,13 @@ public class AddActivity extends BaseOpsActivity {
                     layoutLeftX.removeImage(layoutLeftX.getObjectTypeInside());
                     layoutRightX.removeImage(layoutRightX.getObjectTypeInside());
                 }
-            }, 1000 * i);
+            }, 1500 * i);
         }
 
         int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
         Log.d(TAG, "Cancelling out 1: " + countOne);
         for (int i = 0; i < countOne; ++i) {
             handler1.postDelayed(new Runnable() {
-
                 @Override
                 public void run() {
                     layoutLeftOne.removeImage(layoutLeftOne.getObjectTypeInside());

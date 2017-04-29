@@ -1,15 +1,24 @@
 package com.freelance.jptalusan.algeops;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
+
+import static com.freelance.jptalusan.algeops.R.id.layoutLeftOne;
+import static com.freelance.jptalusan.algeops.R.id.layoutRightOne;
 
 /**
  * Created by JPTalusan on 29/01/2017.
@@ -95,10 +104,43 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     }
 
     public boolean removeImage(int type) {
+        Handler handler1 = new Handler();
+//        final Handler handler2 = new Handler();
         if (getChildCount() > 0) {
             for (int i = getChildCount(); i != 0; --i) {
+//                final int j = i;
                 AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                 if (temp.getValue() == type) {
+                    final AlgeOpsImageView temp2 = temp;
+
+//                    temp.setColorFilter(Color.argb(255, 255, 255, 255));
+//                    handler1.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            removeView(temp2);
+//                        }
+//                     }, 500 * j);
+
+                    //Trying animations, not working
+////1
+//                    ObjectAnimator objectAnimator = ObjectAnimator.ofObject(temp, "backgroundColor",
+//                            new ArgbEvaluator(),
+//                            ContextCompat.getColor(getContext(), R.color.colorPrimary),
+//                            ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+//// 2
+//                    objectAnimator.setRepeatCount(1);
+//                    objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+//// 3
+//                    objectAnimator.setDuration(2500);
+//                    objectAnimator.start();
+//
+//                    handler1.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            removeView(temp2);
+//                        }
+//                     }, 500 * i);
+
                     removeView(temp);
                     switch (type) {
                         case Constants.OPS_SUB_X:
