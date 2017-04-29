@@ -16,6 +16,8 @@ import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 
 import io.apptik.widget.MultiSlider;
+import me.grantland.widget.AutofitTextView;
+
 /**
  * Created by jtalusan on 2/7/2017.
  */
@@ -159,7 +161,7 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
         numbersLayout.removeAllViews();
         for (int i = Constants.SEEKBAR_MIN; i <= Constants.SEEKBAR_MAX; ++i) {
-            TextView textView = new TextView(getContext());
+            AutofitTextView textView = new AutofitTextView(getContext());
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
@@ -171,8 +173,8 @@ public class LayoutWithSeekBarView extends LinearLayout {
             if (i != 0) {
                 params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
                 textView.setLayoutParams(params);
-                float size = textView.getTextSize() - 15.0f;
-                textView.setTextSize(size);
+                //float size = textView.getTextSize() - 15.0f;
+                //textView.setTextSize(size);
                 textView.setText(Integer.toString(i));
                 numbersLayout.addView(textView);
             } else {
