@@ -50,13 +50,10 @@ public class Equation {
         return !((ax == 0 && b == 0) || (cx == 0 && d == 0));
     }
 
-    //TODO: compute the total rather than if all is equal.
     public boolean isAdditionAnswerCorrect(int ax, int b, int cx, int d) {
         Log.d(TAG, "isAdditionAnswerCorrect");
-        return ((this.ax == ax) &&
-                (this.b == b) &&
-                (this.cx == cx) &&
-                (this.d == d));
+        return ((this.ax + this.cx == ax + cx) &&
+                (this.b + this.d == b + d));
     }
 
     //TODO: Same as above
