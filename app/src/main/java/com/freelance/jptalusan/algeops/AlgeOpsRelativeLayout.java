@@ -103,44 +103,12 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return params;
     }
 
+    //TODO: Allow initial tiles to be removed as well (probably remove the tag "initial")
     public boolean removeImage(int type) {
-        Handler handler1 = new Handler();
-//        final Handler handler2 = new Handler();
         if (getChildCount() > 0) {
             for (int i = getChildCount(); i != 0; --i) {
-//                final int j = i;
                 AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                 if (temp.getValue() == type) {
-                    final AlgeOpsImageView temp2 = temp;
-
-//                    temp.setColorFilter(Color.argb(255, 255, 255, 255));
-//                    handler1.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            removeView(temp2);
-//                        }
-//                     }, 500 * j);
-
-                    //Trying animations, not working
-////1
-//                    ObjectAnimator objectAnimator = ObjectAnimator.ofObject(temp, "backgroundColor",
-//                            new ArgbEvaluator(),
-//                            ContextCompat.getColor(getContext(), R.color.colorPrimary),
-//                            ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
-//// 2
-//                    objectAnimator.setRepeatCount(1);
-//                    objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
-//// 3
-//                    objectAnimator.setDuration(2500);
-//                    objectAnimator.start();
-//
-//                    handler1.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            removeView(temp2);
-//                        }
-//                     }, 500 * i);
-
                     removeView(temp);
                     switch (type) {
                         case Constants.OPS_SUB_X:
@@ -176,6 +144,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return false;
     }
 
+    //TODO: Add sub level restrictions
     public boolean setImage(Context mContext, int mOperation) {
         if (mOperation == Constants.OPS_ADD_X && currXVal >= 0 && getChildCount() < maxChildren) {
             currXVal += 1;
@@ -278,19 +247,75 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
         removeAllViews();
 
-        //Draw initial value first
-        for (int i = 0; i < initialPositiveX; ++i) {
+        for (int i = 0; i < positiveX; ++i) {
             addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
         }
-        for (int i = 0; i < initialNegativeX; ++i) {
+        for (int i = 0; i < negativeX; ++i) {
             addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
         }
-        for (int i = 0; i < initialPositiveOne; ++i) {
+        for (int i = 0; i < positiveOne; ++i) {
             addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
         }
-        for (int i = 0; i < initialNegativeOne; ++i) {
+        for (int i = 0; i < negativeOne; ++i) {
             addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
         }
+
+        return true;
+    }
+
+    public boolean setSubImage(Context context, int operation, Equation eqs) {
+        int ax = eqs.getAx();
+        int b  = eqs.getB();
+        int cx = eqs.getCx();
+        int d  = eqs.getD();
+
+        int tempX = ax - cx;
+        int temp1 = b  - d;
+        int limitPosX = 0;
+        int limitNegX = 0;
+        int limitPos1 = 0;
+        int limitNeg1 = 0;
+        if (tempX > 0) {
+            limitPosX = Math.abs(tempX);
+        } else {
+            limitNegX = Math.abs(tempX);
+        }
+
+        if (temp1 > 0) {
+            limitPos1 = Math.abs(temp1);
+        } else {
+            limitNeg1 = Math.abs(temp1);
+        }
+
+        Log.d(TAG, "+x,-x,+1,-1: " + limitPosX + "," + limitNegX + "," + limitPos1 + "," + limitNeg1);
+
+        if (operation == Constants.OPS_SUB_POS_X) {
+            if (positiveX > limitPosX) { //unnecessary i think, but good to check
+                removeImage(Constants.POS_X);
+            } else {
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_NEG_X) {
+            if (negativeX > limitNegX) { //unnecessary i think, but good to check
+                removeImage(Constants.NEG_X);
+            } else {
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_POS_ONE) {
+            if (positiveOne > limitPos1) { //unnecessary i think, but good to check
+                removeImage(Constants.POS_ONE);
+            } else {
+                return false;
+            }
+        } else if (operation == Constants.OPS_SUB_NEG_ONE) {
+            if (negativeOne > limitNeg1) { //unnecessary i think, but good to check
+                removeImage(Constants.NEG_ONE);
+            } else {
+                return false;
+            }
+        }
+
+        removeAllViews();
 
         for (int i = 0; i < positiveX; ++i) {
             addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
@@ -308,29 +333,28 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return true;
     }
 
-    public void populateImageViewBasedOnEq(Context context, Equation eq) {
+    public void populateImageViewBasedOnLeftSideEq(Context context, Equation eq) {
         int x = eq.getAx();
         int b = eq.getB();
 
         for (int i = 0; i < Math.abs(x); ++i) {
             if (x > 0) {
                 addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
-                initialPositiveX += 1;
+                positiveX += 1;
             } else {
                 addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
-                initialNegativeX += 1;
+                negativeX += 1;
             }
         }
         for (int i = 0; i < Math.abs(b); ++i) {
             if (b > 0) {
                 addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
-                initialPositiveOne += 1;
+                positiveOne += 1;
             } else {
                 addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
-                initialNegativeOne += 1;
+                negativeOne += 1;
             }
         }
-        initialValueForSub = getChildCount();
     }
 
     private void addImageToView(Context c, int drawable, int color, int value) {

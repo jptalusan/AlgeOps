@@ -1,15 +1,18 @@
 package com.freelance.jptalusan.algeops.Utilities;
 
+import android.util.Log;
+
 import java.util.Calendar;
 import java.util.Random;
+
 
 /**
  * Created by JPTalusan on 16/01/2017.
  */
 
 public class EquationGeneration {
-
-    public static Equation generateEquation(String equationType) {
+    public static String TAG = "EquationGeneration";
+    public static Equation generateEquation(String equationType, int subtractionRestriction) {
         int maxPossible = 6;
         int minPossible = -6;
 
@@ -38,8 +41,21 @@ public class EquationGeneration {
         }
 
         Equation generatedEquation = new Equation(ax, b, cx, d);
-        if (!generatedEquation.isValid()) {
-            generatedEquation = generateEquation("test");
+        if (equationType == Constants.ADD) {
+            if (!generatedEquation.isValid(equationType)) {
+                generatedEquation = generateEquation(equationType, subtractionRestriction);
+            }
+        } else if (equationType == Constants.SUB) {
+            if (subtractionRestriction <= Constants.LEVEL_2) {
+                Log.d(TAG, "Underrestrictions");
+                if (!generatedEquation.isValidWithRestrictions()) {
+                    generatedEquation = generateEquation(equationType, subtractionRestriction);
+                }
+            } else {
+                if (!generatedEquation.isValid(equationType)) {
+                    generatedEquation = generateEquation(equationType, subtractionRestriction);
+                }
+            }
         }
 
         System.out.println(generatedEquation.toString());

@@ -54,6 +54,9 @@ public class Constants {
     public static final String CORRECT_ADD_ANSWERS = "correctAddAnswers";
     public static final String CORRECT_SUB_ANSWERS = "correctSubAnswers";
 
-    public static final int LEVEL_UP = 3;
+    public static final int LEVEL_UP = 10;
+
+    public static final String ADD = "ADD";
+    public static final String SUB = "SUB";
 
 }

@@ -60,7 +60,7 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     protected void startAlgeOps() {
         hasStarted = true;
-        eq = EquationGeneration.generateEquation("MAIN");
+        eq = EquationGeneration.generateEquation("ADD", 0);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 

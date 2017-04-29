@@ -13,11 +13,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
@@ -45,6 +47,13 @@ public class SubtractActivity extends BaseOpsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
+
+        if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
+            prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
+            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
+        }
+        level = prefs.getInt(Constants.SUB_LEVEL, Constants.LEVEL_1);
 
         startButton = (Button) findViewById(R.id.startButton);
         checkButton = (Button) findViewById(R.id.checkButton);
@@ -81,7 +90,6 @@ public class SubtractActivity extends BaseOpsActivity {
         xSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
                 xSeekbar.removeAllViewsInRelativeLayout();
                 xSeekbar.setUserAnswer(value);
                 xSeekbar.drawValuesInRelativeLayout(value, false);
@@ -98,7 +106,6 @@ public class SubtractActivity extends BaseOpsActivity {
         oneSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
             @Override
             public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                Log.d(TAG, "thumb " + thumbIndex + ":" + value);
                 oneSeekbar.removeAllViewsInRelativeLayout();
                 oneSeekbar.setUserAnswer(value);
                 oneSeekbar.drawValuesInRelativeLayout(value, false);
@@ -119,9 +126,11 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
+        //TODO: Add level up mechanics
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
                 if (!isFirstAnswerCorrect) {
                     //initx = initPosX - initNegX
                     //init1 = initPos1 - initNegX
@@ -140,6 +149,11 @@ public class SubtractActivity extends BaseOpsActivity {
                         answerIsCorrect();
                         cancelOutViews();
                     } else {
+                        if (correctAnswers != Constants.LEVEL_UP) {
+                            correctAnswers = 0;
+                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
+                            Log.d(TAG, "Back to start: " + correctAnswers);
+                        }
                         answerIsWrong();
                         playSound(R.raw.wrong);
                     }
@@ -147,8 +161,25 @@ public class SubtractActivity extends BaseOpsActivity {
                     Log.d(TAG, "First ans correct.");
                     if (isSeekBarAnswerCorrect()) {
                         isSecondAnswerCorrect = true;
+                        //Count if the user has 10 consecutive answers (4 levels)
+                        correctAnswers++;
+                        int currLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
+                        if (correctAnswers == Constants.LEVEL_UP && currLevel != Constants.LEVEL_4) {
+                            currLevel++;
+                            Toast.makeText(SubtractActivity.this, "Congratulations! You are now in Level " + currLevel, Toast.LENGTH_SHORT).show();
+                            prefs.edit().putInt(Constants.SUB_LEVEL, currLevel).apply();
+                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
+                        } else {
+                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
+                        }
+                        Log.d(TAG, "Correct: " + correctAnswers);
                     } else {
                         playSound(R.raw.wrong);
+                        if (correctAnswers != Constants.LEVEL_UP) {
+                            correctAnswers = 0;
+                            prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                            Log.d(TAG, "Back to start: " + correctAnswers);
+                        }
                     }
                 }
             }
@@ -247,12 +278,44 @@ public class SubtractActivity extends BaseOpsActivity {
 
     protected void startAlgeOps() {
         super.startAlgeOps();
+
+        firstPartEq.removeAllViews();
+        secondPartEq.removeAllViews();
+
+        int subLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
+        eq = EquationGeneration.generateEquation("SUB", subLevel);
+        firstPart = eq.getPart(1);
+        secondPart = eq.getPart(2);
+
+        if (subLevel == Constants.LEVEL_1) {
+            setEquationsLayout();
+        } else if (subLevel == Constants.LEVEL_2) {
+            AutofitTextView tv1 = new AutofitTextView(this);
+            tv1.setText(firstPart);
+            AutofitTextView tv2 = new AutofitTextView(this);
+            tv2.setText(secondPart);
+
+            firstPartEq.addView(tv1);
+            secondPartEq.addView(tv2);
+        } else if (subLevel == Constants.LEVEL_3) {
+            setEquationsLayout();
+        } else {
+            AutofitTextView tv1 = new AutofitTextView(this);
+            tv1.setText(firstPart);
+            AutofitTextView tv2 = new AutofitTextView(this);
+            tv2.setText(secondPart);
+
+            firstPartEq.addView(tv1);
+            secondPartEq.addView(tv2);
+        }
+
         subLayout.resetLayout();
         xSeekbar.resetSeekBars();
         oneSeekbar.resetSeekBars();
         answerIsWrong();
 
-        subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
+//        subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
+        subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
@@ -271,10 +334,19 @@ public class SubtractActivity extends BaseOpsActivity {
         public void onClick(View view) {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
-                if (mView.setSubImage(mContext, mOperation)) {
-                    playSound(R.raw.correct);
+                if (prefs.getInt(Constants.SUB_LEVEL, 1) < Constants.LEVEL_3) {
+                    if (mView.setSubImage(mContext, mOperation, eq)) {
+                        playSound(R.raw.correct);
+                    } else {
+                        playSound(R.raw.wrong);
+                    }
                 } else {
-                    playSound(R.raw.wrong);
+                    if (mView.setSubImage(mContext, mOperation)) {
+                        playSound(R.raw.correct);
+                    } else {
+                        playSound(R.raw.wrong);
+                    }
+
                 }
             }
         }
