@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -18,12 +17,12 @@ import android.widget.Toast;
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
+import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
-import me.grantland.widget.AutofitTextView;
 
 public class SubtractActivity extends BaseOpsActivity {
     private static final String TAG = "SubActivity";
@@ -34,7 +33,7 @@ public class SubtractActivity extends BaseOpsActivity {
     private ImageView addsubXImageView;
     private ImageView addsubOneImageView;
 
-    private ImageButton addPosXButton;
+    private ImageButton subPosXButton;
     private ImageButton subNegXButton;
     private ImageButton addPosNegXButton;
     private ImageButton subPosOneButton;
@@ -47,6 +46,7 @@ public class SubtractActivity extends BaseOpsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
+        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_4).apply();
 
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
@@ -74,7 +74,7 @@ public class SubtractActivity extends BaseOpsActivity {
         operationImageView = (ImageView) findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.minus);
 
-        addPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
+        subPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
         subNegXButton = (ImageButton) findViewById(R.id.subNegXButton);
         addPosNegXButton = (ImageButton) findViewById(R.id.addPosNegXButton);
 
@@ -130,16 +130,13 @@ public class SubtractActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "checkButton clicked");
                 int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
                 if (!isFirstAnswerCorrect) {
-                    //initx = initPosX - initNegX
-                    //init1 = initPos1 - initNegX
                     //answerX = initx + -1(posX - negX)
                     //answer1 = init1 + -1(pos1 - neg1)
-                    int initX = subLayout.initialPositiveX - subLayout.initialNegativeX;
-                    int init1 = subLayout.initialPositiveOne - subLayout.initialNegativeOne;
-                    int answX = initX + (subLayout.positiveX - subLayout.negativeX);
-                    int answ1 = init1 + (subLayout.positiveOne - subLayout.negativeOne);
+                    int answX = subLayout.positiveX - subLayout.negativeX;
+                    int answ1 = subLayout.positiveOne - subLayout.negativeOne;
                     boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
 
                     if (isCorrect) {
@@ -187,7 +184,7 @@ public class SubtractActivity extends BaseOpsActivity {
 
         answerIsWrong();
 
-        addPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_X, subLayout));
+        subPosXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_POS_X, subLayout));
         subNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_NEG_X, subLayout));
         addPosNegXButton.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_POS_NEG_X, subLayout));
 
@@ -208,31 +205,30 @@ public class SubtractActivity extends BaseOpsActivity {
 
     //TODO: Do i also have to cancel out the initial views? or only added views?
     private void cancelOutViews() {
+        Handler handler1 = new Handler();
         int countX = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_X);
         Log.d(TAG, "Cancelling out X: " + countX);
-        Handler handler1 = new Handler();
-        for (int i = 0; i < countX; ++i) {
+        for (int i = 0; i < countX; i++) {
             handler1.postDelayed(new Runnable() {
-
                 @Override
                 public void run() {
-                    subLayout.removeImage(Constants.POS_X);
-                    subLayout.removeImage(Constants.NEG_X);
+                    subLayout.removeSubImage(Constants.POS_X);
+                    subLayout.removeSubImage(Constants.NEG_X);
                 }
-            }, 1000 * i);
+            }, 1100 * i);
         }
 
-        int countOne = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
-        Log.d(TAG, "Cancelling out 1: " + countOne);
-        for (int i = 0; i < countOne; ++i) {
-            handler1.postDelayed(new Runnable() {
-
+        Handler handler2 = new Handler();
+        int count1 = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
+        Log.d(TAG, "Cancelling out 1: " + count1);
+        for (int i = 0; i < count1; i++) {
+            handler2.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    subLayout.removeImage(Constants.POS_ONE);
-                    subLayout.removeImage(Constants.NEG_ONE);
+                    subLayout.removeSubImage(Constants.POS_ONE);
+                    subLayout.removeSubImage(Constants.NEG_ONE);
                 }
-            }, 1500 * i);
+            }, 1100 * i);
         }
     }
 
@@ -290,9 +286,9 @@ public class SubtractActivity extends BaseOpsActivity {
         if (subLevel == Constants.LEVEL_1) {
             setEquationsLayout();
         } else if (subLevel == Constants.LEVEL_2) {
-            AutofitTextView tv1 = new AutofitTextView(this);
+            AutoResizeTextView tv1 = new AutoResizeTextView(this);
             tv1.setText(firstPart);
-            AutofitTextView tv2 = new AutofitTextView(this);
+            AutoResizeTextView tv2 = new AutoResizeTextView(this);
             tv2.setText(secondPart);
 
             firstPartEq.addView(tv1);
@@ -300,9 +296,9 @@ public class SubtractActivity extends BaseOpsActivity {
         } else if (subLevel == Constants.LEVEL_3) {
             setEquationsLayout();
         } else {
-            AutofitTextView tv1 = new AutofitTextView(this);
+            AutoResizeTextView tv1 = new AutoResizeTextView(this);
             tv1.setText(firstPart);
-            AutofitTextView tv2 = new AutofitTextView(this);
+            AutoResizeTextView tv2 = new AutoResizeTextView(this);
             tv2.setText(secondPart);
 
             firstPartEq.addView(tv1);
@@ -335,6 +331,11 @@ public class SubtractActivity extends BaseOpsActivity {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
                 if (prefs.getInt(Constants.SUB_LEVEL, 1) < Constants.LEVEL_3) {
+                    if (view.getId() == R.id.addPosNegOneButton || view.getId() == R.id.addPosNegXButton)
+                    {
+                        playSound(R.raw.wrong);
+                        return;
+                    }
                     if (mView.setSubImage(mContext, mOperation, eq)) {
                         playSound(R.raw.correct);
                     } else {

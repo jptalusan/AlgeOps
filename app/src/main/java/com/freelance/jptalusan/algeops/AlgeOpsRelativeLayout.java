@@ -1,24 +1,18 @@
 package com.freelance.jptalusan.algeops;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
-
-import static com.freelance.jptalusan.algeops.R.id.layoutLeftOne;
-import static com.freelance.jptalusan.algeops.R.id.layoutRightOne;
 
 /**
  * Created by JPTalusan on 29/01/2017.
@@ -39,12 +33,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public int negativeX;
     public int positiveOne;
     public int negativeOne;
-
-    public int initialValueForSub = 0;
-    public int initialPositiveX = 0;
-    public int initialNegativeX = 0;
-    public int initialPositiveOne = 0;
-    public int initialNegativeOne = 0;
 
     private double scaledWidth;
     private double scaledHeight;
@@ -103,12 +91,27 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return params;
     }
 
-    //TODO: Allow initial tiles to be removed as well (probably remove the tag "initial")
+    public boolean removeSubImage(int type) {
+        if (getChildCount() > 0) {
+            for (int i = getChildCount(); i != 0; --i) {
+                AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+                if (temp.getValue() == type) {
+                    Log.d(TAG, "attempting to remove sub: " + (i - 1));
+                    fadeOut(i - 1, type);
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
     public boolean removeImage(int type) {
         if (getChildCount() > 0) {
             for (int i = getChildCount(); i != 0; --i) {
                 AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
                 if (temp.getValue() == type) {
+                    Log.d(TAG, "attempting to remove.");
                     removeView(temp);
                     switch (type) {
                         case Constants.OPS_SUB_X:
@@ -142,6 +145,56 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             return false;
         }
         return false;
+    }
+
+    public void fadeOut(int i) {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setDuration(1000);
+        alphaAnimation.setRepeatCount(0);
+        alphaAnimation.setRepeatMode(Animation.REVERSE);
+        getChildAt(i).startAnimation(alphaAnimation);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                removeImage(getObjectTypeInside());
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    public void fadeOut(int i, int type) {
+        final int temp = type;
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+        alphaAnimation.setDuration(1000);
+        alphaAnimation.setRepeatCount(0);
+        alphaAnimation.setRepeatMode(Animation.REVERSE);
+        Log.d(TAG, "removing child at :" + i);
+        getChildAt(i).startAnimation(alphaAnimation);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                removeImage(temp);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     //TODO: Add sub level restrictions
@@ -213,8 +266,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             }
         } else if (operation == Constants.OPS_ADD_POS_NEG_X) {
             if (getChildCount() + 1 < maxChildren) {
-                addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
-                addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
+//                addImageToView(context, R.drawable.cube, Color.GREEN, Constants.POS_X);
+//                addImageToView(context, R.drawable.cube, Color.RED, Constants.NEG_X);
 
                 positiveX += 1;
                 negativeX += 1;
@@ -235,8 +288,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             }
         } else if (operation == Constants.OPS_ADD_POS_NEG_ONE) {
             if (getChildCount() + 1 < maxChildren) {
-                addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
-                addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
+//                addImageToView(context, R.drawable.circle, Color.GREEN, Constants.POS_ONE);
+//                addImageToView(context, R.drawable.circle, Color.RED, Constants.NEG_ONE);
 
                 positiveOne += 1;
                 negativeOne += 1;
@@ -386,11 +439,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         negativeX = 0;
         positiveOne = 0;
         negativeOne = 0;
-        initialValueForSub = 0;
-        initialPositiveX = 0;
-        initialNegativeX = 0;
-        initialPositiveOne = 0;
-        initialNegativeOne = 0;
     }
 
     public int getObjectTypeInside() {

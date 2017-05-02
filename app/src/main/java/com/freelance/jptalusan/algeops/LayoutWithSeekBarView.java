@@ -3,25 +3,26 @@ package com.freelance.jptalusan.algeops;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 
 import io.apptik.widget.MultiSlider;
-import me.grantland.widget.AutofitTextView;
 
 /**
  * Created by jtalusan on 2/7/2017.
  */
-public class LayoutWithSeekBarView extends LinearLayout {
+public class LayoutWithSeekBarView extends ConstraintLayout {
     private static final String TAG = "SeekbarView";
     public MultiSlider seekBar;
     public RelativeLayout relativeLayout;
@@ -161,18 +162,15 @@ public class LayoutWithSeekBarView extends LinearLayout {
 
         numbersLayout.removeAllViews();
         for (int i = Constants.SEEKBAR_MIN; i <= Constants.SEEKBAR_MAX; ++i) {
-            AutofitTextView textView = new AutofitTextView(getContext());
+            AutoResizeTextView textView = new AutoResizeTextView(getContext());
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
                     (int) dimensions.height);
-
-            Log.d(TAG, "wxh:" + dimensions.width + "," + dimensions.height);
-
-            Log.d(TAG, "top, left: " + params.topMargin + "," + params.leftMargin);
             if (i != 0) {
                 params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
                 textView.setLayoutParams(params);
+                textView.setGravity(Gravity.END);
                 //float size = textView.getTextSize() - 15.0f;
                 //textView.setTextSize(size);
                 textView.setText(Integer.toString(i));

@@ -1,10 +1,8 @@
 package com.freelance.jptalusan.algeops.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,14 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freelance.jptalusan.algeops.AlgeOpsImageView;
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
+import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
 import io.apptik.widget.MultiSlider;
-import me.grantland.widget.AutofitTextView;
 
 public class AddActivity extends BaseOpsActivity {
     private static final String TAG = "AddActivity";
@@ -197,28 +196,21 @@ public class AddActivity extends BaseOpsActivity {
     private void cancelOutViews() {
         int countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
         Log.d(TAG, "Cancelling out X: " + countX);
-        Handler handler1 = new Handler();
-        for (int i = 0; i < countX; ++i) {
-            handler1.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    layoutLeftX.removeImage(layoutLeftX.getObjectTypeInside());
-                    layoutRightX.removeImage(layoutRightX.getObjectTypeInside());
-                }
-            }, 1500 * i);
+        for (int i = 0; i < countX; i++) {
+            View v = layoutLeftX.getChildAt(i);
+            if (v instanceof AlgeOpsImageView) {
+                layoutLeftX.fadeOut(i);
+                layoutRightX.fadeOut(i);
+            }
         }
 
         int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
-        Log.d(TAG, "Cancelling out 1: " + countOne);
-        for (int i = 0; i < countOne; ++i) {
-            handler1.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    layoutLeftOne.removeImage(layoutLeftOne.getObjectTypeInside());
-                    layoutRightOne.removeImage(layoutRightOne.getObjectTypeInside());
-                }
-            }, 1500 * i);
+        for (int i = 0; i < countOne; i++) {
+            View v = layoutLeftOne.getChildAt(i);
+            if (v instanceof AlgeOpsImageView) {
+                layoutLeftOne.fadeOut(i);
+                layoutRightOne.fadeOut(i);
+            }
         }
     }
 
@@ -271,9 +263,9 @@ public class AddActivity extends BaseOpsActivity {
         if (prefs.getInt(Constants.ADD_LEVEL, 1) == Constants.LEVEL_1) {
             setEquationsLayout();
         } else {
-            AutofitTextView tv1 = new AutofitTextView(this);
+            AutoResizeTextView tv1 = new AutoResizeTextView(this);
             tv1.setText(firstPart);
-            AutofitTextView tv2 = new AutofitTextView(this);
+            AutoResizeTextView tv2 = new AutoResizeTextView(this);
             tv2.setText(secondPart);
 
             firstPartEq.addView(tv1);

@@ -38,11 +38,11 @@ public class LayoutUtilities {
         int pos = 0;
         int neg = 0;
         if (Constants.OPS_X == type) {
-            pos = layout.positiveX + layout.initialPositiveX;
-            neg = layout.negativeX + layout.initialNegativeX;
+            pos = layout.positiveX;
+            neg = layout.negativeX;
         } else if (Constants.OPS_ONE == type){
-            pos = layout.positiveOne + layout.initialPositiveOne;
-            neg = layout.negativeOne + layout.initialNegativeOne;
+            pos = layout.positiveOne;
+            neg = layout.negativeOne;
         }
         Log.d(TAG, "Pos: " + pos + ", Neg:" + neg);
 

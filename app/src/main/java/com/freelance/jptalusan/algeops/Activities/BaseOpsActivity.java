@@ -14,11 +14,10 @@ import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
+import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
-
-import me.grantland.widget.AutofitTextView;
 
 //https://tausiq.wordpress.com/2013/01/18/android-base-activity-class-example/
 //http://stackoverflow.com/questions/8821240/android-how-to-create-my-own-activity-and-extend-it
@@ -114,7 +113,7 @@ public class BaseOpsActivity extends AppCompatActivity {
         int[] second = eq.getIntArr(2);
 
         if (first[0] != 0) {
-            AutofitTextView tv = new AutofitTextView(this);
+            AutoResizeTextView tv = new AutoResizeTextView(this);
             tv.setText(Integer.toString(Math.abs(first[0])));
             ImageView iv = new ImageView(this);
             if (first[0] > 0)
@@ -127,7 +126,7 @@ public class BaseOpsActivity extends AppCompatActivity {
         }
 
         if (first[1] != 0) {
-            AutofitTextView tv = new AutofitTextView(this);
+            AutoResizeTextView tv = new AutoResizeTextView(this);
             tv.setText(Integer.toString(Math.abs(first[1])));
             ImageView iv = new ImageView(this);
             if (first[1] > 0)
@@ -140,7 +139,7 @@ public class BaseOpsActivity extends AppCompatActivity {
         }
 
         if (second[0] != 0) {
-            AutofitTextView tv = new AutofitTextView(this);
+            AutoResizeTextView tv = new AutoResizeTextView(this);
             tv.setText(Integer.toString(Math.abs(second[0])));
             ImageView iv = new ImageView(this);
             if (second[0] > 0)
@@ -153,7 +152,7 @@ public class BaseOpsActivity extends AppCompatActivity {
         }
 
         if (second[1] != 0) {
-            AutofitTextView tv = new AutofitTextView(this);
+            AutoResizeTextView tv = new AutoResizeTextView(this);
             tv.setText(Integer.toString(Math.abs(second[1])));
             ImageView iv = new ImageView(this);
             if (second[1] > 0)

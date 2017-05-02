@@ -180,7 +180,13 @@
         app:layout_constraintBottom_toTopOf="@+id/oneSeekBar"
         app:layout_constraintTop_toBottomOf="@+id/layoutLeftOne"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:layout_width="0dp"
@@ -435,7 +441,13 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/guideline8"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginRight="8dp"
+        app:layout_constraintVertical_bias="0.5"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
