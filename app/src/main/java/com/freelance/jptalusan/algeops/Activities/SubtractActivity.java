@@ -46,7 +46,6 @@ public class SubtractActivity extends BaseOpsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
-        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_4).apply();
 
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
