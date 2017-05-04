@@ -1,5 +1,7 @@
 package com.freelance.jptalusan.algeops;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
@@ -147,25 +150,79 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return false;
     }
 
+    public boolean performOperation(int child, int type) {
+        if (getChildCount() > 0) {
+            Log.d(TAG, "attempting to remove.");
+            removeView(getChildAt(child));
+            switch (type) {
+                case Constants.OPS_SUB_X:
+                    currXVal += 1;
+                    break;
+                case Constants.OPS_ADD_X:
+                    currXVal -= 1;
+                    break;
+                case Constants.OPS_SUB_ONE:
+                    currOneVal += 1;
+                    break;
+                case Constants.OPS_ADD_ONE:
+                    currOneVal -= 1;
+                    break;
+                case Constants.POS_X:
+                    positiveX -= 1;
+                    break;
+                case Constants.NEG_X:
+                    negativeX -= 1;
+                    break;
+                case Constants.POS_ONE:
+                    positiveOne -= 1;
+                    break;
+                case Constants.NEG_ONE:
+                    negativeOne -= 1;
+                    break;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void fadeOut(int i) {
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-        alphaAnimation.setDuration(1000);
-        alphaAnimation.setRepeatCount(0);
-        alphaAnimation.setRepeatMode(Animation.REVERSE);
-        getChildAt(i).startAnimation(alphaAnimation);
-        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+        final int temp = i;
+
+        // 1
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.5f);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                // 2
+                getChildAt(0).setScaleX(value);
+                getChildAt(0).setScaleY(value);
+            }
+        });
+
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setDuration(1000);
+        animator.setStartDelay(i * 1000);
+        animator.start();
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
-                removeImage(getObjectTypeInside());
+            public void onAnimationEnd(Animator animator) {
+                performOperation(0, getObjectTypeInside());
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
 
             }
         });

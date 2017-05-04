@@ -167,23 +167,12 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
                     (int) dimensions.height);
-            if (i != 0) {
-                params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
-                textView.setLayoutParams(params);
-                textView.setGravity(Gravity.END);
-                //float size = textView.getTextSize() - 15.0f;
-                //textView.setTextSize(size);
-                textView.setText(Integer.toString(i));
-                numbersLayout.addView(textView);
-            } else {
-//                params.leftMargin = (int) (center - params.width / 2);
-//                textView.setLayoutParams(params);
-//                float size = textView.getTextSize() - 15.0f;
-//                textView.setTextSize(size);
-//                textView.setText(Integer.toString(i));
-//                numbersLayout.addView(textView);
-            }
-         }
+            params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
+            textView.setLayoutParams(params);
+            textView.setGravity(Gravity.END);
+            textView.setText(Integer.toString(i));
+            numbersLayout.addView(textView);
+          }
     }
 
     public void drawValuesInRelativeLayout(Integer maxValue, boolean colorLast) {
@@ -192,7 +181,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         for (int i = 0; i < Math.abs(maxValue); ++i) {
 
             ImageView imageView = new ImageView(getContext());
-            TextView textView   = new TextView(getContext());
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                     (int) dimensions.width / 20,
@@ -220,14 +208,8 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
             if (maxValue != 0) {
                 if (colorLast && i == Math.abs(maxValue) - 1)
                     imageView.setBackgroundColor(Color.BLUE);
-
                 imageView.setLayoutParams(params);
-//                textView.setLayoutParams(params);
-//                textView.setText(Integer.toString(maxValue));
                 relativeLayout.addView(imageView);
-
-//                numbersLayout.removeAllViews();
-//                numbersLayout.addView(textView);
             }
         }
 

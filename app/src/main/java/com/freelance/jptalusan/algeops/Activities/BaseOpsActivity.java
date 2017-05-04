@@ -24,6 +24,7 @@ import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 public class BaseOpsActivity extends AppCompatActivity {
     public Button startButton;
     public Button checkButton;
+    public Button resetButton;
 
     public LinearLayout firstPartEq;
     public LinearLayout secondPartEq;
@@ -62,10 +63,6 @@ public class BaseOpsActivity extends AppCompatActivity {
         eq = EquationGeneration.generateEquation("ADD", 0);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
-
-        //Add processing to decide what to place
-//        firstPartEq.setText(firstPart);
-//        secondPartEq.setText(secondPart);
 
         xSeekbarImageView.setTextColor(Color.BLACK);
         oneSeekbarImageView.setTextColor(Color.BLACK);

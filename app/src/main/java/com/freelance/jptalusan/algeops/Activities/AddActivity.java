@@ -3,6 +3,7 @@ package com.freelance.jptalusan.algeops.Activities;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -194,24 +195,46 @@ public class AddActivity extends BaseOpsActivity {
     }
 
     private void cancelOutViews() {
+        Handler handler1 = new Handler();
         int countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
         Log.d(TAG, "Cancelling out X: " + countX);
         for (int i = 0; i < countX; i++) {
+            final int temp = i;
             View v = layoutLeftX.getChildAt(i);
             if (v instanceof AlgeOpsImageView) {
-                layoutLeftX.fadeOut(i);
-                layoutRightX.fadeOut(i);
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layoutLeftX.fadeOut(temp);
+                        layoutRightX.fadeOut(temp);
+                    }
+                }, 1000 * i);
             }
         }
 
-        int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
-        for (int i = 0; i < countOne; i++) {
-            View v = layoutLeftOne.getChildAt(i);
-            if (v instanceof AlgeOpsImageView) {
-                layoutLeftOne.fadeOut(i);
-                layoutRightOne.fadeOut(i);
+        Handler handler3 = new Handler();
+        handler3.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Handler handler2 = new Handler();
+                //TODO: add handler that would start only after i * 1000 ms
+                int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
+                for (int i = 0; i < countOne; i++) {
+                    final int temp = i;
+                    View v = layoutLeftOne.getChildAt(i);
+                    if (v instanceof AlgeOpsImageView) {
+                        handler2.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                layoutLeftOne.fadeOut(temp);
+                                layoutRightOne.fadeOut(temp);
+                            }
+                        }, 1000 * i);
+                    }
+                }
             }
-        }
+        }, 1000 * countX);
+
     }
 
     private boolean isSeekBarAnswerCorrect() {

@@ -286,9 +286,9 @@ public class SubtractActivity extends BaseOpsActivity {
             setEquationsLayout();
         } else if (subLevel == Constants.LEVEL_2) {
             AutoResizeTextView tv1 = new AutoResizeTextView(this);
-            tv1.setText(firstPart);
+            //tv1.setText(" from, " + firstPart);
             AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText(secondPart);
+            tv2.setText("Remove " + secondPart + " from, " + firstPart);
 
             firstPartEq.addView(tv1);
             secondPartEq.addView(tv2);
@@ -296,9 +296,9 @@ public class SubtractActivity extends BaseOpsActivity {
             setEquationsLayout();
         } else {
             AutoResizeTextView tv1 = new AutoResizeTextView(this);
-            tv1.setText(firstPart);
+            //tv1.setText(" from, " + firstPart);
             AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText(secondPart);
+            tv2.setText("Remove " + secondPart + " from, " + firstPart);
 
             firstPartEq.addView(tv1);
             secondPartEq.addView(tv2);
