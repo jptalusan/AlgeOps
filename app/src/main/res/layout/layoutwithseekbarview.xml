@@ -47,14 +47,15 @@
             android:id="@+id/numbersLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:layout_gravity="bottom"
-            android:paddingStart="0dp"
+            android:clipToPadding="false"
             android:paddingEnd="0dp"
-            android:clipToPadding="false"/>
+            android:paddingStart="0dp"
+            android:visibility="gone" />
 
-        <io.apptik.widget.MultiSlider
+        <com.infteh.comboseekbar.ComboSeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,14 +65,16 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:scaleMax="10"
-            app:scaleMin="-10"
-            app:scaleStep="1"
-            app:thumbNumber="1"
-            app:drawThumbsApart="false"
             android:layout_gravity="top"
             android:paddingStart="0dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            app:paddingEnd="10dp"
+            app:paddingStart="10dp"
+            app:color="@color/colorPrimaryDark"
+            app:textSize="12sp"
+            app:dotRadius="5sp"
+            app:thumbRadius="5sp"
+            app:textBottomPadding="0dp"/>
     </FrameLayout>
 
     <android.support.constraint.Guideline

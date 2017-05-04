@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,8 @@ import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
-import io.apptik.widget.MultiSlider;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddActivity extends BaseOpsActivity {
     private static final String TAG = "AddActivity";
@@ -76,37 +78,91 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
 
         //1 thumb
-        xSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
+
+        List<String> points = new ArrayList<>();
+        points.add("-10");
+        points.add("-9");
+        points.add("-8");
+        points.add("-7");
+        points.add("-6");
+        points.add("-5");
+        points.add("-4");
+        points.add("-3");
+        points.add("-2");
+        points.add("-1");
+        points.add("0");
+        points.add("1");
+        points.add("2");
+        points.add("3");
+        points.add("4");
+        points.add("5");
+        points.add("6");
+        points.add("7");
+        points.add("8");
+        points.add("9");
+        points.add("10");
+
+        xSeekbar.seekBar.setMax(21);
+        xSeekbar.seekBar.setAdapter(points);
+        xSeekbar.seekBar.setProgress(10);
+        xSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
-                //Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d(TAG, "thumb " + progress);
                 xSeekbar.removeAllViewsInRelativeLayout();
-                xSeekbar.setUserAnswer(value);
-                xSeekbar.drawValuesInRelativeLayout(value, false);
-                xSeekbarImageView.setText(Integer.toString(value));
-                if (value > 0)
-                    xSeekbarImageView.setTextColor(Color.GREEN);
-                else if (value < 0)
-                    xSeekbarImageView.setTextColor(Color.RED);
-                else
-                    xSeekbarImageView.setTextColor(Color.BLACK);
+                xSeekbar.setUserAnswer(progress - 10);
+                xSeekbar.drawValuesInRelativeLayout(progress - 10, false);
+                if (progress != 21) {
+                    xSeekbarImageView.setText(Integer.toString(progress - 10));
+                    if (progress - 10 > 0)
+                        xSeekbarImageView.setTextColor(Color.GREEN);
+                    else if (progress - 10 < 0)
+                        xSeekbarImageView.setTextColor(Color.RED);
+                    else
+                        xSeekbarImageView.setTextColor(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
             }
         });
 
-        oneSeekbar.seekBar.setOnThumbValueChangeListener(new MultiSlider.SimpleChangeListener() {
+        oneSeekbar.seekBar.setMax(21);
+        oneSeekbar.seekBar.setAdapter(points);
+        oneSeekbar.seekBar.setProgress(10);
+        oneSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onValueChanged(MultiSlider multiSlider, MultiSlider.Thumb thumb, int thumbIndex, int value) {
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //Log.d(TAG, "thumb " + thumbIndex + ":" + value);
                 oneSeekbar.removeAllViewsInRelativeLayout();
-                oneSeekbar.setUserAnswer(value);
-                oneSeekbar.drawValuesInRelativeLayout(value, false);
-                oneSeekbarImageView.setText(Integer.toString(value));
-                if (value > 0)
-                    oneSeekbarImageView.setTextColor(Color.GREEN);
-                else if (value < 0)
-                    oneSeekbarImageView.setTextColor(Color.RED);
-                else
-                    oneSeekbarImageView.setTextColor(Color.BLACK);
+                oneSeekbar.setUserAnswer(progress - 10);
+                oneSeekbar.drawValuesInRelativeLayout(progress - 10, false);
+                if (progress != 21) {
+                    oneSeekbarImageView.setText(Integer.toString(progress - 10));
+                    if (progress - 10 > 0)
+                        oneSeekbarImageView.setTextColor(Color.GREEN);
+                    else if (progress - 10 < 0)
+                        oneSeekbarImageView.setTextColor(Color.RED);
+                    else
+                        oneSeekbarImageView.setTextColor(Color.BLACK);
+                }
             }
         });
 
@@ -316,8 +372,6 @@ public class AddActivity extends BaseOpsActivity {
                 isFirstAnswerCorrect = true;
                 xSeekbar.getViewDimensions();
                 oneSeekbar.getViewDimensions();
-                xSeekbar.drawNumbersinRelativeLayout();
-                oneSeekbar.drawNumbersinRelativeLayout();
                 answerIsCorrect();
                 cancelOutViews();
             }

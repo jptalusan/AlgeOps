@@ -6,16 +6,14 @@ import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
+import com.infteh.comboseekbar.ComboSeekBar;
 
 import io.apptik.widget.MultiSlider;
 
@@ -24,7 +22,7 @@ import io.apptik.widget.MultiSlider;
  */
 public class LayoutWithSeekBarView extends ConstraintLayout {
     private static final String TAG = "SeekbarView";
-    public MultiSlider seekBar;
+    public ComboSeekBar seekBar;
     public RelativeLayout relativeLayout;
     public RelativeLayout numbersLayout;
     private Dimensions dimensions = new Dimensions();
@@ -80,14 +78,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         // application package so they are always available.
         relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
         numbersLayout  = (RelativeLayout) this.findViewById(R.id.numbersLayout);
-        seekBar = (MultiSlider) this.findViewById(R.id.seekbar);
-        correctAnswerThumb = seekBar.new Thumb();
-        dummyThumb = seekBar.new Thumb();
-        dummyThumb.setEnabled(false);
-        dummyThumb.setInvisibleThumb(true);
-        seekBar.addThumb(dummyThumb);
-        seekBar.getThumb(0).setRange(null);
-        seekBar.getThumb(1).setRange(null);
+        seekBar = (ComboSeekBar) this.findViewById(R.id.seekbar);
     }
 
     public void getViewDimensions() {
@@ -105,7 +96,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width = relativeLayout.getMeasuredWidth();
                 dimensions.height = layoutDims.height / 2;
-                drawNumbersinRelativeLayout();
             }
         });
     }
@@ -114,11 +104,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     //when min and max values have been matched (at correctValue) then that is OK.
     public void answerIsIncorrect() {
         isAnswerIncorrect = true;
-        correctAnswerThumb.setMin(correctAnswer);
-        correctAnswerThumb.setMax(correctAnswer);
-        correctAnswerThumb.setValue(correctAnswer);
-
-        seekBar.addThumb(correctAnswerThumb);
 
         Log.d("AddAc", "userAnswer: " + userAnswer);
         drawValuesInRelativeLayout(userAnswer, false);
@@ -134,10 +119,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         userAnswer = 0;
         correctAnswer = 0;
         seekBar.setEnabled(true);
-        seekBar.removeThumb(correctAnswerThumb);
-        seekBar.getThumb(0).setValue(0);
         isAnswerIncorrect = false;
-//        seekBar.clearThumbs();
     }
 
     public void removeAllViewsInRelativeLayout() {
@@ -155,24 +137,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
 
     public void setUserAnswer(int answer) {
         userAnswer = answer;
-    }
-
-    public void drawNumbersinRelativeLayout() {
-        double center = dimensions.width / 2;
-
-        numbersLayout.removeAllViews();
-        for (int i = Constants.SEEKBAR_MIN; i <= Constants.SEEKBAR_MAX; ++i) {
-            AutoResizeTextView textView = new AutoResizeTextView(getContext());
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                    (int) dimensions.width / 20,
-                    (int) dimensions.height);
-            params.leftMargin = params.width * (i + Constants.SEEKBAR_MAX);
-            textView.setLayoutParams(params);
-            textView.setGravity(Gravity.END);
-            textView.setText(Integer.toString(i));
-            numbersLayout.addView(textView);
-          }
     }
 
     public void drawValuesInRelativeLayout(Integer maxValue, boolean colorLast) {
@@ -215,7 +179,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
 
         if (0 == maxValue) {
             ImageView imageView = new ImageView(getContext());
-            TextView textView   = new TextView(getContext());
 
             if (type == Constants.X) {
                 imageView.setImageResource(R.drawable.cube);
@@ -236,12 +199,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 imageView.setVisibility(VISIBLE);
             else
                 imageView.setVisibility(INVISIBLE);
-
-//            textView.setLayoutParams(params);
-//            textView.setText(Integer.toString(maxValue));
-//
-//            numbersLayout.removeAllViews();
-//            numbersLayout.addView(textView);
 
             relativeLayout.addView(imageView);
         }

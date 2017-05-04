@@ -15,13 +15,13 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
-        EquationGeneration.generateEquation("TEST");
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
+        EquationGeneration.generateEquation("TEST", 1);
     }
 }
