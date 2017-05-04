@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 
@@ -230,25 +228,41 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
     public void fadeOut(int i, int type) {
         final int temp = type;
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-        alphaAnimation.setDuration(1500);
-        alphaAnimation.setRepeatCount(0);
-        alphaAnimation.setRepeatMode(Animation.REVERSE);
-        Log.d(TAG, "removing child at :" + i);
-        getChildAt(i).startAnimation(alphaAnimation);
-        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+        final int i_temp = i;
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.5f);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                // 2
+                getChildAt(i_temp).setScaleX(value);
+                getChildAt(i_temp).setScaleY(value);
+            }
+        });
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setDuration(1500);
+        animator.setStartDelay(0);
+        animator.start();
+
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
+            public void onAnimationEnd(Animator animator) {
                 removeImage(temp);
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
 
             }
         });

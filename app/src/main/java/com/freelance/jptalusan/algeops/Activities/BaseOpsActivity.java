@@ -67,7 +67,8 @@ public class BaseOpsActivity extends AppCompatActivity {
         xSeekbarImageView.setTextColor(Color.BLACK);
         oneSeekbarImageView.setTextColor(Color.BLACK);
 
-        startButton.setText("NEW");
+        startButton.setText("RESET");
+        checkButton.setVisibility(View.GONE);
 
         isFirstAnswerCorrect = false;
         isSecondAnswerCorrect = false;
@@ -75,6 +76,8 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     protected void answerIsCorrect() {
         hasStarted = false;
+
+        checkButton.setVisibility(View.VISIBLE);
 
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
@@ -86,7 +89,22 @@ public class BaseOpsActivity extends AppCompatActivity {
         oneSeekbarImageView.setTextColor(Color.BLACK);
     }
 
+    protected void reset() {
+        hasStarted = true;
+        isFirstAnswerCorrect = false;
+        isSecondAnswerCorrect = false;
+
+        xSeekbar.resetSeekBars();
+        oneSeekbar.resetSeekBars();
+
+        checkButton.setVisibility(View.GONE);
+
+        answerIsWrong();
+    }
+
     protected void answerIsWrong() {
+        checkButton.setVisibility(View.GONE);
+
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);
 

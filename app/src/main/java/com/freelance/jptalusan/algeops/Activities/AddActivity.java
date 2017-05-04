@@ -53,6 +53,7 @@ public class AddActivity extends BaseOpsActivity {
 
         startButton     = (Button) findViewById(R.id.newQuestionButton);
         checkButton     = (Button) findViewById(R.id.checkButton);
+        resetButton     = (Button) findViewById(R.id.resetButton);
 
         leftXAdd        = (ImageButton) findViewById(R.id.leftXAdd);
         leftXSub        = (ImageButton) findViewById(R.id.leftXSub);
@@ -123,34 +124,18 @@ public class AddActivity extends BaseOpsActivity {
             }
         });
 
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reset();
+            }
+        });
+
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
-            if (!isFirstAnswerCorrect) {
-                boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
-                        layoutLeftOne.currOneVal,
-                        layoutRightX.currXVal,
-                        layoutRightOne.currOneVal);
-
-                Log.d(TAG, "Check if 1st is correct: " + isCorrect);
-                if (isCorrect) {
-                    isFirstAnswerCorrect = true;
-                    xSeekbar.getViewDimensions();
-                    oneSeekbar.getViewDimensions();
-                    xSeekbar.drawNumbersinRelativeLayout();
-                    oneSeekbar.drawNumbersinRelativeLayout();
-                    answerIsCorrect();
-                    cancelOutViews();
-                } else {
-                    if (correctAnswers != Constants.LEVEL_UP) {
-                        correctAnswers = 0;
-                        prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                        Log.d(TAG, "Back to start: " + correctAnswers);
-                    }
-                    answerIsWrong();
-                }
-            } else if (!isSecondAnswerCorrect){
+            if (!isSecondAnswerCorrect){
                 Log.d(TAG, "First ans correct.");
                 if (isSeekBarAnswerCorrect()) {
                     isSecondAnswerCorrect = true;
@@ -162,6 +147,8 @@ public class AddActivity extends BaseOpsActivity {
                     }
                     prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
                     Log.d(TAG, "Correct: " + correctAnswers);
+                    Toast.makeText(AddActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
+                    startAlgeOps();
                 } else {
                     playSound(R.raw.wrong);
                     if (correctAnswers != Constants.LEVEL_UP) {
@@ -192,6 +179,16 @@ public class AddActivity extends BaseOpsActivity {
 
         rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
+    }
+
+    @Override
+    protected void reset() {
+        super.reset();
+
+        layoutLeftX.resetLayout();
+        layoutRightX.resetLayout();
+        layoutLeftOne.resetLayout();
+        layoutRightOne.resetLayout();
     }
 
     private void cancelOutViews() {
@@ -306,6 +303,35 @@ public class AddActivity extends BaseOpsActivity {
         answerIsWrong();
     }
 
+    private void checkIfTilesAreCorrect() {
+        int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
+        if (!isFirstAnswerCorrect) {
+            boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
+                    layoutLeftOne.currOneVal,
+                    layoutRightX.currXVal,
+                    layoutRightOne.currOneVal);
+
+            Log.d(TAG, "Check if 1st is correct: " + isCorrect);
+            if (isCorrect) {
+                isFirstAnswerCorrect = true;
+                xSeekbar.getViewDimensions();
+                oneSeekbar.getViewDimensions();
+                xSeekbar.drawNumbersinRelativeLayout();
+                oneSeekbar.drawNumbersinRelativeLayout();
+                answerIsCorrect();
+                cancelOutViews();
+            }
+//            else {
+//                if (correctAnswers != Constants.LEVEL_UP) {
+//                    correctAnswers = 0;
+//                    prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+//                    Log.d(TAG, "Back to start: " + correctAnswers);
+//                }
+//                answerIsWrong();
+//            }
+        }
+    }
+
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
         private static final String TAG = "Add:ClickListener";
         private Context mContext;
@@ -322,6 +348,7 @@ public class AddActivity extends BaseOpsActivity {
         public void onClick(View view) {
             if (hasStarted) {
                 if (mView.setImage(mContext, mOperation)) {
+                    checkIfTilesAreCorrect();
                     playSound(R.raw.correct);
                 } else {
                     playSound(R.raw.wrong);

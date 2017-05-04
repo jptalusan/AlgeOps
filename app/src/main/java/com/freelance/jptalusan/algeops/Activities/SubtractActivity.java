@@ -59,6 +59,7 @@ public class SubtractActivity extends BaseOpsActivity {
 
         startButton = (Button) findViewById(R.id.startButton);
         checkButton = (Button) findViewById(R.id.checkButton);
+        resetButton = (Button) findViewById(R.id.resetButton);
 
         firstPartEq = (LinearLayout) findViewById(R.id.firstEqTextView);
         secondPartEq = (LinearLayout) findViewById(R.id.secondEqTextView);
@@ -128,35 +129,20 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reset();
+            }
+        });
+
         //TODO: Add level up mechanics
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "checkButton clicked");
                 int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
-                if (!isFirstAnswerCorrect) {
-                    //answerX = initx + -1(posX - negX)
-                    //answer1 = init1 + -1(pos1 - neg1)
-                    int answX = subLayout.positiveX - subLayout.negativeX;
-                    int answ1 = subLayout.positiveOne - subLayout.negativeOne;
-                    boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
-
-                    if (isCorrect) {
-                        isFirstAnswerCorrect = true;
-                        xSeekbar.getViewDimensions();
-                        oneSeekbar.getViewDimensions();
-                        answerIsCorrect();
-                        cancelOutViews();
-                    } else {
-                        if (correctAnswers != Constants.LEVEL_UP) {
-                            correctAnswers = 0;
-                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
-                            Log.d(TAG, "Back to start: " + correctAnswers);
-                        }
-                        answerIsWrong();
-                        playSound(R.raw.wrong);
-                    }
-                } else if (!isSecondAnswerCorrect) {
+                if (!isSecondAnswerCorrect) {
                     Log.d(TAG, "First ans correct.");
                     if (isSeekBarAnswerCorrect()) {
                         isSecondAnswerCorrect = true;
@@ -172,6 +158,8 @@ public class SubtractActivity extends BaseOpsActivity {
                             prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
                         }
                         Log.d(TAG, "Correct: " + correctAnswers);
+                        Toast.makeText(SubtractActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
+                        startAlgeOps();
                     } else {
                         playSound(R.raw.wrong);
                         if (correctAnswers != Constants.LEVEL_UP) {
@@ -281,6 +269,13 @@ public class SubtractActivity extends BaseOpsActivity {
         }
     }
 
+    @Override
+    protected void reset() {
+        super.reset();
+        subLayout.resetLayout();
+        subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
+    }
+
     protected void startAlgeOps() {
         super.startAlgeOps();
 
@@ -337,6 +332,34 @@ public class SubtractActivity extends BaseOpsActivity {
 //        tv2.setText(" , from: " + tv2.getText());
     }
 
+    private void checkIfTilesAreCorrect() {
+        int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
+        if (!isFirstAnswerCorrect) {
+            //answerX = initx + -1(posX - negX)
+            //answer1 = init1 + -1(pos1 - neg1)
+            int answX = subLayout.positiveX - subLayout.negativeX;
+            int answ1 = subLayout.positiveOne - subLayout.negativeOne;
+            boolean isCorrect = eq.isSubtractAnswerCorrect(answX, answ1);
+
+            if (isCorrect) {
+                isFirstAnswerCorrect = true;
+                xSeekbar.getViewDimensions();
+                oneSeekbar.getViewDimensions();
+                answerIsCorrect();
+                cancelOutViews();
+                playSound(R.raw.correct);
+            }
+//            else {
+//                if (correctAnswers != Constants.LEVEL_UP) {
+//                    correctAnswers = 0;
+//                    prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
+//                    Log.d(TAG, "Back to start: " + correctAnswers);
+//                }
+//                answerIsWrong();
+//                playSound(R.raw.wrong);
+//            }
+        }
+    }
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {
         private static final String TAG = "Sub:ClickListener";
         private Context mContext;
@@ -353,6 +376,7 @@ public class SubtractActivity extends BaseOpsActivity {
         public void onClick(View view) {
             Log.d(TAG, "OnClick");
             if (hasStarted) {
+                Log.d(TAG, prefs.getInt(Constants.SUB_LEVEL, 1) + "");
                 if (prefs.getInt(Constants.SUB_LEVEL, 1) < Constants.LEVEL_3) {
                     if (view.getId() == R.id.addPosNegOneButton || view.getId() == R.id.addPosNegXButton)
                     {
@@ -360,6 +384,7 @@ public class SubtractActivity extends BaseOpsActivity {
                         return;
                     }
                     if (mView.setSubImage(mContext, mOperation, eq)) {
+                        checkIfTilesAreCorrect();
                         playSound(R.raw.correct);
                     } else {
                         playSound(R.raw.wrong);
@@ -367,6 +392,7 @@ public class SubtractActivity extends BaseOpsActivity {
                 } else {
                     if (mView.setSubImage(mContext, mOperation)) {
                         playSound(R.raw.correct);
+                        checkIfTilesAreCorrect();
                     } else {
                         playSound(R.raw.wrong);
                     }
