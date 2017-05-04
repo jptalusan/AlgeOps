@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -46,6 +47,8 @@ public class SubtractActivity extends BaseOpsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
+
+        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_4).apply();
 
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
@@ -214,21 +217,28 @@ public class SubtractActivity extends BaseOpsActivity {
                     subLayout.removeSubImage(Constants.POS_X);
                     subLayout.removeSubImage(Constants.NEG_X);
                 }
-            }, 1100 * i);
+            }, 1600 * i);
         }
 
         Handler handler2 = new Handler();
-        int count1 = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
-        Log.d(TAG, "Cancelling out 1: " + count1);
-        for (int i = 0; i < count1; i++) {
-            handler2.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    subLayout.removeSubImage(Constants.POS_ONE);
-                    subLayout.removeSubImage(Constants.NEG_ONE);
+        handler2.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Handler handler3 = new Handler();
+                int count1 = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
+                Log.d(TAG, "Cancelling out 1: " + count1);
+                for (int i = 0; i < count1; i++) {
+                    handler3.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            subLayout.removeSubImage(Constants.POS_ONE);
+                            subLayout.removeSubImage(Constants.NEG_ONE);
+                        }
+                    }, 1600 * i);
                 }
-            }, 1100 * i);
-        }
+            }
+        }, countX * 1600);
+
     }
 
     private boolean isSeekBarAnswerCorrect() {
@@ -288,7 +298,7 @@ public class SubtractActivity extends BaseOpsActivity {
             AutoResizeTextView tv1 = new AutoResizeTextView(this);
             //tv1.setText(" from, " + firstPart);
             AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText("Remove " + secondPart + " from, " + firstPart);
+            tv2.setText("Remove " + secondPart + ", from " + firstPart);
 
             firstPartEq.addView(tv1);
             secondPartEq.addView(tv2);
@@ -298,7 +308,7 @@ public class SubtractActivity extends BaseOpsActivity {
             AutoResizeTextView tv1 = new AutoResizeTextView(this);
             //tv1.setText(" from, " + firstPart);
             AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText("Remove " + secondPart + " from, " + firstPart);
+            tv2.setText("Remove " + secondPart + ", from " + firstPart);
 
             firstPartEq.addView(tv1);
             secondPartEq.addView(tv2);
@@ -311,6 +321,20 @@ public class SubtractActivity extends BaseOpsActivity {
 
 //        subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
         subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
+    }
+
+    @Override
+    protected void setEquationsLayout() {
+        super.setEquationsLayout();
+        TextView tv = (TextView) secondPartEq.getChildAt(0);
+        tv.setGravity(Gravity.START);
+        tv.setText("Remove: " + tv.getText() + " from:");
+
+        TextView tv2 = (TextView) firstPartEq.getChildAt(0);
+        tv.setGravity(Gravity.START);
+        tv2.setVisibility(View.GONE);
+        firstPartEq.setVisibility(View.GONE);
+//        tv2.setText(" , from: " + tv2.getText());
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {

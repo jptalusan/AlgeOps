@@ -231,7 +231,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
     public void fadeOut(int i, int type) {
         final int temp = type;
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-        alphaAnimation.setDuration(1000);
+        alphaAnimation.setDuration(1500);
         alphaAnimation.setRepeatCount(0);
         alphaAnimation.setRepeatMode(Animation.REVERSE);
         Log.d(TAG, "removing child at :" + i);
