@@ -140,6 +140,9 @@ public class SubtractActivity extends BaseOpsActivity {
                         xSeekbarImageView.setTextColor(Color.RED);
                     else
                         xSeekbarImageView.setTextColor(Color.BLACK);
+                } else if (progress == 21) {
+                    xSeekbarImageView.setText(Integer.toString(10));
+                    xSeekbarImageView.setTextColor(Color.GREEN);
                 }
             }
         });
@@ -171,6 +174,9 @@ public class SubtractActivity extends BaseOpsActivity {
                         oneSeekbarImageView.setTextColor(Color.RED);
                     else
                         oneSeekbarImageView.setTextColor(Color.BLACK);
+                } else if (progress == 21) {
+                    xSeekbarImageView.setText(Integer.toString(10));
+                    xSeekbarImageView.setTextColor(Color.GREEN);
                 }
             }
         });

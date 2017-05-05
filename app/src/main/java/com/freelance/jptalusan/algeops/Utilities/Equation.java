@@ -95,7 +95,6 @@ public class Equation {
                 (this.b + this.d == b + d));
     }
 
-    //TODO: Same as above
     public boolean isSubtractAnswerCorrect(int ax, int b) {
         Log.d(TAG, "isSubtractAnswerCorrect");
         return ((this.ax - this.cx) == ax &&

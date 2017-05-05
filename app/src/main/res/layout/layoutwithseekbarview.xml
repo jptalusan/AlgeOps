@@ -55,7 +55,7 @@
             android:paddingStart="0dp"
             android:visibility="gone" />
 
-        <com.infteh.comboseekbar.ComboSeekBar
+        <com.freelance.jptalusan.algeops.ComboSeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -71,9 +71,9 @@
             app:paddingEnd="10dp"
             app:paddingStart="10dp"
             app:color="@color/colorPrimaryDark"
-            app:textSize="12sp"
-            app:dotRadius="5sp"
-            app:thumbRadius="5sp"
+            app:textSize="10sp"
+            app:dotRadius="3sp"
+            app:thumbRadius="8sp"
             app:textBottomPadding="0dp"/>
     </FrameLayout>
 

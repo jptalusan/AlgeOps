@@ -13,13 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
-import com.infteh.comboseekbar.ComboSeekBar;
 
-import io.apptik.widget.MultiSlider;
-
-/**
- * Created by jtalusan on 2/7/2017.
- */
 public class LayoutWithSeekBarView extends ConstraintLayout {
     private static final String TAG = "SeekbarView";
     public ComboSeekBar seekBar;
@@ -31,8 +25,6 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     private int type = -1;
     private int userAnswer = 0;
     private int correctAnswer = 0;
-    private MultiSlider.Thumb correctAnswerThumb;
-    private MultiSlider.Thumb dummyThumb;
     public boolean isAnswerIncorrect = false;
 
     public LayoutWithSeekBarView(Context context) {
@@ -72,13 +64,9 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        // Sets the images for the previous and next buttons. Uses
-        // built-in images so you don't need to add images, but in
-        // a real application your images should be in the
-        // application package so they are always available.
         relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
         numbersLayout  = (RelativeLayout) this.findViewById(R.id.numbersLayout);
-        seekBar = (ComboSeekBar) this.findViewById(R.id.seekbar);
+        seekBar        = (ComboSeekBar) this.findViewById(R.id.seekbar);
     }
 
     public void getViewDimensions() {
@@ -113,6 +101,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     }
 
     public void resetSeekBars() {
+        seekBar.setProgress(10);
         seekBar.setEnabled(true);
         seekBar.setVisibility(VISIBLE);
         relativeLayout.removeAllViews();

@@ -120,6 +120,9 @@ public class AddActivity extends BaseOpsActivity {
                         xSeekbarImageView.setTextColor(Color.RED);
                     else
                         xSeekbarImageView.setTextColor(Color.BLACK);
+                } else if (progress == 21) {
+                    xSeekbarImageView.setText(Integer.toString(10));
+                    xSeekbarImageView.setTextColor(Color.GREEN);
                 }
             }
 
@@ -162,6 +165,9 @@ public class AddActivity extends BaseOpsActivity {
                         oneSeekbarImageView.setTextColor(Color.RED);
                     else
                         oneSeekbarImageView.setTextColor(Color.BLACK);
+                } else if (progress == 21) {
+                    xSeekbarImageView.setText(Integer.toString(10));
+                    xSeekbarImageView.setTextColor(Color.GREEN);
                 }
             }
         });
@@ -286,7 +292,7 @@ public class AddActivity extends BaseOpsActivity {
                     }
                 }
             }
-        }, 1000 * countX);
+        }, 1000 * (countX + 1));
 
     }
 
@@ -375,14 +381,6 @@ public class AddActivity extends BaseOpsActivity {
                 answerIsCorrect();
                 cancelOutViews();
             }
-//            else {
-//                if (correctAnswers != Constants.LEVEL_UP) {
-//                    correctAnswers = 0;
-//                    prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-//                    Log.d(TAG, "Back to start: " + correctAnswers);
-//                }
-//                answerIsWrong();
-//            }
         }
     }
 
