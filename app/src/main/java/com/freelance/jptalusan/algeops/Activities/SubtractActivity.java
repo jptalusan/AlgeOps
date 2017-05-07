@@ -382,13 +382,14 @@ public class SubtractActivity extends BaseOpsActivity {
         super.setEquationsLayout();
         TextView tv = (TextView) secondPartEq.getChildAt(0);
         tv.setGravity(Gravity.START);
-        tv.setText("Remove: " + tv.getText() + " from:");
+        String temp = tv.getText().toString();
+        tv.setText("Remove: " + temp);
 
-        TextView tv2 = (TextView) firstPartEq.getChildAt(0);
-        tv.setGravity(Gravity.START);
-        tv2.setVisibility(View.GONE);
-        firstPartEq.setVisibility(View.GONE);
-//        tv2.setText(" , from: " + tv2.getText());
+        firstPartEq.removeAllViews();
+        TextView tv2 = new TextView(this);
+        tv2.setGravity(Gravity.START);
+        tv2.setText(" From: ");
+        firstPartEq.addView(tv2);
     }
 
     private void checkIfTilesAreCorrect() {
