@@ -37,7 +37,7 @@ public class ComboSeekBar extends SeekBar {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ComboSeekBar);
 
         mColor = a.getColor(R.styleable.ComboSeekBar_color, Color.WHITE);
-        mTextSize = a.getDimensionPixelSize(R.styleable.ComboSeekBar_textSize, 5);
+        mTextSize = a.getDimensionPixelSize(R.styleable.ComboSeekBar_textSize, 8);
         mTextBottomPadding = a.getDimensionPixelSize(R.styleable.ComboSeekBar_textBottomPadding, 8);
         mDotRadius = a.getDimensionPixelSize(R.styleable.ComboSeekBar_dotRadius, (int) toPix(5));
         mThumbRadius = a.getDimensionPixelSize(R.styleable.ComboSeekBar_thumbRadius, (int) toPix(15));

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -334,6 +335,75 @@ public class AddActivity extends BaseOpsActivity {
 
             return false;
         }
+    }
+
+    protected void setEquationsLayout() {
+
+        final int[] first = eq.getIntArr(1);
+        final int[] second = eq.getIntArr(2);
+
+        firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                firstPartEq.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int tempH = firstPartEq.getMeasuredHeight();
+                if (first[0] != 0) {
+                    TextView tv = new TextView(AddActivity.this);
+                    tv.setText(Integer.toString(Math.abs(first[0])));
+                    ImageView iv = new ImageView(AddActivity.this);
+                    if (first[0] > 0)
+                        iv.setImageResource(R.drawable.green_cube);
+                    else
+                        iv.setImageResource(R.drawable.red_cube);
+
+                    tv.setTextSize(tempH / 4);
+                    firstPartEq.addView(tv);
+                    firstPartEq.addView(iv);
+                }
+
+                if (first[1] != 0) {
+                    TextView tv = new TextView(AddActivity.this);
+                    tv.setText(Integer.toString(Math.abs(first[1])));
+                    ImageView iv = new ImageView(AddActivity.this);
+                    if (first[1] > 0)
+                        iv.setImageResource(R.drawable.green_circle);
+                    else
+                        iv.setImageResource(R.drawable.red_circle);
+
+                    tv.setTextSize(tempH / 4);
+                    firstPartEq.addView(tv);
+                    firstPartEq.addView(iv);
+                }
+
+                if (second[0] != 0) {
+                    TextView tv = new TextView(AddActivity.this);
+                    tv.setText(Integer.toString(Math.abs(second[0])));
+                    ImageView iv = new ImageView(AddActivity.this);
+                    if (second[0] > 0)
+                        iv.setImageResource(R.drawable.green_cube);
+                    else
+                        iv.setImageResource(R.drawable.red_cube);
+
+                    tv.setTextSize(tempH / 4);
+                    secondPartEq.addView(tv);
+                    secondPartEq.addView(iv);
+                }
+
+                if (second[1] != 0) {
+                    TextView tv = new TextView(AddActivity.this);
+                    tv.setText(Integer.toString(Math.abs(second[1])));
+                    ImageView iv = new ImageView(AddActivity.this);
+                    if (second[1] > 0)
+                        iv.setImageResource(R.drawable.green_circle);
+                    else
+                        iv.setImageResource(R.drawable.red_circle);
+
+                    tv.setTextSize(tempH / 4);
+                    secondPartEq.addView(tv);
+                    secondPartEq.addView(iv);
+                }
+            }
+        });
     }
 
     protected void startAlgeOps() {

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -121,62 +122,5 @@ public class BaseOpsActivity extends AppCompatActivity {
                 mediaPlayer.release();
             }
         });
-    }
-
-    protected void setEquationsLayout() {
-        int[] first = eq.getIntArr(1);
-        int[] second = eq.getIntArr(2);
-
-        if (first[0] != 0) {
-            AutoResizeTextView tv = new AutoResizeTextView(this);
-            tv.setText(Integer.toString(Math.abs(first[0])));
-            ImageView iv = new ImageView(this);
-            if (first[0] > 0)
-                iv.setImageResource(R.drawable.green_cube);
-            else
-                iv.setImageResource(R.drawable.red_cube);
-
-            firstPartEq.addView(tv);
-            firstPartEq.addView(iv);
-        }
-
-        if (first[1] != 0) {
-            AutoResizeTextView tv = new AutoResizeTextView(this);
-            tv.setText(Integer.toString(Math.abs(first[1])));
-            ImageView iv = new ImageView(this);
-            if (first[1] > 0)
-                iv.setImageResource(R.drawable.green_circle);
-            else
-                iv.setImageResource(R.drawable.red_circle);
-
-            firstPartEq.addView(tv);
-            firstPartEq.addView(iv);
-        }
-
-        if (second[0] != 0) {
-            AutoResizeTextView tv = new AutoResizeTextView(this);
-            tv.setText(Integer.toString(Math.abs(second[0])));
-            ImageView iv = new ImageView(this);
-            if (second[0] > 0)
-                iv.setImageResource(R.drawable.green_cube);
-            else
-                iv.setImageResource(R.drawable.red_cube);
-
-            secondPartEq.addView(tv);
-            secondPartEq.addView(iv);
-        }
-
-        if (second[1] != 0) {
-            AutoResizeTextView tv = new AutoResizeTextView(this);
-            tv.setText(Integer.toString(Math.abs(second[1])));
-            ImageView iv = new ImageView(this);
-            if (second[1] > 0)
-                iv.setImageResource(R.drawable.green_circle);
-            else
-                iv.setImageResource(R.drawable.red_circle);
-
-            secondPartEq.addView(tv);
-            secondPartEq.addView(iv);
-        }
     }
 }

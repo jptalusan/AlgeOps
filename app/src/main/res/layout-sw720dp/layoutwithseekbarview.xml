@@ -68,8 +68,8 @@
             android:layout_gravity="top"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            app:color="@color/colorPrimaryDark"
-            app:textSize="10sp"
+            app:color="@color/colorPrimary"
+            app:textSize="27sp"
             app:dotRadius="3sp"
             app:thumbRadius="8sp"
             app:textBottomPadding="0dp"/>

@@ -94,11 +94,11 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
     public boolean removeSubImage(int type) {
         if (getChildCount() > 0) {
-            for (int i = getChildCount(); i != 0; --i) {
-                AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i - 1);
+            for (int i = 0; i < getChildCount(); ++i) {
+                AlgeOpsImageView temp = (AlgeOpsImageView) this.getChildAt(i);
                 if (temp.getValue() == type) {
-                    Log.d(TAG, "attempting to remove sub: " + (i - 1));
-                    fadeOut(i - 1, type);
+                    Log.d(TAG, "attempting to remove sub: " + (i));
+                    fadeOut(temp, type);
                     return true;
                 }
             }
@@ -148,10 +148,45 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         return false;
     }
 
-    public boolean performOperation(int child, int type) {
+    public boolean performOperation(AlgeOpsImageView iv, int type) {
         if (getChildCount() > 0) {
             Log.d(TAG, "attempting to remove.");
-            removeView(getChildAt(child));
+            removeView(iv);
+            switch (type) {
+                case Constants.OPS_SUB_X:
+                    currXVal += 1;
+                    break;
+                case Constants.OPS_ADD_X:
+                    currXVal -= 1;
+                    break;
+                case Constants.OPS_SUB_ONE:
+                    currOneVal += 1;
+                    break;
+                case Constants.OPS_ADD_ONE:
+                    currOneVal -= 1;
+                    break;
+                case Constants.POS_X:
+                    positiveX -= 1;
+                    break;
+                case Constants.NEG_X:
+                    negativeX -= 1;
+                    break;
+                case Constants.POS_ONE:
+                    positiveOne -= 1;
+                    break;
+                case Constants.NEG_ONE:
+                    negativeOne -= 1;
+                    break;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean performOperation(int i, int type) {
+        if (getChildCount() > 0) {
+            Log.d(TAG, "attempting to remove.");
+            removeView(getChildAt(i));
             switch (type) {
                 case Constants.OPS_SUB_X:
                     currXVal += 1;
@@ -187,20 +222,20 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         final int temp = i;
 
         // 1
-        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.5f);
+        ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
                 // 2
-                getChildAt(0).setScaleX(value);
-                getChildAt(0).setScaleY(value);
+                getChildAt(0).setAlpha(value);
             }
         });
 
         animator.setInterpolator(new LinearInterpolator());
-        animator.setDuration(1000);
+        animator.setRepeatCount(1);
+        animator.setDuration(500);
         animator.setStartDelay(i * 1000);
         animator.start();
         animator.addListener(new Animator.AnimatorListener() {
@@ -226,22 +261,22 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         });
     }
 
-    public void fadeOut(int i, int type) {
+    public void fadeOut(AlgeOpsImageView iv, int type) {
         final int temp = type;
-        final int i_temp = i;
-        ValueAnimator animator = ValueAnimator.ofFloat(0, 1.5f);
+        final AlgeOpsImageView iv_temp = iv;
+        ValueAnimator animator = ValueAnimator.ofFloat(1.0f, 0.0f);
 
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
                 // 2
-                getChildAt(i_temp).setScaleX(value);
-                getChildAt(i_temp).setScaleY(value);
+                iv_temp.setAlpha(value);
             }
         });
         animator.setInterpolator(new LinearInterpolator());
-        animator.setDuration(1500);
+        animator.setRepeatCount(1);
+        animator.setDuration(750);
         animator.setStartDelay(0);
         animator.start();
 
@@ -253,7 +288,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                removeImage(temp);
+                //removeImage(temp);
+                performOperation(iv_temp, getObjectTypeInside());
             }
 
             @Override

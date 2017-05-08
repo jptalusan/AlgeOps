@@ -50,6 +50,7 @@ public class SubtractActivity extends BaseOpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
 
+        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_4).apply();
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
             prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
@@ -349,23 +350,42 @@ public class SubtractActivity extends BaseOpsActivity {
         if (subLevel == Constants.LEVEL_1) {
             setEquationsLayout();
         } else if (subLevel == Constants.LEVEL_2) {
-            AutoResizeTextView tv1 = new AutoResizeTextView(this);
-            //tv1.setText(" from, " + firstPart);
-            AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText("Remove " + secondPart + ", from " + firstPart);
+            firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    firstPartEq.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int tempH = firstPartEq.getMeasuredHeight();
+                    TextView tv1 = new TextView(SubtractActivity.this);
+                    //tv1.setText(" from, " + firstPart);
+                    TextView tv2 = new TextView(SubtractActivity.this);
+                    tv2.setText("Remove " + secondPart + ", from " + firstPart);
+                    tv1.setTextSize(tempH / 8);
+                    tv2.setTextSize(tempH / 8);
+                    firstPartEq.addView(tv1);
+                    secondPartEq.addView(tv2);
+                }
+            });
 
-            firstPartEq.addView(tv1);
-            secondPartEq.addView(tv2);
         } else if (subLevel == Constants.LEVEL_3) {
             setEquationsLayout();
         } else {
-            AutoResizeTextView tv1 = new AutoResizeTextView(this);
-            //tv1.setText(" from, " + firstPart);
-            AutoResizeTextView tv2 = new AutoResizeTextView(this);
-            tv2.setText("Remove " + secondPart + ", from " + firstPart);
+            firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    firstPartEq.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    int tempH = firstPartEq.getMeasuredHeight();
+                    TextView tv1 = new TextView(SubtractActivity.this);
+                    //tv1.setText(" from, " + firstPart);
+                    TextView tv2 = new TextView(SubtractActivity.this);
+                    tv2.setText("Remove " + secondPart + ", from " + firstPart);
 
-            firstPartEq.addView(tv1);
-            secondPartEq.addView(tv2);
+                    tv1.setTextSize(tempH / 8);
+                    tv2.setTextSize(tempH / 8);
+                    firstPartEq.addView(tv1);
+                    secondPartEq.addView(tv2);
+                }
+            });
+
         }
 
         subLayout.resetLayout();
@@ -377,19 +397,85 @@ public class SubtractActivity extends BaseOpsActivity {
         subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
     }
 
-    @Override
     protected void setEquationsLayout() {
-        super.setEquationsLayout();
-        TextView tv = (TextView) secondPartEq.getChildAt(0);
-        tv.setGravity(Gravity.START);
-        String temp = tv.getText().toString();
-        tv.setText("Remove: " + temp);
+        final int[] first = eq.getIntArr(1);
+        final int[] second = eq.getIntArr(2);
+        firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                firstPartEq.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                int tempH = firstPartEq.getMeasuredHeight();
+                if (first[0] != 0) {
+                    TextView tv = new TextView(SubtractActivity.this);
+                    tv.setText(Integer.toString(Math.abs(first[0])));
+                    ImageView iv = new ImageView(SubtractActivity.this);
+                    if (first[0] > 0)
+                        iv.setImageResource(R.drawable.green_cube);
+                    else
+                        iv.setImageResource(R.drawable.red_cube);
 
-        firstPartEq.removeAllViews();
-        TextView tv2 = new TextView(this);
-        tv2.setGravity(Gravity.START);
-        tv2.setText(" From: ");
-        firstPartEq.addView(tv2);
+                    tv.setTextSize(tempH / 3);
+                    firstPartEq.addView(tv);
+                    firstPartEq.addView(iv);
+                }
+
+                if (first[1] != 0) {
+                    TextView tv = new TextView(SubtractActivity.this);
+                    tv.setText(Integer.toString(Math.abs(first[1])));
+                    ImageView iv = new ImageView(SubtractActivity.this);
+                    if (first[1] > 0)
+                        iv.setImageResource(R.drawable.green_circle);
+                    else
+                        iv.setImageResource(R.drawable.red_circle);
+
+                    tv.setTextSize(tempH / 3);
+                    firstPartEq.addView(tv);
+                    firstPartEq.addView(iv);
+                }
+
+                if (second[0] != 0) {
+                    TextView tv = new TextView(SubtractActivity.this);
+                    tv.setText(Integer.toString(Math.abs(second[0])));
+                    ImageView iv = new ImageView(SubtractActivity.this);
+                    if (second[0] > 0)
+                        iv.setImageResource(R.drawable.green_cube);
+                    else
+                        iv.setImageResource(R.drawable.red_cube);
+
+                    tv.setTextSize(tempH / 3);
+                    secondPartEq.addView(tv);
+                    secondPartEq.addView(iv);
+                }
+
+                if (second[1] != 0) {
+                    TextView tv = new TextView(SubtractActivity.this);
+                    tv.setText(Integer.toString(Math.abs(second[1])));
+                    ImageView iv = new ImageView(SubtractActivity.this);
+                    if (second[1] > 0)
+                        iv.setImageResource(R.drawable.green_circle);
+                    else
+                        iv.setImageResource(R.drawable.red_circle);
+
+                    tv.setTextSize(tempH / 3);
+                    secondPartEq.addView(tv);
+                    secondPartEq.addView(iv);
+                }
+
+                TextView tv = (TextView) secondPartEq.getChildAt(0);
+                tv.setGravity(Gravity.START);
+                String temp = tv.getText().toString();
+                tv.setText("Remove: " + temp);
+
+                firstPartEq.removeAllViews();
+                TextView tv2 = new TextView(SubtractActivity.this);
+                tv2.setGravity(Gravity.START);
+                tv2.setText(" From: ");
+                tv2.setTextSize(tempH / 3);
+                firstPartEq.addView(tv2);
+            }
+        });
+
+
     }
 
     private void checkIfTilesAreCorrect() {
