@@ -45,6 +45,12 @@ public class SubtractActivity extends BaseOpsActivity {
 
     private AlgeOpsRelativeLayout subLayout;
 
+    private int countX = 0;
+    private int count1 = 0;
+    private int animatedCounter = 0;
+    private boolean hasStartedAnimationX = false;
+    private boolean hasStartedAnimation1 = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,7 +198,8 @@ public class SubtractActivity extends BaseOpsActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reset();
+                if (!hasStartedAnimationX && !hasStartedAnimation1)
+                    reset();
             }
         });
 
@@ -251,14 +258,27 @@ public class SubtractActivity extends BaseOpsActivity {
                 startAlgeOps();
             }
         });
+
+        subLayout.onAnimationEndListener(new AlgeOpsRelativeLayout.AnimationEndListener() {
+            @Override
+            public void onAnimationEnded(int val) {
+                Log.d(TAG, "val/countX/1: " + val + "/" + countX + "/" + count1);
+                animatedCounter++;
+                if (animatedCounter == ((count1 + countX) * 2)) {
+                    hasStartedAnimationX = false;
+                    hasStartedAnimation1 = false;
+                }
+            }
+        });
     }
 
     //TODO: Do i also have to cancel out the initial views? or only added views?
     private void cancelOutViews() {
         Handler handler1 = new Handler();
-        int countX = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_X);
+        countX = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_X);
         Log.d(TAG, "Cancelling out X: " + countX);
         for (int i = 0; i < countX; i++) {
+            hasStartedAnimationX = true;
             handler1.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -273,9 +293,10 @@ public class SubtractActivity extends BaseOpsActivity {
             @Override
             public void run() {
                 Handler handler3 = new Handler();
-                int count1 = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
+                count1 = LayoutUtilities.getNumberOfViewsToRemove(subLayout, Constants.OPS_ONE);
                 Log.d(TAG, "Cancelling out 1: " + count1);
                 for (int i = 0; i < count1; i++) {
+                    hasStartedAnimation1 = true;
                     handler3.postDelayed(new Runnable() {
                         @Override
                         public void run() {

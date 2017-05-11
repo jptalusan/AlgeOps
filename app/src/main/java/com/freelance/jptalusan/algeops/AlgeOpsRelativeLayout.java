@@ -49,6 +49,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
         a.recycle();
         maxChildren = rows * cols;
+        listener = null;
     }
 
     public AlgeOpsRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -58,6 +59,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         cols = a.getInt(R.styleable.AlgeOpsRelativeLayoutOptions_cols, 0);
         a.recycle();
         maxChildren = rows * cols;
+        listener = null;
     }
 
     public void getViewDimensions() {
@@ -234,9 +236,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         });
 
         animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(1);
-        animator.setDuration(500);
-        animator.setStartDelay(i * 1000);
+        animator.setRepeatCount(4);
+        animator.setDuration(750);
+        animator.setStartDelay(i * 2500);
         animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -247,6 +249,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             @Override
             public void onAnimationEnd(Animator animator) {
                 performOperation(0, getObjectTypeInside());
+                if (listener != null)
+                    listener.onAnimationEnded(temp);
             }
 
             @Override
@@ -290,6 +294,8 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             public void onAnimationEnd(Animator animator) {
                 //removeImage(temp);
                 performOperation(iv_temp, getObjectTypeInside());
+                if (listener != null)
+                    listener.onAnimationEnded(temp);
             }
 
             @Override
@@ -302,6 +308,21 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
             }
         });
+    }
+
+    public interface AnimationEndListener {
+        // These methods are the different events and
+        // need to pass relevant arguments related to the event triggered
+        // or when data has been loaded
+        void onAnimationEnded(int val);
+//        void onSubAnimationEnded(int val, int type);
+    }
+
+    private AnimationEndListener listener;
+
+    // Assign the listener implementing events interface that will receive the events
+    public void onAnimationEndListener(AnimationEndListener listener) {
+        this.listener = listener;
     }
 
     //TODO: Add sub level restrictions

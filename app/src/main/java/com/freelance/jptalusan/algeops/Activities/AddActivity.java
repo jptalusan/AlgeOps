@@ -42,6 +42,12 @@ public class AddActivity extends BaseOpsActivity {
     protected AlgeOpsRelativeLayout layoutRightOne;
     protected AlgeOpsRelativeLayout layoutLeftOne;
 
+    private int countX = 0;
+    private int countOne = 0;
+
+    private boolean hasStartedAnimationX = false;
+    private boolean hasStartedAnimation1 = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,7 +196,8 @@ public class AddActivity extends BaseOpsActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                reset();
+                if (!hasStartedAnimationX && !hasStartedAnimation1)
+                    reset();
             }
         });
 
@@ -242,6 +249,26 @@ public class AddActivity extends BaseOpsActivity {
 
         rightOneAdd.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_ADD_ONE, layoutRightOne));
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
+
+        layoutLeftX.onAnimationEndListener(new AlgeOpsRelativeLayout.AnimationEndListener() {
+            @Override
+            public void onAnimationEnded(int val) {
+                Log.d(TAG, "val/countX: " + val + "/" + countX);
+                if (val == countX - 1) {
+                    hasStartedAnimationX = false;
+                }
+            }
+        });
+
+        layoutLeftOne.onAnimationEndListener(new AlgeOpsRelativeLayout.AnimationEndListener() {
+            @Override
+            public void onAnimationEnded(int val) {
+                Log.d(TAG, "val/count1: " + val + "/" + countOne);
+                if (val == countOne - 1) {
+                    hasStartedAnimation1 = false;
+                }
+            }
+        });
     }
 
     //TODO: shouldn't be able to press reset when animation is starting
@@ -257,9 +284,10 @@ public class AddActivity extends BaseOpsActivity {
 
     private void cancelOutViews() {
         Handler handler1 = new Handler();
-        int countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
+        countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
         Log.d(TAG, "Cancelling out X: " + countX);
         for (int i = 0; i < countX; i++) {
+            hasStartedAnimationX = true;
             final int temp = i;
             View v = layoutLeftX.getChildAt(i);
             if (v instanceof AlgeOpsImageView) {
@@ -269,7 +297,7 @@ public class AddActivity extends BaseOpsActivity {
                         layoutLeftX.fadeOut(temp);
                         layoutRightX.fadeOut(temp);
                     }
-                }, 1000 * i);
+                }, 2500 * i);
             }
         }
 
@@ -279,8 +307,9 @@ public class AddActivity extends BaseOpsActivity {
             public void run() {
                 Handler handler2 = new Handler();
                 //TODO: add handler that would start only after i * 1000 ms
-                int countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
+                countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
                 for (int i = 0; i < countOne; i++) {
+                    hasStartedAnimation1 = true;
                     final int temp = i;
                     View v = layoutLeftOne.getChildAt(i);
                     if (v instanceof AlgeOpsImageView) {
@@ -290,11 +319,11 @@ public class AddActivity extends BaseOpsActivity {
                                 layoutLeftOne.fadeOut(temp);
                                 layoutRightOne.fadeOut(temp);
                             }
-                        }, 1000 * i);
+                        }, 2500 * i);
                     }
                 }
             }
-        }, 1000 * (countX + 1));
+        }, 2500 * (countX + 1));
 
     }
 
