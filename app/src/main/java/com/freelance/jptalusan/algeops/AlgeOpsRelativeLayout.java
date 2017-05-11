@@ -275,7 +275,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             }
         });
         animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(1);
+        animator.setRepeatCount(3);
         animator.setDuration(750);
         animator.setStartDelay(0);
         animator.start();

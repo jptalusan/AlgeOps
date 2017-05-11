@@ -244,6 +244,7 @@ public class AddActivity extends BaseOpsActivity {
         rightOneSub.setOnClickListener(new AlgeOpsButtonsOnClickListener(this, Constants.OPS_SUB_ONE, layoutRightOne));
     }
 
+    //TODO: shouldn't be able to press reset when animation is starting
     @Override
     protected void reset() {
         super.reset();
