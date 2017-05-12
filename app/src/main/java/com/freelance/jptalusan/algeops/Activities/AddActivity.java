@@ -372,6 +372,7 @@ public class AddActivity extends BaseOpsActivity {
         final int[] first = eq.getIntArr(1);
         final int[] second = eq.getIntArr(2);
 
+        final int factor = (int) getResources().getInteger(R.integer.addfactor);
         firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -386,7 +387,7 @@ public class AddActivity extends BaseOpsActivity {
                     else
                         iv.setImageResource(R.drawable.red_cube);
 
-                    tv.setTextSize(tempH / 4);
+                    tv.setTextSize(tempH / factor);
                     firstPartEq.addView(tv);
                     firstPartEq.addView(iv);
                 }
@@ -400,7 +401,7 @@ public class AddActivity extends BaseOpsActivity {
                     else
                         iv.setImageResource(R.drawable.red_circle);
 
-                    tv.setTextSize(tempH / 4);
+                    tv.setTextSize(tempH / factor);
                     firstPartEq.addView(tv);
                     firstPartEq.addView(iv);
                 }
@@ -414,7 +415,7 @@ public class AddActivity extends BaseOpsActivity {
                     else
                         iv.setImageResource(R.drawable.red_cube);
 
-                    tv.setTextSize(tempH / 4);
+                    tv.setTextSize(tempH / factor);
                     secondPartEq.addView(tv);
                     secondPartEq.addView(iv);
                 }
@@ -428,7 +429,7 @@ public class AddActivity extends BaseOpsActivity {
                     else
                         iv.setImageResource(R.drawable.red_circle);
 
-                    tv.setTextSize(tempH / 4);
+                    tv.setTextSize(tempH / factor);
                     secondPartEq.addView(tv);
                     secondPartEq.addView(iv);
                 }

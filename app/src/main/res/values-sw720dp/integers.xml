@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="text_box_factor">8</integer>
+    <integer name="text_with_image">8</integer>
+    <integer name="addfactor">4</integer>
+</resources>
