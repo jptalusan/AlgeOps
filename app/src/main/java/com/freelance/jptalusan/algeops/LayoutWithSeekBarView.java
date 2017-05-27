@@ -94,7 +94,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         isAnswerIncorrect = true;
 
         Log.d("AddAc", "userAnswer: " + userAnswer);
-        drawValuesInRelativeLayout(userAnswer, false);
+        //drawValuesInRelativeLayout(userAnswer, false);
         drawValuesInRelativeLayout(correctAnswer, true);
 
         seekBar.setEnabled(false);

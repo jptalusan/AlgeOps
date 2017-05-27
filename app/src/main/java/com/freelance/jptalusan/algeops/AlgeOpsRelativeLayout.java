@@ -236,9 +236,9 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         });
 
         animator.setInterpolator(new LinearInterpolator());
-        animator.setRepeatCount(4);
+        animator.setRepeatCount(2);
         animator.setDuration(750);
-        animator.setStartDelay(i * 2500);
+        animator.setStartDelay(i * 2000);
         animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -544,15 +544,19 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
 
         if (Color.GREEN == color) {
             if (R.drawable.cube == drawable) {
-                opsImageView.setImageResource(R.drawable.green_cube);
+                opsImageView.setBackgroundResource(R.drawable.green_cube);
+                opsImageView.setTextItem("X");
             } else {
-                opsImageView.setImageResource(R.drawable.green_circle);
+                opsImageView.setBackgroundResource(R.drawable.green_circle);
+                opsImageView.setTextItem("1");
             }
         } else if (Color.RED == color) {
             if (R.drawable.cube == drawable) {
-                opsImageView.setImageResource(R.drawable.red_cube);
+                opsImageView.setBackgroundResource(R.drawable.red_cube);
+                opsImageView.setTextItem("X");
             } else {
-                opsImageView.setImageResource(R.drawable.red_circle);
+                opsImageView.setBackgroundResource(R.drawable.red_circle);
+                opsImageView.setTextItem("1");
             }
         }
         opsImageView.setLayoutParams(generateParams());

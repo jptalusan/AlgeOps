@@ -204,30 +204,32 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
-            if (!isSecondAnswerCorrect){
-                Log.d(TAG, "First ans correct.");
-                if (isSeekBarAnswerCorrect()) {
-                    isSecondAnswerCorrect = true;
-                    //Count if the user has 10 consecutive answers
-                    correctAnswers++;
-                    if (correctAnswers == Constants.LEVEL_UP) {
-                        Toast.makeText(AddActivity.this, "Congratulations! You are now in Level 2", Toast.LENGTH_SHORT).show();
-                        prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
-                    }
-                    prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                    Log.d(TAG, "Correct: " + correctAnswers);
-                    Toast.makeText(AddActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
-                    startAlgeOps();
-                } else {
-                    playSound(R.raw.wrong);
-                    if (correctAnswers != Constants.LEVEL_UP) {
-                        correctAnswers = 0;
-                        prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                        Log.d(TAG, "Back to start: " + correctAnswers);
+                if (!hasStartedAnimationX && !hasStartedAnimation1) {
+                    int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
+                    if (!isSecondAnswerCorrect) {
+                        Log.d(TAG, "First ans correct.");
+                        if (isSeekBarAnswerCorrect()) {
+                            isSecondAnswerCorrect = true;
+                            //Count if the user has 10 consecutive answers
+                            correctAnswers++;
+                            if (correctAnswers == Constants.LEVEL_UP) {
+                                Toast.makeText(AddActivity.this, "Congratulations! You are now in Level 2", Toast.LENGTH_SHORT).show();
+                                prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
+                            }
+                            prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                            Log.d(TAG, "Correct: " + correctAnswers);
+                            Toast.makeText(AddActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
+                            startAlgeOps();
+                        } else {
+                            playSound(R.raw.wrong);
+                            if (correctAnswers != Constants.LEVEL_UP) {
+                                correctAnswers = 0;
+                                prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                                Log.d(TAG, "Back to start: " + correctAnswers);
+                            }
+                        }
                     }
                 }
-            }
             }
         });
 
@@ -297,7 +299,7 @@ public class AddActivity extends BaseOpsActivity {
                         layoutLeftX.fadeOut(temp);
                         layoutRightX.fadeOut(temp);
                     }
-                }, 2500 * i);
+                }, 2000 * i);
             }
         }
 
@@ -319,11 +321,11 @@ public class AddActivity extends BaseOpsActivity {
                                 layoutLeftOne.fadeOut(temp);
                                 layoutRightOne.fadeOut(temp);
                             }
-                        }, 2500 * i);
+                        }, 2000 * i);
                     }
                 }
             }
-        }, 2500 * (countX + 1));
+        }, 2000 * (countX + 1));
 
     }
 
@@ -372,7 +374,7 @@ public class AddActivity extends BaseOpsActivity {
         final int[] first = eq.getIntArr(1);
         final int[] second = eq.getIntArr(2);
 
-        final int factor = (int) getResources().getInteger(R.integer.addfactor);
+        final int factor = getResources().getInteger(R.integer.addfactor);
         firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {

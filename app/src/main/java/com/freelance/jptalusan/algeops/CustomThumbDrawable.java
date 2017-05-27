@@ -1,6 +1,7 @@
 package com.freelance.jptalusan.algeops;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -26,6 +27,8 @@ public class CustomThumbDrawable extends Drawable {
     public void setColor(int color) {
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setColor((0xA0 << 24) + (color & 0x00FFFFFF));
+//        circlePaint.setColor(Color.BLACK);
+//        circlePaint.setAlpha(0);
         invalidateSelf();
     }
 
@@ -68,6 +71,7 @@ public class CustomThumbDrawable extends Drawable {
 
     @Override
     public void setAlpha(int alpha) {
+        setAlpha(alpha);
     }
 
     @Override

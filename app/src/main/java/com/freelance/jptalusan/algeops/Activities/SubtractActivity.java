@@ -56,6 +56,7 @@ public class SubtractActivity extends BaseOpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
 
+        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_2).apply();
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
             prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
@@ -206,32 +207,34 @@ public class SubtractActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "checkButton clicked");
-                int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
-                if (!isSecondAnswerCorrect) {
-                    Log.d(TAG, "First ans correct.");
-                    if (isSeekBarAnswerCorrect()) {
-                        isSecondAnswerCorrect = true;
-                        //Count if the user has 10 consecutive answers (4 levels)
-                        correctAnswers++;
-                        int currLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
-                        if (correctAnswers == Constants.LEVEL_UP && currLevel != Constants.LEVEL_4) {
-                            currLevel++;
-                            Toast.makeText(SubtractActivity.this, "Congratulations! You are now in Level " + currLevel, Toast.LENGTH_SHORT).show();
-                            prefs.edit().putInt(Constants.SUB_LEVEL, currLevel).apply();
-                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
+                if (!hasStartedAnimationX && !hasStartedAnimation1) {
+                    Log.d(TAG, "checkButton clicked");
+                    int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
+                    if (!isSecondAnswerCorrect) {
+                        Log.d(TAG, "First ans correct.");
+                        if (isSeekBarAnswerCorrect()) {
+                            isSecondAnswerCorrect = true;
+                            //Count if the user has 10 consecutive answers (4 levels)
+                            correctAnswers++;
+                            int currLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
+                            if (correctAnswers == Constants.LEVEL_UP && currLevel != Constants.LEVEL_4) {
+                                currLevel++;
+                                Toast.makeText(SubtractActivity.this, "Congratulations! You are now in Level " + currLevel, Toast.LENGTH_SHORT).show();
+                                prefs.edit().putInt(Constants.SUB_LEVEL, currLevel).apply();
+                                prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
+                            } else {
+                                prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
+                            }
+                            Log.d(TAG, "Correct: " + correctAnswers);
+                            Toast.makeText(SubtractActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
+                            startAlgeOps();
                         } else {
-                            prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
-                        }
-                        Log.d(TAG, "Correct: " + correctAnswers);
-                        Toast.makeText(SubtractActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
-                        startAlgeOps();
-                    } else {
-                        playSound(R.raw.wrong);
-                        if (correctAnswers != Constants.LEVEL_UP) {
-                            correctAnswers = 0;
-                            prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                            Log.d(TAG, "Back to start: " + correctAnswers);
+                            playSound(R.raw.wrong);
+                            if (correctAnswers != Constants.LEVEL_UP) {
+                                correctAnswers = 0;
+                                prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
+                                Log.d(TAG, "Back to start: " + correctAnswers);
+                            }
                         }
                     }
                 }
@@ -367,7 +370,7 @@ public class SubtractActivity extends BaseOpsActivity {
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 
-        final int factor = (int) getResources().getInteger(R.integer.text_box_factor);
+        final int factor = getResources().getInteger(R.integer.text_box_factor);
         if (subLevel == Constants.LEVEL_1) {
             setEquationsLayout();
         } else if (subLevel == Constants.LEVEL_2) {
@@ -379,7 +382,7 @@ public class SubtractActivity extends BaseOpsActivity {
                     TextView tv1 = new TextView(SubtractActivity.this);
                     //tv1.setText(" from, " + firstPart);
                     TextView tv2 = new TextView(SubtractActivity.this);
-                    tv2.setText("Remove " + secondPart + ", from " + firstPart);
+                    tv2.setText("Remove " + secondPart);// + ", from " + firstPart);
                     tv1.setTextSize(tempH / factor);
                     tv2.setTextSize(tempH / factor);
                     firstPartEq.addView(tv1);
@@ -398,7 +401,7 @@ public class SubtractActivity extends BaseOpsActivity {
                     TextView tv1 = new TextView(SubtractActivity.this);
                     //tv1.setText(" from, " + firstPart);
                     TextView tv2 = new TextView(SubtractActivity.this);
-                    tv2.setText("Remove " + secondPart + ", from " + firstPart);
+                    tv2.setText("Remove " + secondPart);// + ", from " + firstPart);
                     tv1.setTextSize(tempH / factor);
                     tv2.setTextSize(tempH / factor);
                     firstPartEq.addView(tv1);
@@ -413,14 +416,13 @@ public class SubtractActivity extends BaseOpsActivity {
         oneSeekbar.resetSeekBars();
         answerIsWrong();
 
-//        subLayout.populateImageViewBasedOnEq(SubtractActivity.this, eq);
         subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
     }
 
     protected void setEquationsLayout() {
         final int[] first = eq.getIntArr(1);
         final int[] second = eq.getIntArr(2);
-        final int factor = (int) getResources().getInteger(R.integer.text_with_image);
+        final int factor = getResources().getInteger(R.integer.text_with_image);
         firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -484,11 +486,11 @@ public class SubtractActivity extends BaseOpsActivity {
                 tv.setText("Remove: " + temp);
 
                 firstPartEq.removeAllViews();
-                TextView tv2 = new TextView(SubtractActivity.this);
-                tv2.setGravity(Gravity.START);
-                tv2.setText(" From: ");
-                tv2.setTextSize(tempH / factor);
-                firstPartEq.addView(tv2);
+//                TextView tv2 = new TextView(SubtractActivity.this);
+//                tv2.setGravity(Gravity.START);
+//                tv2.setText(" From: ");
+//                tv2.setTextSize(tempH / factor);
+//                firstPartEq.addView(tv2);
             }
         });
 
