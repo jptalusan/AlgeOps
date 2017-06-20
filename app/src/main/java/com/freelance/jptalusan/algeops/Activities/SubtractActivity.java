@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
-import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
@@ -56,7 +55,6 @@ public class SubtractActivity extends BaseOpsActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtract);
 
-        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_2).apply();
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_SUB, true)) {
             prefs.edit().putBoolean(Constants.IS_FIRST_RUN_SUB, false).apply();
             prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();

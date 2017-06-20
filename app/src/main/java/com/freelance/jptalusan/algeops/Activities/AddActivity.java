@@ -259,6 +259,8 @@ public class AddActivity extends BaseOpsActivity {
                 if (val == countX - 1) {
                     hasStartedAnimationX = false;
                 }
+                if (!hasStartedAnimation1 && !hasStartedAnimationX)
+                    answerIsCorrect();
             }
         });
 
@@ -269,6 +271,8 @@ public class AddActivity extends BaseOpsActivity {
                 if (val == countOne - 1) {
                     hasStartedAnimation1 = false;
                 }
+                if (!hasStartedAnimation1 && !hasStartedAnimationX)
+                    answerIsCorrect();
             }
         });
     }
@@ -481,7 +485,6 @@ public class AddActivity extends BaseOpsActivity {
                 isFirstAnswerCorrect = true;
                 xSeekbar.getViewDimensions();
                 oneSeekbar.getViewDimensions();
-                answerIsCorrect();
                 cancelOutViews();
             }
         }

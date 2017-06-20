@@ -545,18 +545,18 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         if (Color.GREEN == color) {
             if (R.drawable.cube == drawable) {
                 opsImageView.setBackgroundResource(R.drawable.green_cube);
-                opsImageView.setTextItem("X");
+                opsImageView.setTextItem(c, "X");
             } else {
                 opsImageView.setBackgroundResource(R.drawable.green_circle);
-                opsImageView.setTextItem("1");
+                opsImageView.setTextItem(c, "1");
             }
         } else if (Color.RED == color) {
             if (R.drawable.cube == drawable) {
                 opsImageView.setBackgroundResource(R.drawable.red_cube);
-                opsImageView.setTextItem("X");
+                opsImageView.setTextItem(c, "X");
             } else {
                 opsImageView.setBackgroundResource(R.drawable.red_circle);
-                opsImageView.setTextItem("1");
+                opsImageView.setTextItem(c, "1");
             }
         }
         opsImageView.setLayoutParams(generateParams());
