@@ -60,8 +60,8 @@ public class BaseOpsActivity extends AppCompatActivity {
         hasStarted = true;
 
         eq = EquationGeneration.generateEquation("ADD", 0);
-        //DEBUG
-        //eq = new Equation(1, 0, -1, 1);
+//        DEBUG
+//        eq = new Equation(1, 0, 0, 0);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 

@@ -1,7 +1,6 @@
 package com.freelance.jptalusan.algeops;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
@@ -51,7 +50,8 @@ public class CustomThumbDrawable extends Drawable {
     public final void draw(Canvas canvas) {
         int height = this.getBounds().centerY();
         int width = this.getBounds().centerX();
-        canvas.drawCircle(width + mRadius, height, mRadius, circlePaint);
+        //Draws the thumb drawable
+        //canvas.drawCircle(width + mRadius, height - (mRadius / 2), mRadius, circlePaint);
     }
 
     @Override
