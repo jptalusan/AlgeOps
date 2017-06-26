@@ -212,13 +212,13 @@ public class AddActivity extends BaseOpsActivity {
                             isSecondAnswerCorrect = true;
                             //Count if the user has 10 consecutive answers
                             correctAnswers++;
+                            Log.d(TAG, "Correct: " + correctAnswers);
+                            Toast.makeText(AddActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
                             if (correctAnswers == Constants.LEVEL_UP) {
                                 Toast.makeText(AddActivity.this, "Congratulations! You are now in Level 2", Toast.LENGTH_SHORT).show();
                                 prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
                             }
                             prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                            Log.d(TAG, "Correct: " + correctAnswers);
-                            Toast.makeText(AddActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
                             startAlgeOps();
                         } else {
                             playSound(R.raw.wrong);
@@ -481,7 +481,6 @@ public class AddActivity extends BaseOpsActivity {
     }
 
     private void checkIfTilesAreCorrect() {
-        int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
         if (!isFirstAnswerCorrect) {
             boolean isCorrect = eq.isAdditionAnswerCorrect(layoutLeftX.currXVal,
                     layoutLeftOne.currOneVal,
