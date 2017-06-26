@@ -115,7 +115,7 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d(TAG, "thumb " + progress);
+//                Log.d(TAG, "thumbx: " + progress);
                 xSeekbar.removeAllViewsInRelativeLayout();
                 xSeekbar.setUserAnswer(progress - 10);
                 xSeekbar.drawValuesInRelativeLayout(progress - 10, false);
@@ -160,7 +160,7 @@ public class AddActivity extends BaseOpsActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //Log.d(TAG, "thumb " + thumbIndex + ":" + value);
+//                Log.d(TAG, "thumb1: " + progress);
                 oneSeekbar.removeAllViewsInRelativeLayout();
                 oneSeekbar.setUserAnswer(progress - 10);
                 oneSeekbar.drawValuesInRelativeLayout(progress - 10, false);
@@ -255,24 +255,26 @@ public class AddActivity extends BaseOpsActivity {
         layoutLeftX.onAnimationEndListener(new AlgeOpsRelativeLayout.AnimationEndListener() {
             @Override
             public void onAnimationEnded(int val) {
-                Log.d(TAG, "val/countX: " + val + "/" + countX);
+                Log.d(TAG, "val/countX: " + val + "/" + (countX - 1));
                 if (val == countX - 1) {
                     hasStartedAnimationX = false;
                 }
-                if (!hasStartedAnimation1 && !hasStartedAnimationX)
+                if (!hasStartedAnimation1 && !hasStartedAnimationX) {
                     answerIsCorrect();
+                }
             }
         });
 
         layoutLeftOne.onAnimationEndListener(new AlgeOpsRelativeLayout.AnimationEndListener() {
             @Override
             public void onAnimationEnded(int val) {
-                Log.d(TAG, "val/count1: " + val + "/" + countOne);
+                Log.d(TAG, "val/count1: " + val + "/" + (countOne - 1));
                 if (val == countOne - 1) {
                     hasStartedAnimation1 = false;
                 }
-                if (!hasStartedAnimation1 && !hasStartedAnimationX)
+                if (!hasStartedAnimation1 && !hasStartedAnimationX) {
                     answerIsCorrect();
+                }
             }
         });
     }
@@ -281,7 +283,7 @@ public class AddActivity extends BaseOpsActivity {
     @Override
     protected void reset() {
         super.reset();
-
+        setAllButtonsClickabilitiy(true);
         layoutLeftX.resetLayout();
         layoutRightX.resetLayout();
         layoutLeftOne.resetLayout();
@@ -291,9 +293,15 @@ public class AddActivity extends BaseOpsActivity {
     private void cancelOutViews() {
         Handler handler1 = new Handler();
         countX = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftX, layoutRightX, Constants.OPS_X);
-        Log.d(TAG, "Cancelling out X: " + countX);
+        countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
+        Log.d(TAG, "To cancel out: X: " + countX + "/ One: " + countOne);
+        hasStartedAnimationX = countX > 0;
+        hasStartedAnimation1 = countOne > 0;
+
+        if (!hasStartedAnimationX && !hasStartedAnimation1) {
+            answerIsCorrect();
+        }
         for (int i = 0; i < countX; i++) {
-            hasStartedAnimationX = true;
             final int temp = i;
             View v = layoutLeftX.getChildAt(i);
             if (v instanceof AlgeOpsImageView) {
@@ -303,7 +311,7 @@ public class AddActivity extends BaseOpsActivity {
                         layoutLeftX.fadeOut(temp);
                         layoutRightX.fadeOut(temp);
                     }
-                }, 2000 * i);
+                }, 1500 * i);
             }
         }
 
@@ -313,9 +321,7 @@ public class AddActivity extends BaseOpsActivity {
             public void run() {
                 Handler handler2 = new Handler();
                 //TODO: add handler that would start only after i * 1000 ms
-                countOne = LayoutUtilities.getNumberOfViewsToRemove(layoutLeftOne, layoutRightOne, Constants.OPS_ONE);
                 for (int i = 0; i < countOne; i++) {
-                    hasStartedAnimation1 = true;
                     final int temp = i;
                     View v = layoutLeftOne.getChildAt(i);
                     if (v instanceof AlgeOpsImageView) {
@@ -325,11 +331,11 @@ public class AddActivity extends BaseOpsActivity {
                                 layoutLeftOne.fadeOut(temp);
                                 layoutRightOne.fadeOut(temp);
                             }
-                        }, 2000 * i);
+                        }, 1500 * i);
                     }
                 }
             }
-        }, 2000 * (countX + 1));
+        }, 2000 * (countX + 1) + 1000);
 
     }
 
@@ -469,6 +475,8 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.resetSeekBars();
         oneSeekbar.resetSeekBars();
 
+        setAllButtonsClickabilitiy(true);
+
         answerIsWrong();
     }
 
@@ -486,8 +494,20 @@ public class AddActivity extends BaseOpsActivity {
                 xSeekbar.getViewDimensions();
                 oneSeekbar.getViewDimensions();
                 cancelOutViews();
+                setAllButtonsClickabilitiy(false);
             }
         }
+    }
+
+    public void setAllButtonsClickabilitiy(boolean b) {
+        leftXAdd.setEnabled(b);
+        leftXSub.setEnabled(b);
+        rightXAdd.setEnabled(b);
+        rightXSub.setEnabled(b);
+        leftOneAdd.setEnabled(b);
+        leftOneSub.setEnabled(b);
+        rightOneAdd.setEnabled(b);
+        rightOneSub.setEnabled(b);
     }
 
     public class AlgeOpsButtonsOnClickListener implements View.OnClickListener {

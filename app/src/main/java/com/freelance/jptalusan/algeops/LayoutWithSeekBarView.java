@@ -84,6 +84,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width = relativeLayout.getMeasuredWidth();
                 dimensions.height = layoutDims.height / 2;
+                Log.d(TAG, "rel w x h: " + dimensions.width + " x " + dimensions.height);
             }
         });
     }
@@ -129,6 +130,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     }
 
     public void drawValuesInRelativeLayout(Integer maxValue, boolean colorLast) {
+        Log.d(TAG, "drawValuesInRelativeLayout()");
         double center = dimensions.width / 2;
 
         for (int i = 0; i < Math.abs(maxValue); ++i) {
@@ -139,6 +141,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                     (int) dimensions.width / 20,
                     (int) dimensions.height);
 
+            Log.d(TAG, "Params: " + params.width + " / " + params.height);
             if (maxValue > 0) {
                 if (type == Constants.X) {
                     imageView.setImageResource(R.drawable.green_cube);

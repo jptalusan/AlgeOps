@@ -230,7 +230,6 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
-                // 2
                 getChildAt(0).setAlpha(value);
             }
         });
@@ -238,7 +237,7 @@ public class AlgeOpsRelativeLayout extends RelativeLayout {
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(2);
         animator.setDuration(750);
-        animator.setStartDelay(i * 2000);
+        animator.setStartDelay(i * 1500);
         animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override

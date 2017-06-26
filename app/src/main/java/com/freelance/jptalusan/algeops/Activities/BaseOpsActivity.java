@@ -7,15 +7,12 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
-import com.freelance.jptalusan.algeops.R;
-import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
@@ -61,7 +58,10 @@ public class BaseOpsActivity extends AppCompatActivity {
 
     protected void startAlgeOps() {
         hasStarted = true;
+
         eq = EquationGeneration.generateEquation("ADD", 0);
+        //DEBUG
+        //eq = new Equation(1, 0, -1, 1);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 
@@ -90,6 +90,9 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         xSeekbarImageView.setTextColor(Color.BLACK);
         oneSeekbarImageView.setTextColor(Color.BLACK);
+
+        xSeekbar.getViewDimensions();
+        oneSeekbar.getViewDimensions();
     }
 
     protected void reset() {

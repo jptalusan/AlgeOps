@@ -2,8 +2,6 @@ package com.freelance.jptalusan.algeops.Utilities;
 
 import android.util.Log;
 
-import static com.freelance.jptalusan.algeops.R.id.one;
-
 
 /**
  * Created by JPTalusan on 20/01/2017.
@@ -34,7 +32,7 @@ public class Equation {
 
     private int d;
 
-    Equation(int ax, int b, int cx, int d) {
+    public Equation(int ax, int b, int cx, int d) {
         this.ax = ax;
         this.b = b;
         this.cx = cx;
@@ -91,8 +89,10 @@ public class Equation {
 
     public boolean isAdditionAnswerCorrect(int ax, int b, int cx, int d) {
         Log.d(TAG, "isAdditionAnswerCorrect");
-        return ((this.ax + this.cx == ax + cx) &&
-                (this.b + this.d == b + d));
+        return (this.ax == ax
+                && this.cx == cx
+                && this.b == b
+                && this.d == d);
     }
 
     public boolean isSubtractAnswerCorrect(int ax, int b) {
