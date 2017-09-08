@@ -1,4 +1,4 @@
-package com.freelance.jptalusan.algeops;
+package com.freelance.jptalusan.algeops.ComboSeekBarView;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -12,7 +12,8 @@ import android.view.MotionEvent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SeekBar;
+
+import com.freelance.jptalusan.algeops.R;
 
 import java.util.ArrayList;
 import java.util.List;

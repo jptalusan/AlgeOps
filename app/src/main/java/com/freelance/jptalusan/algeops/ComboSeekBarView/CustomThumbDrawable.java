@@ -1,4 +1,4 @@
-package com.freelance.jptalusan.algeops;
+package com.freelance.jptalusan.algeops.ComboSeekBarView;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;

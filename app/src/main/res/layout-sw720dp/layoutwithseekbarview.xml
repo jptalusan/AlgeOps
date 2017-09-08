@@ -55,7 +55,7 @@
             android:paddingStart="0dp"
             android:visibility="gone" />
 
-        <com.freelance.jptalusan.algeops.ComboSeekBar
+        <com.freelance.jptalusan.algeops.ComboSeekBarView.ComboSeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
