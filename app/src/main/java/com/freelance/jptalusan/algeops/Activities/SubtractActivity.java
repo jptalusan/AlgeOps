@@ -106,16 +106,16 @@ public class SubtractActivity extends BaseOpsActivity {
         points.add("-3");
         points.add("-2");
         points.add("-1");
-        points.add("0");
-        points.add("1");
-        points.add("2");
-        points.add("3");
-        points.add("4");
-        points.add("5");
-        points.add("6");
-        points.add("7");
-        points.add("8");
-        points.add("9");
+        points.add(" 0");
+        points.add(" 1");
+        points.add(" 2");
+        points.add(" 3");
+        points.add(" 4");
+        points.add(" 5");
+        points.add(" 6");
+        points.add(" 7");
+        points.add(" 8");
+        points.add(" 9");
         points.add("10");
 
         xSeekbar.seekBar.setMax(20);
