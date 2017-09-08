@@ -95,7 +95,7 @@ public class SubtractActivity extends BaseOpsActivity {
         xSeekbar = (LayoutWithSeekBarView) findViewById(R.id.subXSeekBar);
         oneSeekbar = (LayoutWithSeekBarView) findViewById(R.id.subOneSeekBar);
 
-        List<String> points = new ArrayList<>();
+        ArrayList<String> points = new ArrayList<>();
         points.add("-10");
         points.add("-9");
         points.add("-8");
@@ -118,8 +118,9 @@ public class SubtractActivity extends BaseOpsActivity {
         points.add("9");
         points.add("10");
 
-        xSeekbar.seekBar.setMax(21);
-        xSeekbar.seekBar.setAdapter(points);
+        xSeekbar.seekBar.setMax(20);
+        xSeekbar.setValues(points);
+        xSeekbar.getViewDimensions();
         xSeekbar.seekBar.setProgress(10);
         xSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -152,8 +153,9 @@ public class SubtractActivity extends BaseOpsActivity {
             }
         });
 
-        oneSeekbar.seekBar.setMax(21);
-        oneSeekbar.seekBar.setAdapter(points);
+        oneSeekbar.seekBar.setMax(20);
+        oneSeekbar.setValues(points);
+        oneSeekbar.getViewDimensions();
         oneSeekbar.seekBar.setProgress(10);
         oneSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

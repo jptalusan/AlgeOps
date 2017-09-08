@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,21 +13,28 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.freelance.jptalusan.algeops.ComboSeekBarView.ComboSeekBar;
+import com.freelance.jptalusan.algeops.Utilities.AutoResizeTextView;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
 import com.freelance.jptalusan.algeops.Utilities.Dimensions;
 
+import java.util.ArrayList;
+
 public class LayoutWithSeekBarView extends ConstraintLayout {
     private static final String TAG = "SeekbarView";
-    public ComboSeekBar seekBar;
+    public AppCompatSeekBar seekBar;
     public RelativeLayout relativeLayout;
     public RelativeLayout numbersLayout;
     private Dimensions dimensions = new Dimensions();
     private Dimensions layoutDims = new Dimensions();
+    private Dimensions numbersDimension = new Dimensions();
     private LayoutWithSeekBarView layoutWithSeekBarView = this;
     private int type = -1;
     private int userAnswer = 0;
     private int correctAnswer = 0;
     public boolean isAnswerIncorrect = false;
+    private double center = 0;
+    private ArrayList<String> mValues = new ArrayList<>();
+    private int tickOffset = 0;
 
     public LayoutWithSeekBarView(Context context) {
         super(context);
@@ -65,9 +73,9 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        relativeLayout = (RelativeLayout) this.findViewById(R.id.subLayout);
-        numbersLayout  = (RelativeLayout) this.findViewById(R.id.numbersLayout);
-        seekBar        = (ComboSeekBar) this.findViewById(R.id.seekbar);
+        relativeLayout = this.findViewById(R.id.subLayout);
+        numbersLayout  = this.findViewById(R.id.numbersLayout);
+        seekBar        = this.findViewById(R.id.seekbar);
     }
 
     public void getViewDimensions() {
@@ -85,6 +93,16 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 relativeLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 dimensions.width = relativeLayout.getMeasuredWidth();
                 dimensions.height = layoutDims.height / 2;
+
+                numbersDimension.width  = relativeLayout.getMeasuredWidth() / ((seekBar.getMax()));
+                numbersDimension.height = relativeLayout.getMeasuredHeight();
+
+                tickOffset = relativeLayout.getMeasuredWidth() / seekBar.getMax();
+                center = dimensions.width / 2;
+
+                numbersLayout.removeAllViews();
+                drawNumbers();
+
 //                Log.d(TAG, "rel w x h: " + dimensions.width + " x " + dimensions.height);
             }
         });
@@ -166,6 +184,8 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 if (colorLast && i == Math.abs(maxValue) - 1)
                     imageView.setBackgroundColor(Color.BLUE);
                 imageView.setLayoutParams(params);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setPadding(2, 0, 2, 0);
                 relativeLayout.addView(imageView);
             }
         }
@@ -193,7 +213,44 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
             else
                 imageView.setVisibility(INVISIBLE);
 
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setPadding(2, 0, 2, 0);
             relativeLayout.addView(imageView);
+        }
+    }
+
+    public void setValues(ArrayList<String> values) {
+        numbersLayout.removeAllViews();
+        mValues = values;
+    }
+
+    private RelativeLayout.LayoutParams generateNumbersParams(int val) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                (int) numbersDimension.width,
+                (int) numbersDimension.height);
+
+        if (val > 0) { //add some factor since it does not have the '-' symbol.
+            params.leftMargin = (int)center + tickOffset + (tickOffset * (val - 1)) + 8;
+        } else if (val < 0) {
+            params.leftMargin = (int)center + tickOffset - (tickOffset * Math.abs(val - 1));
+        } else {
+            params.leftMargin = (int)center + 8;
+        }
+
+        params.topMargin = 20;
+
+        return params;
+    }
+
+    public void drawNumbers() {
+        if (mValues == null) {
+            return;
+        }
+        for (int i = 0; i < mValues.size(); ++i) {
+            AutoResizeTextView tv = new AutoResizeTextView(getContext());
+            tv.setText(mValues.get(i));
+            tv.setLayoutParams(generateNumbersParams(i - 10));
+            numbersLayout.addView(tv);
         }
     }
 }

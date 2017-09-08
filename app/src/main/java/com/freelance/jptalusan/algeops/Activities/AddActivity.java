@@ -86,7 +86,7 @@ public class AddActivity extends BaseOpsActivity {
 
         //1 thumb
 
-        List<String> points = new ArrayList<>();
+        ArrayList<String> points = new ArrayList<>();
         points.add("-10");
         points.add("-9");
         points.add("-8");
@@ -97,20 +97,21 @@ public class AddActivity extends BaseOpsActivity {
         points.add("-3");
         points.add("-2");
         points.add("-1");
-        points.add("0");
-        points.add("1");
-        points.add("2");
-        points.add("3");
-        points.add("4");
-        points.add("5");
-        points.add("6");
-        points.add("7");
-        points.add("8");
-        points.add("9");
+        points.add(" 0");
+        points.add(" 1");
+        points.add(" 2");
+        points.add(" 3");
+        points.add(" 4");
+        points.add(" 5");
+        points.add(" 6");
+        points.add(" 7");
+        points.add(" 8");
+        points.add(" 9");
         points.add("10");
 
-        xSeekbar.seekBar.setMax(21);
-        xSeekbar.seekBar.setAdapter(points);
+        xSeekbar.seekBar.setMax(20);
+        xSeekbar.setValues(points);
+        xSeekbar.getViewDimensions();
         xSeekbar.seekBar.setProgress(10);
         xSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -144,8 +145,9 @@ public class AddActivity extends BaseOpsActivity {
             }
         });
 
-        oneSeekbar.seekBar.setMax(21);
-        oneSeekbar.seekBar.setAdapter(points);
+        oneSeekbar.seekBar.setMax(20);
+        oneSeekbar.setValues(points);
+        oneSeekbar.getViewDimensions();
         oneSeekbar.seekBar.setProgress(10);
         oneSeekbar.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
