@@ -217,6 +217,7 @@ public class SubtractActivity extends BaseOpsActivity {
                             //Count if the user has 10 consecutive answers (4 levels)
                             correctAnswers++;
                             int currLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
+                            Toast.makeText(SubtractActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
                             if (correctAnswers == Constants.LEVEL_UP && currLevel != Constants.LEVEL_4) {
                                 currLevel++;
                                 Toast.makeText(SubtractActivity.this, "Congratulations! You are now in Level " + currLevel, Toast.LENGTH_SHORT).show();
@@ -226,8 +227,7 @@ public class SubtractActivity extends BaseOpsActivity {
                                 prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, correctAnswers).apply();
                             }
                             Log.d(TAG, "Correct: " + correctAnswers);
-                            Toast.makeText(SubtractActivity.this, "You are correct!", Toast.LENGTH_SHORT).show();
-                            startAlgeOps();
+//                            startAlgeOps();
                         } else {
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
@@ -236,6 +236,13 @@ public class SubtractActivity extends BaseOpsActivity {
                                 Log.d(TAG, "Back to start: " + correctAnswers);
                             }
                         }
+                        Handler h = new Handler();
+                        h.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startAlgeOps();
+                            }
+                        }, 2000);
                     }
                 }
             }

@@ -230,14 +230,14 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 (int) numbersDimension.height);
 
         if (val > 0) { //add some factor since it does not have the '-' symbol.
-            params.leftMargin = (int)center + tickOffset + (tickOffset * (val - 1)) + 8;
+            params.leftMargin = (int)center + tickOffset + (tickOffset * (val - 1));
         } else if (val < 0) {
             params.leftMargin = (int)center + tickOffset - (tickOffset * Math.abs(val - 1));
         } else {
-            params.leftMargin = (int)center + 8;
+            params.leftMargin = (int)center;
         }
 
-        params.topMargin = 20;
+        params.topMargin = 30;
 
         return params;
     }
@@ -248,7 +248,9 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         }
         for (int i = 0; i < mValues.size(); ++i) {
             AutoResizeTextView tv = new AutoResizeTextView(getContext());
+//            tv.setTextSize(10);
             tv.setText(mValues.get(i));
+//            tv.setSingleLine(true);
             tv.setLayoutParams(generateNumbersParams(i - 10));
             numbersLayout.addView(tv);
         }

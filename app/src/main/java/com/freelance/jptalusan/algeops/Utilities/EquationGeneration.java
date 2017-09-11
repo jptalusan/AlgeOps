@@ -43,16 +43,31 @@ public class EquationGeneration {
         Equation generatedEquation = new Equation(ax, b, cx, d);
         if (equationType == Constants.ADD) {
             if (!generatedEquation.isValid(equationType)) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 generatedEquation = generateEquation(equationType, subtractionRestriction);
             }
         } else if (equationType == Constants.SUB) {
             if (subtractionRestriction <= Constants.LEVEL_2) {
                 Log.d(TAG, "Underrestrictions");
                 if (!generatedEquation.isValidWithRestrictions()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     generatedEquation = generateEquation(equationType, subtractionRestriction);
                 }
             } else {
                 if (!generatedEquation.isValid(equationType)) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     generatedEquation = generateEquation(equationType, subtractionRestriction);
                 }
             }

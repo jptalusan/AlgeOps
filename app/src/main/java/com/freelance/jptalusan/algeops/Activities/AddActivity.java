@@ -221,7 +221,7 @@ public class AddActivity extends BaseOpsActivity {
                                 prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
                             }
                             prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-                            startAlgeOps();
+//                            startAlgeOps();
                         } else {
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
@@ -230,6 +230,13 @@ public class AddActivity extends BaseOpsActivity {
                                 Log.d(TAG, "Back to start: " + correctAnswers);
                             }
                         }
+                        Handler h = new Handler();
+                        h.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startAlgeOps();
+                            }
+                        }, 2000);
                     }
                 }
             }

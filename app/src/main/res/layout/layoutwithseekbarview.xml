@@ -40,8 +40,8 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:clipChildren="false"
-        android:clipToPadding="false">
+        android:minHeight="100dp"
+        android:maxHeight="100dp">
 
         <RelativeLayout
             android:id="@+id/numbersLayout"
@@ -53,21 +53,26 @@
             android:clipToPadding="false"
             android:paddingEnd="0dp"
             android:paddingStart="0dp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:minHeight="40dp"
+            android:maxHeight="40dp" />
 
         <android.support.v7.widget.AppCompatSeekBar
             android:id="@+id/seekbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginStart="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_gravity="top"
             android:paddingStart="0dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="0dp"
+            android:max="18"
+            android:minHeight="40dp"
+            android:maxHeight="40dp"/>
     </FrameLayout>
 
     <android.support.constraint.Guideline
