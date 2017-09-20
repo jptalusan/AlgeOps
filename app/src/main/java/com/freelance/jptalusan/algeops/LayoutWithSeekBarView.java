@@ -248,6 +248,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         }
         for (int i = 0; i < mValues.size(); ++i) {
             AutoResizeTextView tv = new AutoResizeTextView(getContext());
+            tv.setMinTextSize(10.0f);
 //            tv.setTextSize(10);
             tv.setText(mValues.get(i));
 //            tv.setSingleLine(true);

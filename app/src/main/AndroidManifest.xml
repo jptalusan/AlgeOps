@@ -10,15 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Activities.MainActivity">
+        </activity>
+        <activity android:name=".Activities.BaseOpsActivity" />
+        <activity android:name=".Activities.AddActivity" />
+        <activity android:name=".Activities.SubtractActivity" />
+        <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.BaseOpsActivity" />
-        <activity android:name=".Activities.AddActivity" />
-        <activity android:name=".Activities.SubtractActivity"/>
     </application>
 
 </manifest>
