@@ -229,6 +229,7 @@ public class SubtractActivity extends BaseOpsActivity {
                             Log.d(TAG, "Correct: " + correctAnswers);
 //                            startAlgeOps();
                         } else {
+                            Toast.makeText(SubtractActivity.this, "You are incorrect.", Toast.LENGTH_SHORT).show();
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
                                 correctAnswers = 0;
@@ -242,7 +243,7 @@ public class SubtractActivity extends BaseOpsActivity {
                             public void run() {
                                 startAlgeOps();
                             }
-                        }, 2000);
+                        }, 3000);
                     }
                 }
             }

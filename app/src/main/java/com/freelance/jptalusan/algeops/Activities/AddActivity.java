@@ -223,6 +223,7 @@ public class AddActivity extends BaseOpsActivity {
                             prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
 //                            startAlgeOps();
                         } else {
+                            Toast.makeText(AddActivity.this, "You are incorrect.", Toast.LENGTH_SHORT).show();
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
                                 correctAnswers = 0;
@@ -236,7 +237,7 @@ public class AddActivity extends BaseOpsActivity {
                             public void run() {
                                 startAlgeOps();
                             }
-                        }, 2000);
+                        }, 3000);
                     }
                 }
             }
