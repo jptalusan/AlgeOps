@@ -73,6 +73,7 @@ public class BaseOpsActivity extends AppCompatActivity {
         startButton.setText("RESET");
         checkButton.setVisibility(View.GONE);
         resetButton.setVisibility(View.GONE);
+        goBackToLevel1.setVisibility(View.GONE);
 
         isFirstAnswerCorrect = false;
         isSecondAnswerCorrect = false;
@@ -83,6 +84,7 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         checkButton.setVisibility(View.VISIBLE);
         resetButton.setVisibility(View.VISIBLE);
+        goBackToLevel1.setVisibility(View.VISIBLE);
 
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
@@ -107,6 +109,7 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         checkButton.setVisibility(View.GONE);
         resetButton.setVisibility(View.GONE);
+        goBackToLevel1.setVisibility(View.GONE);
 
         answerIsWrong();
     }
@@ -114,6 +117,7 @@ public class BaseOpsActivity extends AppCompatActivity {
     protected void answerIsWrong() {
         checkButton.setVisibility(View.GONE);
         resetButton.setVisibility(View.GONE);
+        goBackToLevel1.setVisibility(View.GONE);
 
         xSeekbar.setVisibility(View.GONE);
         oneSeekbar.setVisibility(View.GONE);

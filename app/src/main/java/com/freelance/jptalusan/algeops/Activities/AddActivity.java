@@ -63,34 +63,32 @@ public class AddActivity extends BaseOpsActivity {
         }
         level = prefs.getInt(Constants.ADD_LEVEL, 1);
 
-        startButton     = (Button) findViewById(R.id.newQuestionButton);
-        checkButton     = (Button) findViewById(R.id.checkButton);
-        resetButton     = (Button) findViewById(R.id.resetButton);
+        startButton     = findViewById(R.id.newQuestionButton);
+        checkButton     = findViewById(R.id.checkButton);
+        resetButton     = findViewById(R.id.resetButton);
+        goBackToLevel1  = findViewById(R.id.goBackToLevel1);
 
-        //TODO:Fix this
-        goBackToLevel1     = (Button) findViewById(R.id.newQuestionButton);
+        leftXAdd        = findViewById(R.id.leftXAdd);
+        leftXSub        = findViewById(R.id.leftXSub);
+        rightXAdd       = findViewById(R.id.rightXAdd);
+        rightXSub       = findViewById(R.id.rightXSub);
+        leftOneAdd      = findViewById(R.id.leftOneAdd);
+        leftOneSub      = findViewById(R.id.leftOneSub);
+        rightOneAdd     = findViewById(R.id.rightOneAdd);
+        rightOneSub     = findViewById(R.id.rightOneSub);
 
-        leftXAdd        = (ImageButton) findViewById(R.id.leftXAdd);
-        leftXSub        = (ImageButton) findViewById(R.id.leftXSub);
-        rightXAdd       = (ImageButton) findViewById(R.id.rightXAdd);
-        rightXSub       = (ImageButton) findViewById(R.id.rightXSub);
-        leftOneAdd      = (ImageButton) findViewById(R.id.leftOneAdd);
-        leftOneSub      = (ImageButton) findViewById(R.id.leftOneSub);
-        rightOneAdd     = (ImageButton) findViewById(R.id.rightOneAdd);
-        rightOneSub     = (ImageButton) findViewById(R.id.rightOneSub);
+        layoutLeftX     = findViewById(R.id.layoutLeftX);
+        layoutRightX    = findViewById(R.id.layoutRightX);
+        layoutLeftOne   = findViewById(R.id.layoutLeftOne);
+        layoutRightOne  = findViewById(R.id.layoutRightOne);
 
-        layoutLeftX     = (AlgeOpsRelativeLayout) findViewById(R.id.layoutLeftX);
-        layoutRightX    = (AlgeOpsRelativeLayout) findViewById(R.id.layoutRightX);
-        layoutLeftOne   = (AlgeOpsRelativeLayout) findViewById(R.id.layoutLeftOne);
-        layoutRightOne  = (AlgeOpsRelativeLayout) findViewById(R.id.layoutRightOne);
+        firstPartEq     = findViewById(R.id.firstEqTextView);
+        secondPartEq    = findViewById(R.id.secondEqTextView);
 
-        firstPartEq     = (LinearLayout) findViewById(R.id.firstEqTextView);
-        secondPartEq    = (LinearLayout) findViewById(R.id.secondEqTextView);
+        xSeekbar        = findViewById(R.id.xSeekBar);
+        oneSeekbar      = findViewById(R.id.oneSeekBar);
 
-        xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
-        oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
-
-        //score           = (TextView) findViewById(R.id.score);
+        score           = findViewById(R.id.score);
 
         //1 thumb
 
@@ -189,23 +187,17 @@ public class AddActivity extends BaseOpsActivity {
             }
         });
 
-        xSeekbarImageView   = (TextView) findViewById(R.id.xSeekBarImage);
-        oneSeekbarImageView = (TextView) findViewById(R.id.oneSeekBarImage);
+        xSeekbarImageView   = findViewById(R.id.xSeekBarImage);
+        oneSeekbarImageView = findViewById(R.id.oneSeekBarImage);
 
-        operationImageView = (ImageView) findViewById(R.id.operationImageView);
+        operationImageView = findViewById(R.id.operationImageView);
         operationImageView.setImageResource(R.drawable.plus);
 
         startAlgeOps();
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAlgeOps();
-            }
-        });
 
         goBackToLevel1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 prefs.edit().putInt(Constants.ADD_LEVEL, 1).apply();
                 prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, 0).apply();
                 startAlgeOps();
@@ -241,9 +233,9 @@ public class AddActivity extends BaseOpsActivity {
                             prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
 
                             currentScore++;
-                            //score.setText("Score: " + currentScore + "/" + totalPlayed);
+                            score.setText("Score: " + currentScore + "/" + totalPlayed);
                         } else {
-                            //score.setText("Score: " + currentScore + "/" + totalPlayed);
+                            score.setText("Score: " + currentScore + "/" + totalPlayed);
                             Toast.makeText(AddActivity.this, "You are incorrect.", Toast.LENGTH_SHORT).show();
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {

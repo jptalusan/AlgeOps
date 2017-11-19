@@ -20,6 +20,7 @@ import com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout;
 import com.freelance.jptalusan.algeops.LayoutWithSeekBarView;
 import com.freelance.jptalusan.algeops.R;
 import com.freelance.jptalusan.algeops.Utilities.Constants;
+import com.freelance.jptalusan.algeops.Utilities.Equation;
 import com.freelance.jptalusan.algeops.Utilities.EquationGeneration;
 import com.freelance.jptalusan.algeops.Utilities.LayoutUtilities;
 
@@ -49,6 +50,8 @@ public class SubtractActivity extends BaseOpsActivity {
     private int animatedCounter = 0;
     private boolean hasStartedAnimationX = false;
     private boolean hasStartedAnimation1 = false;
+    private int currentScore = 0;
+    private int totalPlayed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,41 +63,46 @@ public class SubtractActivity extends BaseOpsActivity {
             prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
             prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
         }
+        //weird request
+        prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
         level = prefs.getInt(Constants.SUB_LEVEL, Constants.LEVEL_1);
 
-        startButton = (Button) findViewById(R.id.startButton);
-        checkButton = (Button) findViewById(R.id.checkButton);
-        resetButton = (Button) findViewById(R.id.resetButton);
+        startButton         = findViewById(R.id.startButton);
+        checkButton         = findViewById(R.id.checkButton);
+        resetButton         = findViewById(R.id.resetButton);
+        goBackToLevel1      = findViewById(R.id.goBackToLevel1);
 
-        firstPartEq = (LinearLayout) findViewById(R.id.firstEqTextView);
-        secondPartEq = (LinearLayout) findViewById(R.id.secondEqTextView);
+        firstPartEq         = findViewById(R.id.firstEqTextView);
+        secondPartEq        = findViewById(R.id.secondEqTextView);
 
-        addXImageView = (ImageView) findViewById(R.id.addXImageView);
-        subXImageView = (ImageView) findViewById(R.id.subXImageView);
-        addOneImageView = (ImageView) findViewById(R.id.addOneImageView);
-        subOneImageView = (ImageView) findViewById(R.id.subOneImageView);
-        addsubXImageView = (ImageView) findViewById(R.id.addsubXImageView);
-        addsubOneImageView = (ImageView) findViewById(R.id.addsubOneImageView);
+        addXImageView       =  findViewById(R.id.addXImageView);
+        subXImageView       =  findViewById(R.id.subXImageView);
+        addOneImageView     =  findViewById(R.id.addOneImageView);
+        subOneImageView     =  findViewById(R.id.subOneImageView);
+        addsubXImageView    =  findViewById(R.id.addsubXImageView);
+        addsubOneImageView  =  findViewById(R.id.addsubOneImageView);
 
-        xSeekbarImageView = (TextView) findViewById(R.id.xSeekbarImageView);
-        oneSeekbarImageView = (TextView) findViewById(R.id.oneSeekbarImageView);
+        xSeekbarImageView   = findViewById(R.id.xSeekbarImageView);
+        oneSeekbarImageView = findViewById(R.id.oneSeekbarImageView);
 
-        operationImageView = (ImageView) findViewById(R.id.operationImageView);
+        operationImageView  = findViewById(R.id.operationImageView);
+
+        subPosXButton       = findViewById(R.id.subPosXButton);
+        subNegXButton       = findViewById(R.id.subNegXButton);
+        addPosNegXButton    = findViewById(R.id.addPosNegXButton);
+
+        subPosOneButton     = findViewById(R.id.subPosOneButton);
+        subNegOneButton     = findViewById(R.id.subNegOneButton);
+        addPosNegOneButton  = findViewById(R.id.addPosNegOneButton);
+
+        subLayout           = findViewById(R.id.subAlgeOpsRelLayout);
+
+        xSeekbar            = findViewById(R.id.subXSeekBar);
+        oneSeekbar          = findViewById(R.id.subOneSeekBar);
+
+        score               = findViewById(R.id.score);
+
         operationImageView.setImageResource(R.drawable.minus);
-
-        subPosXButton = (ImageButton) findViewById(R.id.subPosXButton);
-        subNegXButton = (ImageButton) findViewById(R.id.subNegXButton);
-        addPosNegXButton = (ImageButton) findViewById(R.id.addPosNegXButton);
-
-        subPosOneButton = (ImageButton) findViewById(R.id.subPosOneButton);
-        subNegOneButton = (ImageButton) findViewById(R.id.subNegOneButton);
-        addPosNegOneButton = (ImageButton) findViewById(R.id.addPosNegOneButton);
-
-        subLayout = (AlgeOpsRelativeLayout) findViewById(R.id.subAlgeOpsRelLayout);
-
-        xSeekbar = (LayoutWithSeekBarView) findViewById(R.id.subXSeekBar);
-        oneSeekbar = (LayoutWithSeekBarView) findViewById(R.id.subOneSeekBar);
-
         ArrayList<String> points = new ArrayList<>();
         points.add("-10");
         points.add("-9");
@@ -207,6 +215,7 @@ public class SubtractActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                totalPlayed++;
                 if (!hasStartedAnimationX && !hasStartedAnimation1) {
                     Log.d(TAG, "checkButton clicked");
                     int correctAnswers = prefs.getInt(Constants.CORRECT_SUB_ANSWERS, 0);
@@ -228,7 +237,11 @@ public class SubtractActivity extends BaseOpsActivity {
                             }
                             Log.d(TAG, "Correct: " + correctAnswers);
 //                            startAlgeOps();
+
+                            currentScore++;
+                            score.setText("Score: " + currentScore + "/" + totalPlayed);
                         } else {
+                            score.setText("Score: " + currentScore + "/" + totalPlayed);
                             Toast.makeText(SubtractActivity.this, "You are incorrect.", Toast.LENGTH_SHORT).show();
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
@@ -375,6 +388,7 @@ public class SubtractActivity extends BaseOpsActivity {
 
         int subLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
         eq = EquationGeneration.generateEquation("SUB", subLevel);
+        setButtonAbility(eq);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 
@@ -400,7 +414,7 @@ public class SubtractActivity extends BaseOpsActivity {
 
         } else if (subLevel == Constants.LEVEL_3) {
             setEquationsLayout();
-        } else {
+        } else if (subLevel == Constants.LEVEL_4) {
             firstPartEq.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
@@ -417,6 +431,8 @@ public class SubtractActivity extends BaseOpsActivity {
                 }
             });
 
+        } else {
+            //impossible
         }
 
         subLayout.resetLayout();
@@ -425,6 +441,31 @@ public class SubtractActivity extends BaseOpsActivity {
         answerIsWrong();
 
         subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
+    }
+
+    private void setButtonAbility(Equation eq) {
+        Log.d(TAG, "equation: " + eq.toString() + ", ax: " + eq.getCx());
+        if (eq.getCx() > 0) {
+            subNegXButton.setEnabled(false);
+            subPosXButton.setEnabled(true);
+        } else if (eq.getCx() < 0) {
+            subPosXButton.setEnabled(false);
+            subNegXButton.setEnabled(true);
+        } else {
+//            subPosXButton.setEnabled(false);
+//            subNegXButton.setEnabled(false);
+        }
+
+        if (eq.getD() > 0) {
+            subNegOneButton.setEnabled(false);
+            subPosOneButton.setEnabled(true);
+        } else if (eq.getD() < 0) {
+            subPosOneButton.setEnabled(false);
+            subNegOneButton.setEnabled(true);
+        } else {
+//            subPosOneButton.setEnabled(false);
+//            subNegOneButton.setEnabled(false);
+        }
     }
 
     protected void setEquationsLayout() {
