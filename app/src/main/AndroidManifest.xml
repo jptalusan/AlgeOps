@@ -4,8 +4,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_math"
-        android:roundIcon="@mipmap/ic_launcher_math_round"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher_round"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"

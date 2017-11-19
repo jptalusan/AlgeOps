@@ -23,6 +23,7 @@ public class BaseOpsActivity extends AppCompatActivity {
     public Button startButton;
     public Button checkButton;
     public Button resetButton;
+    public Button goBackToLevel1;
 
     public LinearLayout firstPartEq;
     public LinearLayout secondPartEq;
@@ -42,6 +43,7 @@ public class BaseOpsActivity extends AppCompatActivity {
     protected LayoutWithSeekBarView oneSeekbar;
     protected TextView xSeekbarImageView;
     protected TextView oneSeekbarImageView;
+    protected TextView score;
 
     protected boolean isFirstAnswerCorrect = false;
     protected boolean isSecondAnswerCorrect = false;

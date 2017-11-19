@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -47,6 +48,8 @@ public class AddActivity extends BaseOpsActivity {
 
     private boolean hasStartedAnimationX = false;
     private boolean hasStartedAnimation1 = false;
+    private int currentScore = 0;
+    private int totalPlayed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,9 @@ public class AddActivity extends BaseOpsActivity {
         startButton     = (Button) findViewById(R.id.newQuestionButton);
         checkButton     = (Button) findViewById(R.id.checkButton);
         resetButton     = (Button) findViewById(R.id.resetButton);
+
+        //TODO:Fix this
+        goBackToLevel1     = (Button) findViewById(R.id.newQuestionButton);
 
         leftXAdd        = (ImageButton) findViewById(R.id.leftXAdd);
         leftXSub        = (ImageButton) findViewById(R.id.leftXSub);
@@ -83,6 +89,8 @@ public class AddActivity extends BaseOpsActivity {
 
         xSeekbar        = (LayoutWithSeekBarView) findViewById(R.id.xSeekBar);
         oneSeekbar      = (LayoutWithSeekBarView) findViewById(R.id.oneSeekBar);
+
+        //score           = (TextView) findViewById(R.id.score);
 
         //1 thumb
 
@@ -195,6 +203,15 @@ public class AddActivity extends BaseOpsActivity {
             }
         });
 
+        goBackToLevel1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prefs.edit().putInt(Constants.ADD_LEVEL, 1).apply();
+                prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, 0).apply();
+                startAlgeOps();
+            }
+        });
+
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,6 +223,7 @@ public class AddActivity extends BaseOpsActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                totalPlayed++;
                 if (!hasStartedAnimationX && !hasStartedAnimation1) {
                     int correctAnswers = prefs.getInt(Constants.CORRECT_ADD_ANSWERS, 0);
                     if (!isSecondAnswerCorrect) {
@@ -221,8 +239,11 @@ public class AddActivity extends BaseOpsActivity {
                                 prefs.edit().putInt(Constants.ADD_LEVEL, 2).apply();
                             }
                             prefs.edit().putInt(Constants.CORRECT_ADD_ANSWERS, correctAnswers).apply();
-//                            startAlgeOps();
+
+                            currentScore++;
+                            //score.setText("Score: " + currentScore + "/" + totalPlayed);
                         } else {
+                            //score.setText("Score: " + currentScore + "/" + totalPlayed);
                             Toast.makeText(AddActivity.this, "You are incorrect.", Toast.LENGTH_SHORT).show();
                             playSound(R.raw.wrong);
                             if (correctAnswers != Constants.LEVEL_UP) {
@@ -403,6 +424,7 @@ public class AddActivity extends BaseOpsActivity {
                 if (first[0] != 0) {
                     TextView tv = new TextView(AddActivity.this);
                     tv.setText(Integer.toString(Math.abs(first[0])));
+                    TextViewCompat.setAutoSizeTextTypeWithDefaults(tv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
                     ImageView iv = new ImageView(AddActivity.this);
                     if (first[0] > 0)
                         iv.setImageResource(R.drawable.green_cube);
@@ -417,6 +439,7 @@ public class AddActivity extends BaseOpsActivity {
                 if (first[1] != 0) {
                     TextView tv = new TextView(AddActivity.this);
                     tv.setText(Integer.toString(Math.abs(first[1])));
+                    TextViewCompat.setAutoSizeTextTypeWithDefaults(tv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
                     ImageView iv = new ImageView(AddActivity.this);
                     if (first[1] > 0)
                         iv.setImageResource(R.drawable.green_circle);
@@ -431,6 +454,7 @@ public class AddActivity extends BaseOpsActivity {
                 if (second[0] != 0) {
                     TextView tv = new TextView(AddActivity.this);
                     tv.setText(Integer.toString(Math.abs(second[0])));
+                    TextViewCompat.setAutoSizeTextTypeWithDefaults(tv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
                     ImageView iv = new ImageView(AddActivity.this);
                     if (second[0] > 0)
                         iv.setImageResource(R.drawable.green_cube);
@@ -445,6 +469,7 @@ public class AddActivity extends BaseOpsActivity {
                 if (second[1] != 0) {
                     TextView tv = new TextView(AddActivity.this);
                     tv.setText(Integer.toString(Math.abs(second[1])));
+                    TextViewCompat.setAutoSizeTextTypeWithDefaults(tv, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
                     ImageView iv = new ImageView(AddActivity.this);
                     if (second[1] > 0)
                         iv.setImageResource(R.drawable.green_circle);
@@ -468,10 +493,13 @@ public class AddActivity extends BaseOpsActivity {
         if (prefs.getInt(Constants.ADD_LEVEL, 1) == Constants.LEVEL_1) {
             setEquationsLayout();
         } else {
-            AutoResizeTextView tv1 = new AutoResizeTextView(this);
+            TextView tv1 = new TextView(this);
+            tv1.setHeight(50);
             tv1.setText(firstPart);
-            AutoResizeTextView tv2 = new AutoResizeTextView(this);
+            TextView tv2 = new TextView(this);
             tv2.setText(secondPart);
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(tv1, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+            TextViewCompat.setAutoSizeTextTypeWithDefaults(tv2, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
 
             firstPartEq.addView(tv1);
             secondPartEq.addView(tv2);
