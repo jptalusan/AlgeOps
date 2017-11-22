@@ -63,7 +63,7 @@ public class SubtractActivity extends BaseOpsActivity {
             prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
             prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
         }
-        //weird request
+        //weird request to restart to level 1 when you exit
         prefs.edit().putInt(Constants.SUB_LEVEL, Constants.LEVEL_1).apply();
         level = prefs.getInt(Constants.SUB_LEVEL, Constants.LEVEL_1);
 
@@ -208,6 +208,15 @@ public class SubtractActivity extends BaseOpsActivity {
             public void onClick(View view) {
                 if (!hasStartedAnimationX && !hasStartedAnimation1)
                     reset();
+            }
+        });
+
+        goBackToLevel1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prefs.edit().putInt(Constants.SUB_LEVEL, 1).apply();
+                prefs.edit().putInt(Constants.CORRECT_SUB_ANSWERS, 0).apply();
+                startAlgeOps();
             }
         });
 
