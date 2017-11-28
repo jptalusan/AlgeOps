@@ -527,7 +527,8 @@
         app:layout_constraintEnd_toStartOf="@+id/checkButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subOneSeekBar" />
+        app:layout_constraintTop_toBottomOf="@+id/subOneSeekBar"
+        android:visibility="gone"/>
 
 
 </android.support.constraint.ConstraintLayout>

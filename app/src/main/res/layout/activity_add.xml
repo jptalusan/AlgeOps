@@ -95,17 +95,15 @@
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="CLEAR"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/checkButton"
         app:layout_constraintEnd_toStartOf="@+id/score"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/checkButton"
-        app:layout_constraintTop_toTopOf="@+id/checkButton" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <ImageButton
         android:id="@+id/leftXAdd"
@@ -401,16 +399,13 @@
         android:id="@+id/checkButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="CHECK"
-        app:layout_constraintBottom_toBottomOf="@+id/goBackToLevel1"
         app:layout_constraintEnd_toStartOf="@+id/resetButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/goBackToLevel1"
-        app:layout_constraintTop_toTopOf="@+id/goBackToLevel1" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -556,7 +551,8 @@
         app:layout_constraintEnd_toStartOf="@+id/checkButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/score"

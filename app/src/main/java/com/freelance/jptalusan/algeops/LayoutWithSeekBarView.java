@@ -164,19 +164,23 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
             if (maxValue > 0) {
                 if (type == Constants.X) {
                     imageView.setImageResource(R.drawable.green_cube);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } else {
                     imageView.setImageResource(R.drawable.green_circle);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
-                params.leftMargin = (int) (center + params.width / 2) + (params.width * i);
+                params.leftMargin = (int) (center + params.width / 2) + (params.width * i) - params.width / 2;
                 params.topMargin = 0;
             } else if (maxValue < 0){
                 if (type == Constants.X) {
                     imageView.setImageResource(R.drawable.red_cube);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } else {
                     imageView.setImageResource(R.drawable.red_circle);
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
                 //TODO: WOW MAGIC Number
-                params.leftMargin = (int) (center - params.width / 2) - (params.width * (i + 1));
+                params.leftMargin = (int) (center - params.width / 2) - (params.width * (i + 1)) + params.width / 2;
                 params.topMargin = 0;
             }
 
@@ -184,8 +188,8 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
                 if (colorLast && i == Math.abs(maxValue) - 1)
                     imageView.setBackgroundColor(Color.BLUE);
                 imageView.setLayoutParams(params);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(2, 0, 2, 0);
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                imageView.setPadding(2, 0, 2, 0);
                 relativeLayout.addView(imageView);
             }
         }
@@ -232,7 +236,7 @@ public class LayoutWithSeekBarView extends ConstraintLayout {
         if (val > 0) { //add some factor since it does not have the '-' symbol.
             params.leftMargin = (int)center + tickOffset + (tickOffset * (val - 1));
         } else if (val < 0) {
-            params.leftMargin = (int)center + tickOffset - (tickOffset * Math.abs(val - 1));
+            params.leftMargin = (int)center + tickOffset - (tickOffset * Math.abs(val - 1)) + params.width / 2;
         } else {
             params.leftMargin = (int)center;
         }

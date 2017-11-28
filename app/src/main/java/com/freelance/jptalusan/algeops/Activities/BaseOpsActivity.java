@@ -84,7 +84,7 @@ public class BaseOpsActivity extends AppCompatActivity {
 
         checkButton.setVisibility(View.VISIBLE);
         resetButton.setVisibility(View.VISIBLE);
-        goBackToLevel1.setVisibility(View.VISIBLE);
+        goBackToLevel1.setVisibility(View.GONE);
 
         xSeekbar.setVisibility(View.VISIBLE);
         oneSeekbar.setVisibility(View.VISIBLE);
