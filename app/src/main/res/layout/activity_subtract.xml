@@ -88,7 +88,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/verticalFiftyPercent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.515"></LinearLayout>
+        app:layout_constraintVertical_bias="0.515"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -370,20 +370,39 @@
         app:layout_constraintBottom_toBottomOf="@+id/subXSeekBar"
         app:layout_constraintLeft_toLeftOf="@+id/guideline10"
         app:layout_constraintRight_toLeftOf="@+id/guideline14"
-        app:layout_constraintTop_toTopOf="@+id/subXSeekBar" />
+        app:layout_constraintTop_toTopOf="@+id/subXSeekBar"
+        android:text="0" />
 
-    <TextView
-        android:id="@+id/oneSeekbarImageView"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/circle"
-        android:gravity="center_vertical|center"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/subOneSeekBar"
         app:layout_constraintLeft_toLeftOf="@+id/guideline10"
         app:layout_constraintRight_toLeftOf="@+id/guideline14"
-        app:layout_constraintTop_toTopOf="@+id/subOneSeekBar" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/subOneSeekBar">
+
+        <ImageView
+            android:id="@+id/myImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/circle" />
+
+        <TextView
+            android:id="@+id/oneSeekbarImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@id/myImageView"
+            android:layout_alignLeft="@id/myImageView"
+            android:layout_alignTop="@id/myImageView"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="3dp"
+            android:gravity="center_vertical|center"
+            android:text="0"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/checkButton"

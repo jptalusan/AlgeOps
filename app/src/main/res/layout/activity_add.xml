@@ -78,9 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.654321"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="371dp" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
@@ -188,22 +186,38 @@
         app:layout_constraintBottom_toBottomOf="@+id/xSeekBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline15"
-        app:layout_constraintTop_toTopOf="@+id/xSeekBar" />
+        app:layout_constraintTop_toTopOf="@+id/xSeekBar"
+        android:text="0"/>
 
-    <TextView
-        android:id="@+id/oneSeekBarImage"
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/circle"
-        android:gravity="center_vertical|center"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="@+id/oneSeekBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline15"
-        app:layout_constraintTop_toTopOf="@+id/oneSeekBar" />
+        app:layout_constraintTop_toTopOf="@+id/oneSeekBar">
+
+        <ImageView
+            android:id="@+id/myImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/circle" />
+
+        <TextView
+            android:id="@+id/oneSeekBarImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="3dp"
+            android:layout_alignLeft="@id/myImageView"
+            android:layout_alignTop="@id/myImageView"
+            android:layout_alignBottom="@id/myImageView"
+            android:text="0"
+            android:textColor="@android:color/black" />
+
+    </RelativeLayout>
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:id="@+id/layoutRightX"
@@ -421,9 +435,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7848325"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="445dp" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <com.freelance.jptalusan.algeops.LayoutWithSeekBarView
         android:id="@+id/oneSeekBar"
@@ -475,18 +487,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46031746"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="261dp" />
+        app:layout_constraintGuide_percent="0.44" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5643739"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="320dp" />
+        app:layout_constraintGuide_percent="0.51" />
 
     <com.freelance.jptalusan.algeops.AlgeOpsRelativeLayout
         android:id="@+id/layoutLeftX"

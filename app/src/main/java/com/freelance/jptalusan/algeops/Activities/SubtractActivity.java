@@ -389,6 +389,27 @@ public class SubtractActivity extends BaseOpsActivity {
         subLayout.populateImageViewBasedOnLeftSideEq(SubtractActivity.this, eq);
     }
 
+    private void setImageViewSources(int level) {
+        if (level % 2 == 0) {
+            addXImageView.setImageResource(R.drawable.green_cubenum);
+            subXImageView.setImageResource(R.drawable.red_cubenum);
+            addOneImageView.setImageResource(R.drawable.twocubesnum);
+
+            subOneImageView.setImageResource(R.drawable.green_circlenum);
+            addsubXImageView.setImageResource(R.drawable.red_circlenum);
+            addsubOneImageView.setImageResource(R.drawable.twocirclesnum);
+        } else {
+
+            addXImageView.setImageResource(R.drawable.green_cube);
+            subXImageView.setImageResource(R.drawable.red_cube);
+            addOneImageView.setImageResource(R.drawable.twocubes);
+
+            subOneImageView.setImageResource(R.drawable.green_circle);
+            addsubXImageView.setImageResource(R.drawable.red_circle);
+            addsubOneImageView.setImageResource(R.drawable.twocircles);
+        }
+    }
+
     protected void startAlgeOps() {
         super.startAlgeOps();
 
@@ -396,10 +417,13 @@ public class SubtractActivity extends BaseOpsActivity {
         secondPartEq.removeAllViews();
 
         int subLevel = prefs.getInt(Constants.SUB_LEVEL, 1);
+        Log.d(TAG, "currLevel: " + subLevel);
         eq = EquationGeneration.generateEquation("SUB", subLevel);
         setButtonAbility(eq);
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
+
+        setImageViewSources(subLevel);
 
         final int factor = getResources().getInteger(R.integer.text_box_factor);
         if (subLevel == Constants.LEVEL_1) {
@@ -454,11 +478,27 @@ public class SubtractActivity extends BaseOpsActivity {
 
     private void setButtonAbility(Equation eq) {
         Log.d(TAG, "equation: " + eq.toString() + ", ax: " + eq.getCx());
+        addXImageView.setVisibility(View.VISIBLE);
+        subXImageView.setVisibility(View.VISIBLE);
+        addsubXImageView.setVisibility(View.VISIBLE);
+
+        addOneImageView.setVisibility(View.VISIBLE);
+        subOneImageView.setVisibility(View.VISIBLE);
+        addsubOneImageView.setVisibility(View.VISIBLE);
+
         if (eq.getCx() > 0) {
             subNegXButton.setEnabled(false);
+
+            subNegXButton.setVisibility(View.INVISIBLE);
+            subXImageView.setVisibility(View.INVISIBLE);
+
             subPosXButton.setEnabled(true);
         } else if (eq.getCx() < 0) {
             subPosXButton.setEnabled(false);
+
+            subPosXButton.setVisibility(View.INVISIBLE);
+            addXImageView.setVisibility(View.INVISIBLE);
+
             subNegXButton.setEnabled(true);
         } else {
 //            subPosXButton.setEnabled(false);
@@ -467,9 +507,17 @@ public class SubtractActivity extends BaseOpsActivity {
 
         if (eq.getD() > 0) {
             subNegOneButton.setEnabled(false);
+
+            subNegOneButton.setVisibility(View.INVISIBLE);
+            addsubXImageView.setVisibility(View.INVISIBLE);
+
             subPosOneButton.setEnabled(true);
         } else if (eq.getD() < 0) {
             subPosOneButton.setEnabled(false);
+
+            subPosOneButton.setVisibility(View.INVISIBLE);
+            subOneImageView.setVisibility(View.INVISIBLE);
+
             subNegOneButton.setEnabled(true);
         } else {
 //            subPosOneButton.setEnabled(false);

@@ -53,15 +53,48 @@ public class AlgeOpsImageView extends AutoResizeTextView {
         Log.d(TAG, "Activity: " + context.getClass().getSimpleName());
         switch (context.getClass().getSimpleName()) {
             case "AddActivity":
+                Log.d(TAG, "level: " + prefs.getInt(Constants.ADD_LEVEL, 1));
                 if (prefs.getInt(Constants.ADD_LEVEL, 1) == Constants.LEVEL_2) {
-                    setText(text);
-                    setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                    switch (value) {
+                        case Constants.OPS_ADD_X:
+                            setBackgroundResource(R.drawable.green_cubenum);
+                            break;
+                        case Constants.OPS_SUB_X:
+                            setBackgroundResource(R.drawable.red_cubenum);
+                            break;
+                        case Constants.OPS_ADD_ONE:
+                            setBackgroundResource(R.drawable.green_circlenum);
+                            break;
+                        case Constants.OPS_SUB_ONE:
+                            setBackgroundResource(R.drawable.red_circlenum);
+                            break;
+                        default:
+                            break;
+                    }
+//                    setText(text);
+//                    setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                 }
                 break;
             case "SubtractActivity":
-                if (prefs.getInt(Constants.SUB_LEVEL, 1) == Constants.LEVEL_2) {
-                    setText(text);
-                    setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                if (prefs.getInt(Constants.SUB_LEVEL, 1) % Constants.LEVEL_2 == 0) {
+                    switch (value) {
+                        case Constants.POS_X:
+                            setBackgroundResource(R.drawable.green_cubenum);
+                            break;
+                        case Constants.NEG_X:
+                            setBackgroundResource(R.drawable.red_cubenum);
+                            break;
+                        case Constants.POS_ONE:
+                            setBackgroundResource(R.drawable.green_circlenum);
+                            break;
+                        case Constants.NEG_ONE:
+                            setBackgroundResource(R.drawable.red_circlenum);
+                            break;
+                        default:
+                            break;
+                    }
+//                    setText(text);
+//                    setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                 }
                 break;
             default:
