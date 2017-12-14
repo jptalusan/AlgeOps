@@ -486,42 +486,101 @@ public class SubtractActivity extends BaseOpsActivity {
         subOneImageView.setVisibility(View.VISIBLE);
         addsubOneImageView.setVisibility(View.VISIBLE);
 
+        //
+        subXImageView.setAlpha(1.0f);
+        addXImageView.setAlpha(1.0f);
+
+        addsubXImageView.setAlpha(1.0f);
+        subOneImageView.setAlpha(1.0f);
+        //
+
+        subNegXButton.setVisibility(View.VISIBLE);
+        subNegXButton.setEnabled(true);
+
+        subPosXButton.setVisibility(View.VISIBLE);
+        subPosXButton.setEnabled(true);
+
+        subNegOneButton.setVisibility(View.VISIBLE);
+        subNegOneButton.setEnabled(true);
+
+        subPosOneButton.setVisibility(View.VISIBLE);
+        subPosOneButton.setEnabled(true);
+
+        //
+        subNegXButton.setAlpha(1.0f);
+        subNegXButton.setClickable(true);
+
+        subPosXButton.setAlpha(1.0f);
+        subPosXButton.setClickable(true);
+
+        subNegOneButton.setAlpha(1.0f);
+        subNegOneButton.setClickable(true);
+
+        subPosOneButton.setAlpha(1.0f);
+        subPosOneButton.setClickable(true);
+
         if (eq.getCx() > 0) {
             subNegXButton.setEnabled(false);
+            subNegXButton.setAlpha(.5f);
+            subNegXButton.setClickable(false);
 
-            subNegXButton.setVisibility(View.INVISIBLE);
-            subXImageView.setVisibility(View.INVISIBLE);
+//            subNegXButton.setVisibility(View.INVISIBLE);
+            subXImageView.setAlpha(.5f);
 
             subPosXButton.setEnabled(true);
         } else if (eq.getCx() < 0) {
             subPosXButton.setEnabled(false);
+            subPosXButton.setAlpha(.5f);
+            subPosXButton.setClickable(false);
 
-            subPosXButton.setVisibility(View.INVISIBLE);
-            addXImageView.setVisibility(View.INVISIBLE);
+//            subPosXButton.setVisibility(View.INVISIBLE);
+            addXImageView.setAlpha(.5f);
 
             subNegXButton.setEnabled(true);
-        } else {
-//            subPosXButton.setEnabled(false);
-//            subNegXButton.setEnabled(false);
+        } else if (eq.getCx() == 0){
+            subPosXButton.setEnabled(false);
+            subNegXButton.setEnabled(false);
+
+            subPosXButton.setAlpha(.5f);
+            subPosXButton.setClickable(false);
+
+            subNegXButton.setAlpha(.5f);
+            subNegXButton.setClickable(false);
+
+            subXImageView.setAlpha(.5f);
+            addXImageView.setAlpha(.5f);
         }
 
         if (eq.getD() > 0) {
             subNegOneButton.setEnabled(false);
+            subNegOneButton.setAlpha(.5f);
+            subNegOneButton.setClickable(false);
 
-            subNegOneButton.setVisibility(View.INVISIBLE);
-            addsubXImageView.setVisibility(View.INVISIBLE);
+//            subNegOneButton.setVisibility(View.INVISIBLE);
+            addsubXImageView.setAlpha(.5f);
 
             subPosOneButton.setEnabled(true);
         } else if (eq.getD() < 0) {
             subPosOneButton.setEnabled(false);
+            subPosOneButton.setAlpha(.5f);
+            subPosOneButton.setClickable(false);
 
-            subPosOneButton.setVisibility(View.INVISIBLE);
-            subOneImageView.setVisibility(View.INVISIBLE);
+//            subPosOneButton.setVisibility(View.INVISIBLE);
+            subOneImageView.setAlpha(.5f);
 
             subNegOneButton.setEnabled(true);
-        } else {
-//            subPosOneButton.setEnabled(false);
-//            subNegOneButton.setEnabled(false);
+        } else if (eq.getD() == 0) {
+            subPosOneButton.setEnabled(false);
+            subNegOneButton.setEnabled(false);
+
+            subPosOneButton.setAlpha(.5f);
+            subPosOneButton.setClickable(false);
+
+            subNegOneButton.setAlpha(.5f);
+            subNegOneButton.setClickable(false);
+
+            addsubXImageView.setAlpha(.5f);
+            subOneImageView.setAlpha(.5f);
         }
     }
 
