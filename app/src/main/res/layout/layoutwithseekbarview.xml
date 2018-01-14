@@ -90,6 +90,7 @@
             android:layout_marginLeft="10dp"
 
             android:layout_centerInParent="true"
+            android:progressTint="@android:color/transparent"
 
             android:layout_alignLeft="@id/numberlineview"
             android:layout_alignTop="@id/numberlineview"

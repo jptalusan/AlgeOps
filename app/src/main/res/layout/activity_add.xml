@@ -69,9 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10229277"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="58dp" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
@@ -85,9 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3580247"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="203dp" />
+        app:layout_constraintGuide_percent="0.34" />
 
     <Button
         android:id="@+id/resetButton"
@@ -208,14 +204,15 @@
             android:id="@+id/oneSeekBarImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|center"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="3dp"
+            android:layout_alignBottom="@id/myImageView"
             android:layout_alignLeft="@id/myImageView"
             android:layout_alignTop="@id/myImageView"
-            android:layout_alignBottom="@id/myImageView"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="3dp"
+            android:gravity="center_vertical|center"
             android:text="0"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="10sp" />
 
     </RelativeLayout>
 
@@ -469,18 +466,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1957672"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="111dp" />
+        app:layout_constraintGuide_percent="0.18" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27689594"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="157dp" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline18"

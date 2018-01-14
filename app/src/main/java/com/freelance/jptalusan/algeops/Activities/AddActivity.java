@@ -91,7 +91,6 @@ public class AddActivity extends BaseOpsActivity {
         score           = findViewById(R.id.score);
 
         //1 thumb
-
         ArrayList<String> points = new ArrayList<>();
         points.add("-10");
         points.add("-9");
@@ -183,6 +182,15 @@ public class AddActivity extends BaseOpsActivity {
                 } else if (progress == 21) {
                     xSeekbarImageView.setText(Integer.toString(10));
                     xSeekbarImageView.setTextColor(Color.GREEN);
+                }
+
+                if (oneSeekbarImageView.getText().toString().contains("10")) {
+                    float a = prefs.getFloat("textSize", 8) - 2;
+                    Log.d(TAG, "if 10: " + (prefs.getFloat("textSize", 8) - 2));
+                    oneSeekbarImageView.setTextSize(a);
+                } else {
+                    Log.d(TAG, "else: " + (prefs.getFloat("textSize", 8)));
+                    oneSeekbarImageView.setTextSize(prefs.getFloat("textSize", 8));
                 }
             }
         });
@@ -388,6 +396,15 @@ public class AddActivity extends BaseOpsActivity {
                     xSeekbarImageView.setTextColor(Color.RED);
             }
 
+            if (oneCorrectAnswer == 10 || oneCorrectAnswer == -10) {
+                float a = prefs.getFloat("textSize", 8) - 2;
+                Log.d(TAG, "if 10: " + (prefs.getFloat("textSize", 8) - 2));
+                oneSeekbarImageView.setTextSize(a);
+            } else {
+                Log.d(TAG, "else: " + (prefs.getFloat("textSize", 8)));
+                oneSeekbarImageView.setTextSize(prefs.getFloat("textSize", 8));
+            }
+
             if (oneSeekbar.getUserAnswer() != oneCorrectAnswer) {
                 oneSeekbar.setCorrectAnswer(oneCorrectAnswer);
                 oneSeekbar.answerIsIncorrect();
@@ -505,6 +522,12 @@ public class AddActivity extends BaseOpsActivity {
         xSeekbar.resetSeekBars();
         oneSeekbar.resetSeekBars();
 
+        xSeekbarImageView.setText("0");
+        xSeekbarImageView.setTextColor(Color.BLACK);
+
+        oneSeekbarImageView.setText("0");
+        oneSeekbarImageView.setTextColor(Color.BLACK);
+
         setAllButtonsClickabilitiy(true);
 
         answerIsWrong();
@@ -524,6 +547,7 @@ public class AddActivity extends BaseOpsActivity {
                 oneSeekbar.getViewDimensions();
                 cancelOutViews();
                 setAllButtonsClickabilitiy(false);
+                prefs.edit().putFloat("textSize", 14).commit();
             }
         }
     }

@@ -21,6 +21,8 @@ public class MainActivity extends BaseOpsActivity {
         Button chooseSub = (Button) findViewById(R.id.chooseSubtract);
         Button reset = (Button) findViewById(R.id.reset);
 
+        reset.setVisibility(View.GONE);
+
         chooseAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
