@@ -519,9 +519,15 @@ public class SubtractActivity extends BaseOpsActivity {
         subPosOneButton.setAlpha(1.0f);
         subPosOneButton.setClickable(true);
 
+        addPosNegXButton.setAlpha(1.0f);
+        addOneImageView.setAlpha(1.0f);
+
+        addPosNegOneButton.setAlpha(1.0f);
+        addsubOneImageView.setAlpha(1.0f);
+
         float alphaValue = 0.4f;
 
-        if (level < Constants.LEVEL_3) {
+        if (prefs.getInt(Constants.SUB_LEVEL, 0) < Constants.LEVEL_3) {
             addPosNegXButton.setAlpha(alphaValue);
             addOneImageView.setAlpha(alphaValue);
 
@@ -592,7 +598,6 @@ public class SubtractActivity extends BaseOpsActivity {
                 subOneImageView.setAlpha(alphaValue);
             }
         } else {
-
             addPosNegXButton.setAlpha(1.0f);
             addOneImageView.setAlpha(1.0f);
 
@@ -693,7 +698,6 @@ public class SubtractActivity extends BaseOpsActivity {
                 oneSeekbar.getViewDimensions();
                 answerIsCorrect();
                 cancelOutViews();
-                playSound(R.raw.correct);
             }
         }
     }
