@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,8 @@ public class SubtractActivity extends BaseOpsActivity {
 
     private AlgeOpsRelativeLayout subLayout;
 
+    private View oneSeekBarIVRL;
+
     private int countX = 0;
     private int count1 = 0;
     private int animatedCounter = 0;
@@ -52,6 +55,19 @@ public class SubtractActivity extends BaseOpsActivity {
     private boolean hasStartedAnimation1 = false;
     private int currentScore = 0;
     private int totalPlayed = 0;
+
+    private int subPosXClickCount = 0;
+    private int subNegXClickCount = 0;
+
+    private int addPosNegXClickCount = 0;
+
+    private int subPosOneClickCount = 0;
+    private int subNegOneClickCount = 0;
+
+    private int addPosNegOneClickCount = 0;
+
+    private int addPosNegXClickLimit = 0;
+    private int addPosNegOneClickLimit = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +99,8 @@ public class SubtractActivity extends BaseOpsActivity {
         addsubOneImageView  =  findViewById(R.id.addsubOneImageView);
 
         xSeekbarImageView   = findViewById(R.id.xSeekbarImageView);
-        oneSeekbarImageView = findViewById(R.id.oneSeekbarImageView);
+        oneSeekBarIVRL      = findViewById(R.id.oneSeekBarIVRL);
+        oneSeekbarImageView = oneSeekBarIVRL.findViewById(R.id.oneSeekbarImageView);
 
         operationImageView  = findViewById(R.id.operationImageView);
 
@@ -410,6 +427,122 @@ public class SubtractActivity extends BaseOpsActivity {
         }
     }
 
+    private void setButtonClickLimits(Equation eq) {
+        Log.d(TAG, "Limits:" );
+        Log.d(TAG, "ax: " + eq.getAx());
+        Log.d(TAG, "b: " + eq.getB());
+
+        Log.d(TAG, "cx: " + eq.getCx());
+        Log.d(TAG, "d: " + eq.getD());
+        int ax = eq.getAx();
+        int b  = eq.getB();
+        int cx = eq.getCx();
+        int d  = eq.getD();
+
+        //TODO: What if ax > |cx|?
+        if (cx > 0) {
+            if (ax > 0) {
+                if (ax >= cx) {
+                    addPosNegXClickLimit = 0;
+                } else if (ax < cx){
+                    addPosNegXClickLimit = cx - Math.abs(ax);
+                }
+            } else if (ax <= 0) {
+                addPosNegXClickLimit = cx;
+            }
+            //Add boolean stating you cannot click subNegX
+            subNegXButton.setAlpha(0.4f);
+            subNegXButton.setEnabled(false);
+            subNegXButton.setClickable(false);
+            subXImageView.setAlpha(0.4f);
+        } else if (cx < 0) {
+            if (ax >= 0) {
+                addPosNegXClickLimit = Math.abs(cx);
+            } else if (ax < 0) {
+                if (Math.abs(ax) >= Math.abs(cx)) {
+                    addPosNegXClickLimit = 0;
+                } else if (Math.abs(ax) < Math.abs(cx)){
+                    addPosNegXClickLimit = Math.abs(cx) - Math.abs(ax);
+                }
+            }
+            //Add boolean stating you cannot click subPosX
+            subPosXButton.setAlpha(0.4f);
+            subPosXButton.setEnabled(false);
+            subPosXButton.setClickable(false);
+            addXImageView.setAlpha(0.4f);
+        } else {
+            subNegXButton.setAlpha(0.4f);
+            subNegXButton.setEnabled(false);
+            subNegXButton.setClickable(false);
+            subXImageView.setAlpha(0.4f);
+
+            subPosXButton.setAlpha(0.4f);
+            subPosXButton.setEnabled(false);
+            subPosXButton.setClickable(false);
+            addXImageView.setAlpha(0.4f);
+        }
+
+        //Ones
+        if (d > 0) {
+            if (b > 0) {
+                if (Math.abs(b) >= Math.abs(d)) {
+                    addPosNegOneClickLimit = 0;
+                } else if (b < d){
+                    addPosNegOneClickLimit = d - Math.abs(b);
+                }
+            } else if (b <= 0) {
+                addPosNegOneClickLimit = d;
+            }
+            //Add boolean stating you cannot click subNegOne
+            subNegOneButton.setAlpha(0.4f);
+            subNegOneButton.setEnabled(false);
+            subNegOneButton.setClickable(false);
+            addsubXImageView.setAlpha(0.4f);
+        } else if (d < 0) {
+            if (b >= 0) {
+                addPosNegOneClickLimit = Math.abs(d);
+            } else if (b < 0) {
+                if (Math.abs(b) >= Math.abs(d)) {
+                    addPosNegOneClickLimit = 0;
+                } else if (Math.abs(b) < Math.abs(d)){
+                    addPosNegOneClickLimit = Math.abs(d) - Math.abs(b);
+                }
+            }
+            //Add boolean stating you cannot click subPosOne
+            subPosOneButton.setAlpha(0.4f);
+            subPosOneButton.setEnabled(false);
+            subPosOneButton.setClickable(false);
+            subOneImageView.setAlpha(0.4f);
+        } else {
+            subNegOneButton.setAlpha(0.4f);
+            subNegOneButton.setEnabled(false);
+            subNegOneButton.setClickable(false);
+            addsubXImageView.setAlpha(0.4f);
+
+            subPosOneButton.setAlpha(0.4f);
+            subPosOneButton.setEnabled(false);
+            subPosOneButton.setClickable(false);
+            subOneImageView.setAlpha(0.4f);
+        }
+
+        Log.d(TAG, "AddX Limit: " + addPosNegXClickLimit);
+        Log.d(TAG, "AddOne Limit: " + addPosNegOneClickLimit);
+
+        if (addPosNegXClickLimit == 0) {
+            addPosNegXButton.setAlpha(0.4f);
+            addPosNegXButton.setEnabled(false);
+            addPosNegXButton.setClickable(false);
+            addOneImageView.setAlpha(0.4f);
+        }
+
+        if (addPosNegOneClickLimit == 0) {
+            addPosNegOneButton.setAlpha(0.4f);
+            addPosNegOneButton.setEnabled(false);
+            addPosNegOneButton.setClickable(false);
+            addsubOneImageView.setAlpha(0.4f);
+        }
+    }
+
     protected void startAlgeOps() {
         super.startAlgeOps();
 
@@ -420,6 +553,23 @@ public class SubtractActivity extends BaseOpsActivity {
         Log.d(TAG, "currLevel: " + subLevel);
         eq = EquationGeneration.generateEquation("SUB", subLevel);
         setButtonAbility(eq);
+        //If level 3 onwards
+        subPosXClickCount = 0;
+        subNegXClickCount = 0;
+
+        addPosNegXClickCount = 0;
+
+        subPosOneClickCount = 0;
+        subNegOneClickCount = 0;
+
+        addPosNegOneClickCount = 0;
+
+        addPosNegXClickLimit = 0;
+        addPosNegOneClickLimit = 0;
+        if (subLevel >= 3) {
+            setButtonClickLimits(eq);
+        }
+
         firstPart = eq.getPart(1);
         secondPart = eq.getPart(2);
 
@@ -467,6 +617,11 @@ public class SubtractActivity extends BaseOpsActivity {
         } else {
             //impossible
         }
+        xSeekbarImageView.setText("0");
+        xSeekbarImageView.setTextColor(Color.BLACK);
+
+        oneSeekbarImageView.setText("0");
+        oneSeekbarImageView.setTextColor(Color.BLACK);
 
         subLayout.resetLayout();
         xSeekbar.resetSeekBars();
@@ -523,6 +678,16 @@ public class SubtractActivity extends BaseOpsActivity {
         addOneImageView.setAlpha(1.0f);
 
         addPosNegOneButton.setAlpha(1.0f);
+        addsubOneImageView.setAlpha(1.0f);
+
+        addPosNegXButton.setAlpha(1.0f);
+        addPosNegXButton.setEnabled(true);
+        addPosNegXButton.setClickable(true);
+        addOneImageView.setAlpha(1.0f);
+
+        addPosNegOneButton.setAlpha(1.0f);
+        addPosNegOneButton.setEnabled(true);
+        addPosNegOneButton.setClickable(true);
         addsubOneImageView.setAlpha(1.0f);
 
         float alphaValue = 0.4f;
@@ -680,8 +845,6 @@ public class SubtractActivity extends BaseOpsActivity {
 //                firstPartEq.addView(tv2);
             }
         });
-
-
     }
 
     private void checkIfTilesAreCorrect() {
@@ -707,6 +870,44 @@ public class SubtractActivity extends BaseOpsActivity {
         private int mOperation;
         private AlgeOpsRelativeLayout mView;
 
+        /* Rules
+        (ax + b) (cx + d)
+
+        if (c > 0)
+            if (a > 0)
+                must click subPosX c-|a| times only
+                must click addPosNegX c-|a| times only
+            else if (a <= 0)
+                must click subPosX c times only
+                must click addPosNegX c times only
+            must not be able to click subNegX
+        else if (c < 0)
+            if (a >= 0)
+                must click subNegX c times only
+                must click addPosNegX c times only
+            else if (a < 0)
+                must click subNegX c-|a|
+                must click addPosNegX c-|a| times only
+            must not be able to click subPosX
+
+
+        if (d > 0)
+            if (b > 0)
+                must click subPosOne d-|b| times only
+                must click addPosNegOne d-|b| times only
+            else if (b <= 0)
+                must click subPosOne d times only
+                must click addPosNegOne d times only
+            must not be able to click subNegOne
+        else if (b < 0)
+            if (d >= 0)
+                must click subNegOne d times only
+                must click addPosNegOne d times only
+            else if (d < 0)
+                must click subNegOne d-|b|
+                must click addPosNegOne d-|b| times only
+            must not be able to click subPosOne
+         */
         AlgeOpsButtonsOnClickListener(Context context, int operation, AlgeOpsRelativeLayout view) {
             mContext = context;
             mOperation = operation;
@@ -716,6 +917,7 @@ public class SubtractActivity extends BaseOpsActivity {
         @Override
         public void onClick(View view) {
             Log.d(TAG, "OnClick");
+            Log.d(TAG, "Eq onclick: " + eq.toString());
             if (hasStarted) {
                 Log.d(TAG, prefs.getInt(Constants.SUB_LEVEL, 1) + "");
                 if (prefs.getInt(Constants.SUB_LEVEL, 1) < Constants.LEVEL_3) {
@@ -731,6 +933,21 @@ public class SubtractActivity extends BaseOpsActivity {
                         playSound(R.raw.wrong);
                     }
                 } else {
+                    //TODO: Prevent subtraction of objects beyond the equation
+                    Log.d(TAG, "Level 3: else");
+                    switch (view.getId()) {
+                        case R.id.addPosNegXButton:
+                            ++addPosNegXClickCount;
+                            break;
+                        case R.id.addPosNegOneButton:
+                            ++addPosNegOneClickCount;
+                            break;
+                        default:
+                            break;
+                    }
+                    Log.d(TAG, "X count/limit: " + addPosNegXClickCount + "/" + addPosNegXClickLimit);
+                    Log.d(TAG, "1 count/limit: " + addPosNegOneClickCount + "/" + addPosNegOneClickLimit);
+
                     if (mView.setSubImage(mContext, mOperation)) {
                         playSound(R.raw.correct);
                         checkIfTilesAreCorrect();
@@ -738,6 +955,25 @@ public class SubtractActivity extends BaseOpsActivity {
                         playSound(R.raw.wrong);
                     }
 
+                    if (mOperation == Constants.OPS_ADD_POS_NEG_X) {
+                        if (addPosNegXClickCount >= addPosNegXClickLimit) {
+                            addPosNegXButton.setAlpha(0.4f);
+                            addPosNegXButton.setEnabled(false);
+                            addPosNegXButton.setClickable(false);
+                            addOneImageView.setAlpha(0.4f);
+                            Log.d(TAG, "addX limit reached.");
+                            return;
+                        }
+                    } else if (mOperation == Constants.OPS_ADD_POS_NEG_ONE) {
+                        if (addPosNegOneClickCount >= addPosNegOneClickLimit) {
+                            addPosNegOneButton.setAlpha(0.4f);
+                            addPosNegOneButton.setEnabled(false);
+                            addPosNegOneButton.setClickable(false);
+                            addsubOneImageView.setAlpha(0.4f);
+                            Log.d(TAG, "addOne limit reached.");
+                            return;
+                        }
+                    }
                 }
             }
         }

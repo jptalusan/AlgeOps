@@ -43,6 +43,8 @@ public class AddActivity extends BaseOpsActivity {
     protected AlgeOpsRelativeLayout layoutRightOne;
     protected AlgeOpsRelativeLayout layoutLeftOne;
 
+    private View oneSeekBarIVRL;
+
     private int countX = 0;
     private int countOne = 0;
 
@@ -89,6 +91,8 @@ public class AddActivity extends BaseOpsActivity {
         oneSeekbar      = findViewById(R.id.oneSeekBar);
 
         score           = findViewById(R.id.score);
+
+        oneSeekBarIVRL  = findViewById(R.id.oneSeekBarIVRL);
 
         //1 thumb
         ArrayList<String> points = new ArrayList<>();
